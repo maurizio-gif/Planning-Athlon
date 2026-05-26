@@ -143,6 +143,20 @@ body {
 .class-entry.card-B .entry-name { color: #111; }
 .class-entry.card-B .entry-time { color: rgba(0,0,0,0.65); }
 
+/* Group Reformer (C) e Nuoto (VG): solo orario, grande */
+.class-entry.card-C .entry-name,
+.class-entry.card-VG .entry-name { display: none; }
+.class-entry.card-C .entry-time,
+.class-entry.card-VG .entry-time {
+  font-size: 13px;
+  font-weight: 800;
+  color: #fff;
+  white-space: normal;
+  overflow-wrap: break-word;
+  word-break: break-word;
+  text-overflow: clip;
+}
+
 /* ── Gym entry ── */
 .gym-entry {
   display: flex;
