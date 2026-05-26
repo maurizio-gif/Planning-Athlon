@@ -268,7 +268,13 @@ body {
   box-shadow: 0 4px 16px rgba(255,87,1,0.45);
 }
 .app-fab:active { opacity: 0.85; }
-.app-fab-icon { font-size: 16px; line-height: 1; }
+/* Mobile: mostra app, nascondi portale */
+.fab-mobile { display: flex; }
+.fab-desktop { display: none; }
+@media (min-width: 769px) {
+  .fab-mobile { display: none; }
+  .fab-desktop { display: flex; }
+}
 
 /* Day mini label inside SAB/DOM column */
 .day-mini-label {
@@ -1491,7 +1497,8 @@ footer strong { color: var(--accent); }
 </footer>
 
 <!-- APP DOWNLOAD BUTTON -->
-<a class="app-fab" href="https://onelink.to/athlon" target="_blank" rel="noopener">Scarica l'App</a>
+<a class="app-fab fab-mobile" href="https://onelink.to/athlon" target="_blank" rel="noopener">Scarica l'App</a>
+<a class="app-fab fab-desktop" href="https://athlon.perfectgym.com/ClientPortal2/#/Classes/1/List" target="_blank" rel="noopener">Prenota dal Portale</a>
 
 <!-- MODAL -->
 <div class="modal-overlay" id="modal">
