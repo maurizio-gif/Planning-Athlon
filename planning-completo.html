@@ -119,7 +119,7 @@ body {
   line-height: 1.2;
 }
 .entry-name {
-  font-size: 11px;
+  font-size: 13px;
   font-weight: 800;
   color: #fff;
   text-transform: uppercase;
@@ -1522,7 +1522,20 @@ function closeModal(e) {
 document.body.addEventListener('click', function(e) {
   const card = e.target.closest('.class-entry');
   if (!card) return;
-  openModal(card.dataset.name, card.dataset.sala, card.dataset.time);
+  const nameEl = card.querySelector('.entry-name');
+  const t = card.dataset.time || '';
+  let displayTime = t;
+  if (nameEl && nameEl.textContent.includes('·')) {
+    // Fascia oraria già nel nome (es. "Nuoto Libero · 07:00–11:00")
+    const m = nameEl.textContent.match(/(\d{2}:\d{2}[–\-]\d{2}:\d{2})/);
+    displayTime = m ? m[1] : t;
+  } else if (t && !t.includes('–')) {
+    // Calcola fine lezione +50 min
+    const [h, m] = t.split(':').map(Number);
+    const e = h * 60 + m + 50;
+    displayTime = t + '–' + String(Math.floor(e / 60)).padStart(2, '0') + ':' + String(e % 60).padStart(2, '0');
+  }
+  openModal(card.dataset.name, card.dataset.sala, displayTime);
 });
 
 // Espandi l'orario con fine lezione (+50 min) per fitness / aqua / reformer
