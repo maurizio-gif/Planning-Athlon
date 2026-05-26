@@ -45,19 +45,12 @@ body {
   gap: 12px;
   border-bottom: 1px solid #1e1e1e;
 }
-.logo { display: flex; align-items: center; gap: 10px; }
-.logo-icon {
-  width: 36px; height: 36px;
-  background: var(--accent);
-  clip-path: polygon(25% 0%,75% 0%,100% 50%,75% 100%,25% 100%,0% 50%);
-  display: flex; align-items: center; justify-content: center;
-  font-size: 16px; font-weight: 900; color: #fff;
-}
-.logo-text { font-size: 20px; font-weight: 900; color: #fff; letter-spacing: 3px; text-transform: uppercase; line-height:1; }
-.logo-text em { color: var(--accent); font-style: normal; }
+.logo { display: flex; align-items: center; }
+.logo-img { height: 38px; width: auto; display: block; }
 .header-right { text-align: right; }
-.header-month { font-size: 14px; font-weight: 900; letter-spacing: 2px; text-transform: uppercase; color: var(--accent); line-height:1; }
-.header-sub { font-size: 10px; font-weight: 600; color: #666; letter-spacing: 1px; text-transform: uppercase; margin-top: 2px; }
+.header-month { font-size: 11px; font-weight: 900; letter-spacing: 2px; text-transform: uppercase; color: var(--accent); line-height: 1; }
+.header-dates { font-size: 18px; font-weight: 900; letter-spacing: 1px; color: #fff; line-height: 1.1; margin-top: 3px; }
+.header-sub { font-size: 10px; font-weight: 600; color: #555; letter-spacing: 1px; text-transform: uppercase; margin-top: 3px; }
 .header-booking { font-size: 9px; font-weight: 800; color: var(--accent); letter-spacing: 1.5px; text-transform: uppercase; margin-top: 3px; }
 
 /* ── Gym Floor row ── */
@@ -181,6 +174,17 @@ body {
   transition: box-shadow .15s, transform .1s;
 }
 .class-card:active { transform: scale(0.99); }
+.class-card::after {
+  content: 'i';
+  flex-shrink: 0;
+  width: 20px; height: 20px;
+  border-radius: 50%;
+  background: rgba(0,0,0,0.08);
+  font-size: 13px; font-weight: 900; font-style: italic;
+  color: #aaa;
+  display: flex; align-items: center; justify-content: center;
+  margin-left: 4px;
+}
 .card-A  { border-left-color: #ff5701; background: #fffcfa; }
 .card-B  { border-left-color: #005ecb; background: #f5f8ff; }
 .card-C  { border-left-color: #00998a; background: #f3faf9; }
@@ -398,12 +402,11 @@ footer strong { color: var(--accent); }
   <!-- Logo -->
   <div class="header">
     <div class="logo">
-      <div class="logo-icon">A</div>
-      <div class="logo-text">ATH<em>L</em>ON <em style="font-size:14px;letter-spacing:2px;color:#888">CLUB</em></div>
+      <img src="https://www.athlonroma.it/wp-content/uploads/2025/08/Logotipo-full-2.png" alt="Athlon Club" class="logo-img">
     </div>
     <div class="header-right">
-      <div class="header-month">Luglio 2026</div>
-      <div class="header-sub">Planning Corsi</div>
+      <div class="header-month">Planning Corsi</div>
+      <div class="header-dates">1 – 31 Luglio 2026</div>
       <div class="header-booking">Prenotazione obbligatoria</div>
     </div>
   </div>
