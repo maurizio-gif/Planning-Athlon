@@ -1,0 +1,849 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Planning Luglio 2026 — Athlon Club</title>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;600;700;800;900&family=Barlow:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --accent: #ff5701;
+  --black: #111111;
+  --bg: #f4f0eb;
+  --card-bg: #ffffff;
+  --border: #e0dbd3;
+  --muted: #888;
+  --text: #111;
+}
+* { margin:0; padding:0; box-sizing:border-box; }
+html,body { height:100%; }
+body {
+  font-family: 'Barlow Condensed', sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  display: flex;
+  flex-direction: column;
+}
+
+/* ══════════════════════════════
+   STICKY NAV BLOCK
+══════════════════════════════ */
+.sticky-nav {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: var(--black);
+  /* single unified dark block */
+}
+
+/* ── Logo row ── */
+.header {
+  padding: 14px 16px 12px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  border-bottom: 1px solid #1e1e1e;
+}
+.logo { display: flex; align-items: center; gap: 10px; }
+.logo-icon {
+  width: 36px; height: 36px;
+  background: var(--accent);
+  clip-path: polygon(25% 0%,75% 0%,100% 50%,75% 100%,25% 100%,0% 50%);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 16px; font-weight: 900; color: #fff;
+}
+.logo-text { font-size: 20px; font-weight: 900; color: #fff; letter-spacing: 3px; text-transform: uppercase; line-height:1; }
+.logo-text em { color: var(--accent); font-style: normal; }
+.header-right { text-align: right; }
+.header-month { font-size: 14px; font-weight: 900; letter-spacing: 2px; text-transform: uppercase; color: var(--accent); line-height:1; }
+.header-sub { font-size: 10px; font-weight: 600; color: #666; letter-spacing: 1px; text-transform: uppercase; margin-top: 2px; }
+
+/* ── Gym Floor row ── */
+.gym-row {
+  padding: 9px 16px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  border-bottom: 1px solid #1e1e1e;
+  background: #171717;
+}
+.gym-row-left {
+  display: flex; align-items: center; gap: 8px;
+}
+.gym-dumbbell { font-size: 16px; line-height:1; }
+.gym-label {
+  font-size: 12px; font-weight: 900; letter-spacing: 2px; text-transform: uppercase; color: #ccc; line-height:1.2;
+}
+.gym-label small { display:block; font-size: 9px; font-weight: 600; color: #555; letter-spacing: 1px; margin-top:1px; }
+.gym-hours-val {
+  font-size: 16px; font-weight: 900; letter-spacing: 0.5px; color: var(--accent); white-space: nowrap; line-height:1;
+}
+.gym-hours-day { font-size: 9px; font-weight: 700; color: #555; letter-spacing: 1px; text-transform: uppercase; text-align:right; margin-top:2px; }
+
+/* ── Filter row ── */
+.filter-row {
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  white-space: nowrap;
+  padding: 0 16px;
+  border-bottom: 1px solid #1e1e1e;
+  background: #141414;
+}
+.filter-row::-webkit-scrollbar { display:none; }
+.filter-btn {
+  display: inline-block;
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 11px; font-weight: 800; letter-spacing: 1.5px; text-transform: uppercase;
+  padding: 9px 14px 10px;
+  border: none; background: transparent; color: #ffffff; cursor: pointer;
+  border-bottom: 2px solid transparent;
+  transition: color .15s;
+}
+.filter-btn:hover { color: #ffffff; }
+.filter-btn.active { color: #ffffff; border-bottom-color: #ff5701; }
+
+/* ── Day tab row ── */
+.day-row {
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  white-space: nowrap;
+  background: #0e0e0e;
+  padding: 0 16px;
+}
+.day-row::-webkit-scrollbar { display:none; }
+.day-tab {
+  display: inline-block;
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 13px; font-weight: 800; letter-spacing: 1.5px; text-transform: uppercase;
+  padding: 10px 16px 11px;
+  border: none; background: transparent; color: #ffffff; cursor: pointer;
+  border-bottom: 2px solid transparent;
+  transition: color .15s;
+}
+.day-tab:hover { color: #ffffff; }
+.day-tab.active { color: #ff5701; border-bottom-color: #ff5701; }
+
+/* ══════════════════════════════
+   SCROLLABLE CONTENT
+══════════════════════════════ */
+.content {
+  flex: 1;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+/* ── Day pane ── */
+.day-pane { display: none; padding: 14px 14px 48px; }
+.day-pane.active { display: block; }
+
+/* ── Section header ── */
+.section-hdr {
+  font-size: 11px; font-weight: 900; letter-spacing: 2.5px; text-transform: uppercase;
+  color: var(--muted);
+  padding: 16px 2px 6px;
+  border-bottom: 1px solid var(--border);
+  margin-bottom: 8px;
+}
+.section-hdr:first-child { padding-top: 4px; }
+
+/* ── Class card ── */
+.class-card {
+  background: var(--card-bg);
+  border-radius: 8px;
+  border-left: 5px solid var(--accent);
+  padding: 13px 14px;
+  margin-bottom: 8px;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  cursor: pointer;
+  transition: box-shadow .15s, transform .1s;
+}
+.class-card:active { transform: scale(0.99); }
+.card-A  { border-left-color: #ff5701; background: #fffcfa; }
+.card-B  { border-left-color: #005ecb; background: #f5f8ff; }
+.card-C  { border-left-color: #00998a; background: #f3faf9; }
+.card-VM { border-left-color: #2255dd; background: #f5f8ff; }
+.card-VG { border-left-color: #6633cc; background: #f8f5ff; }
+
+/* time */
+.card-time {
+  flex-shrink: 0; width: 50px;
+  font-size: 19px; font-weight: 700; color: var(--black); line-height: 1;
+  letter-spacing: 0.5px;
+}
+.card-time sup { font-size: 12px; font-weight: 600; color: var(--muted); vertical-align: top; margin-top: 3px; display: inline-block; }
+
+/* name */
+.card-name {
+  flex: 1; min-width: 0;
+  font-size: 17px; font-weight: 700; letter-spacing: 1.2px; text-transform: uppercase;
+  line-height: 1.2; color: var(--black);
+  white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+}
+.card-name-tap {
+  display: inline-block;
+}
+
+/* pill */
+.sala-pill {
+  flex-shrink: 0;
+  font-size: 11px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase;
+  padding: 5px 11px; border-radius: 20px; white-space: nowrap;
+}
+/* Sala A: orange */
+.pill-A  { background: #ff5701; color: #fff; }
+/* Sala B: strong blue — very different from orange */
+.pill-B  { background: #005ecb; color: #fff; }
+.pill-C  { background: #00998a; color: #fff; }
+.pill-VM { background: #2255dd; color: #fff; }
+.pill-VG { background: #6633cc; color: #fff; }
+
+/* ── VIDEO BLOCK ── */
+.modal-video-wrap {
+  margin: 20px 22px 0;
+}
+.modal-video-label-top {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 10px; font-weight: 800; letter-spacing: 2px; text-transform: uppercase;
+  color: #555; margin-bottom: 10px; display: block;
+}
+.modal-video-player {
+  width: 100%;
+  aspect-ratio: 16/9;
+  border-radius: 10px;
+  overflow: hidden;
+  background: #000;
+  display: block;
+}
+.modal-video-player video {
+  width: 100%; height: 100%;
+  display: block; border-radius: 10px;
+  object-fit: cover;
+}
+
+/* ── MODAL ── */
+.modal-overlay {
+  display: none;
+  position: fixed; inset: 0; z-index: 999;
+  background: rgba(0,0,0,0.65);
+  backdrop-filter: blur(4px);
+  align-items: flex-end;
+  justify-content: center;
+}
+.modal-overlay.open { display: flex; }
+.modal-sheet {
+  background: #1a1a1a;
+  border-radius: 20px 20px 0 0;
+  width: 100%; max-width: 600px;
+  padding: 0 0 40px;
+  max-height: 88vh;
+  overflow-y: auto;
+  animation: slideUp .28s cubic-bezier(.2,.8,.4,1);
+}
+.modal-sheet::-webkit-scrollbar { display: none; }
+@keyframes slideUp {
+  from { transform: translateY(80px); opacity: 0; }
+  to   { transform: translateY(0);    opacity: 1; }
+}
+.modal-drag {
+  width: 36px; height: 4px; background: #444; border-radius: 2px;
+  margin: 14px auto 0;
+}
+.modal-header {
+  padding: 22px 22px 16px;
+  border-bottom: 1px solid #2a2a2a;
+}
+.modal-sala-pill {
+  display: inline-block;
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 11px; font-weight: 800; letter-spacing: 1.5px; text-transform: uppercase;
+  padding: 4px 10px; border-radius: 20px; color: #fff; margin-bottom: 10px;
+}
+.modal-title {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 28px; font-weight: 800; letter-spacing: 2px; text-transform: uppercase;
+  color: #fff; line-height: 1.1;
+}
+.modal-time-badge {
+  font-family: 'Barlow Condensed', sans-serif;
+  margin-top: 8px;
+  font-size: 13px; font-weight: 600; letter-spacing: 2px; color: #666; text-transform: uppercase;
+}
+.modal-desc {
+  padding: 18px 22px 0;
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 17px; font-weight: 400; letter-spacing: 0.3px; color: #aaa; line-height: 1.6;
+}
+
+/* ── STATS SECTION ── */
+.modal-stats {
+  padding: 24px 22px 0;
+}
+.modal-stats-title {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 11px; font-weight: 900; letter-spacing: 3px; text-transform: uppercase;
+  color: #555; margin-bottom: 18px;
+}
+.stat-row { margin-bottom: 18px; }
+.stat-label {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 15px; font-weight: 800; letter-spacing: 2px; text-transform: uppercase;
+  color: #fff; margin-bottom: 7px;
+}
+.stat-track {
+  background: #2e2e2e;
+  border-radius: 4px;
+  height: 36px;
+  overflow: hidden;
+  position: relative;
+}
+.stat-fill {
+  height: 100%;
+  background: var(--accent);
+  border-radius: 4px;
+  width: 0%;
+  transition: width 0.9s cubic-bezier(.2,.8,.3,1);
+  display: flex; align-items: center;
+  min-width: 0px;
+  position: relative;
+}
+.stat-fill-label {
+  position: absolute;
+  left: 12px;
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 12px; font-weight: 800; letter-spacing: 1.5px; text-transform: uppercase;
+  color: #fff; white-space: nowrap;
+}
+.stat-pct {
+  position: absolute;
+  right: 12px;
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 13px; font-weight: 900; letter-spacing: 1px;
+  color: rgba(255,255,255,0.55);
+}
+
+.modal-close {
+  display: block; width: calc(100% - 44px); margin: 28px 22px 0;
+  background: #ff5701; color: #fff;
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 14px; font-weight: 800; letter-spacing: 2px; text-transform: uppercase;
+  padding: 15px; border: none; border-radius: 8px; cursor: pointer;
+  transition: background .15s;
+}
+.modal-close:hover { background: #e04a00; }
+
+/* ── Legend ── */
+.legend {
+  display: flex; flex-wrap: wrap; gap: 10px;
+  padding: 10px 14px 0;
+  border-bottom: 1px solid var(--border);
+  background: var(--bg);
+  margin-bottom: 0;
+}
+.legend-item { display:flex; align-items:center; gap:5px; font-size:10px; font-weight:700; letter-spacing:1px; text-transform:uppercase; color:#666; padding-bottom:10px; }
+.leg-dot { width:8px; height:8px; border-radius:2px; flex-shrink:0; }
+
+/* Footer */
+footer {
+  background: var(--black); color: #444;
+  padding: 14px 16px;
+  font-size: 10px; font-weight: 600; letter-spacing: 1px; text-transform: uppercase;
+  text-align: center; line-height: 1.9;
+}
+footer strong { color: var(--accent); }
+</style>
+</head>
+<body>
+
+<!-- ══════════════════════════════════
+     STICKY NAV
+══════════════════════════════════ -->
+<div class="sticky-nav">
+
+  <!-- Logo -->
+  <div class="header">
+    <div class="logo">
+      <div class="logo-icon">A</div>
+      <div class="logo-text">ATH<em>L</em>ON <em style="font-size:14px;letter-spacing:2px;color:#888">CLUB</em></div>
+    </div>
+    <div class="header-right">
+      <div class="header-month">Luglio 2026</div>
+      <div class="header-sub">Planning Corsi</div>
+    </div>
+  </div>
+
+  <!-- Gym Floor -->
+  <div class="gym-row">
+    <div class="gym-row-left">
+      <div class="gym-label">Gym Floor — Sala Pesi<small>Accesso libero, senza prenotazione</small></div>
+    </div>
+    <div>
+      <div class="gym-hours-val" id="gym-hours-val">06:00 – 22:00</div>
+      <div class="gym-hours-day" id="gym-hours-day">Lun – Ven</div>
+    </div>
+  </div>
+
+  <!-- Filters -->
+  <div class="filter-row">
+    <button class="filter-btn active" onclick="setFilter('tutti',this)">Tutti</button>
+    <button class="filter-btn" onclick="setFilter('fitness',this)">Corsi Fitness</button>
+    <button class="filter-btn" onclick="setFilter('reformer',this)">Group Reformer</button>
+    <button class="filter-btn" onclick="setFilter('aqua',this)">Aqua Fitness</button>
+    <button class="filter-btn" onclick="setFilter('nuoto-adulti',this)">Scuola Nuoto</button>
+    <button class="filter-btn" onclick="setFilter('nuoto-libero',this)">Nuoto Libero</button>
+  </div>
+
+  <!-- Day tabs -->
+  <div class="day-row">
+    <button class="day-tab active" onclick="setDay('lun',this)">Lunedì</button>
+    <button class="day-tab" onclick="setDay('mar',this)">Martedì</button>
+    <button class="day-tab" onclick="setDay('mer',this)">Mercoledì</button>
+    <button class="day-tab" onclick="setDay('gio',this)">Giovedì</button>
+    <button class="day-tab" onclick="setDay('ven',this)">Venerdì</button>
+    <button class="day-tab" onclick="setDay('sab',this)">Sabato</button>
+    <button class="day-tab" onclick="setDay('dom',this)">Domenica</button>
+  </div>
+
+</div><!-- /sticky-nav -->
+
+<!-- ══════════════════════════════════
+     SCROLLABLE CONTENT
+══════════════════════════════════ -->
+<div class="content">
+
+  <!-- Legend -->
+  <div class="legend">
+    <div class="legend-item"><div class="leg-dot" style="background:#ff5701"></div>Sala A</div>
+    <div class="legend-item"><div class="leg-dot" style="background:#005ecb"></div>Sala B</div>
+    <div class="legend-item"><div class="leg-dot" style="background:#00998a"></div>Sala C – Reformer</div>
+    <div class="legend-item"><div class="leg-dot" style="background:#2255dd"></div>Vasca Media</div>
+    <div class="legend-item"><div class="leg-dot" style="background:#6633cc"></div>Vasca Grande</div>
+  </div>
+
+<!-- ═══ LUNEDÌ ═══ -->
+<div id="day-lun" class="day-pane active">
+  <div class="section-hdr">Corsi Fitness</div>
+  <div class="class-card card-A" data-cat="fitness" data-name="BODY SCULPT" data-sala="Sala A" data-time="07:40" data-sc="card-A"><div class="card-time">07<sup>:40</sup></div><div class="card-name">Body Sculpt</div><span class="sala-pill pill-A">Sala A</span></div>
+  <div class="class-card card-A" data-cat="fitness" data-name="GINNASTICA DOLCE" data-sala="Sala A" data-time="09:30" data-sc="card-A"><div class="card-time">09<sup>:30</sup></div><div class="card-name">Ginnastica Dolce</div><span class="sala-pill pill-A">Sala A</span></div>
+  <div class="class-card card-A" data-cat="fitness" data-name="PILATES MATWORK" data-sala="Sala A" data-time="10:30" data-sc="card-A"><div class="card-time">10<sup>:30</sup></div><div class="card-name">Pilates Matwork</div><span class="sala-pill pill-A">Sala A</span></div>
+  <div class="class-card card-B" data-cat="fitness" data-name="HBX FUSION" data-sala="Sala B" data-time="11:30" data-sc="card-B"><div class="card-time">11<sup>:30</sup></div><div class="card-name">HBX Fusion</div><span class="sala-pill pill-B">Sala B</span></div>
+  <div class="class-card card-B" data-cat="fitness" data-name="HBX BOXING" data-sala="Sala B" data-time="13:30" data-sc="card-B"><div class="card-time">13<sup>:30</sup></div><div class="card-name">HBX Boxing</div><span class="sala-pill pill-B">Sala B</span></div>
+  <div class="class-card card-A" data-cat="fitness" data-name="PILATES MATWORK" data-sala="Sala A" data-time="17:30" data-sc="card-A"><div class="card-time">17<sup>:30</sup></div><div class="card-name">Pilates Matwork</div><span class="sala-pill pill-A">Sala A</span></div>
+  <div class="class-card card-A" data-cat="fitness" data-name="BODY SCULPT" data-sala="Sala A" data-time="18:20" data-sc="card-A"><div class="card-time">18<sup>:20</sup></div><div class="card-name">Body Sculpt</div><span class="sala-pill pill-A">Sala A</span></div>
+  <div class="class-card card-B" data-cat="fitness" data-name="MOTR" data-sala="Sala B" data-time="18:20" data-sc="card-B"><div class="card-time">18<sup>:20</sup></div><div class="card-name">MOTR</div><span class="sala-pill pill-B">Sala B</span></div>
+  <div class="class-card card-A" data-cat="fitness" data-name="BOOTY WORKOUT" data-sala="Sala A" data-time="19:10" data-sc="card-A"><div class="card-time">19<sup>:10</sup></div><div class="card-name">Booty Workout</div><span class="sala-pill pill-A">Sala A</span></div>
+  <div class="class-card card-B" data-cat="fitness" data-name="HBX FUSION" data-sala="Sala B" data-time="19:10" data-sc="card-B"><div class="card-time">19<sup>:10</sup></div><div class="card-name">HBX Fusion</div><span class="sala-pill pill-B">Sala B</span></div>
+  <div class="class-card card-A" data-cat="fitness" data-name="POWER YOGA" data-sala="Sala A" data-time="20:00" data-sc="card-A"><div class="card-time">20<sup>:00</sup></div><div class="card-name">Power Yoga</div><span class="sala-pill pill-A">Sala A</span></div>
+  <div class="class-card card-B" data-cat="fitness" data-name="CALISTHENICS" data-sala="Sala B" data-time="20:00" data-sc="card-B"><div class="card-time">20<sup>:00</sup></div><div class="card-name">Calisthenics</div><span class="sala-pill pill-B">Sala B</span></div>
+  <div class="section-hdr">Group Reformer</div>
+  <div class="class-card card-C" data-cat="reformer" data-name="GROUP REFORMER" data-sala="Sala C" data-time="08:30" data-sc="card-C"><div class="card-time">08<sup>:30</sup></div><div class="card-name">Group Reformer</div><span class="sala-pill pill-C">Sala C</span></div>
+  <div class="class-card card-C" data-cat="reformer" data-name="GROUP REFORMER" data-sala="Sala C" data-time="13:30" data-sc="card-C"><div class="card-time">13<sup>:30</sup></div><div class="card-name">Group Reformer</div><span class="sala-pill pill-C">Sala C</span></div>
+  <div class="class-card card-C" data-cat="reformer" data-name="GROUP REFORMER" data-sala="Sala C" data-time="17:30" data-sc="card-C"><div class="card-time">17<sup>:30</sup></div><div class="card-name">Group Reformer</div><span class="sala-pill pill-C">Sala C</span></div>
+  <div class="class-card card-C" data-cat="reformer" data-name="GROUP REFORMER" data-sala="Sala C" data-time="18:20" data-sc="card-C"><div class="card-time">18<sup>:20</sup></div><div class="card-name">Group Reformer</div><span class="sala-pill pill-C">Sala C</span></div>
+  <div class="class-card card-C" data-cat="reformer" data-name="GROUP REFORMER" data-sala="Sala C" data-time="19:10" data-sc="card-C"><div class="card-time">19<sup>:10</sup></div><div class="card-name">Group Reformer</div><span class="sala-pill pill-C">Sala C</span></div>
+  <div class="section-hdr">Aqua Fitness</div>
+  <div class="class-card card-VM" data-cat="aqua" data-name="HYDROBIKE" data-sala="Vasca Media" data-time="08:15" data-sc="card-VM"><div class="card-time">08<sup>:15</sup></div><div class="card-name">Hydrobike</div><span class="sala-pill pill-VM">Vasca Media</span></div>
+  <div class="class-card card-VM" data-cat="aqua" data-name="AQUA SOFT" data-sala="Vasca Media" data-time="09:00" data-sc="card-VM"><div class="card-time">09<sup>:00</sup></div><div class="card-name">Aqua Soft</div><span class="sala-pill pill-VM">Vasca Media</span></div>
+  <div class="class-card card-VM" data-cat="aqua" data-name="AQUA TONIC" data-sala="Vasca Media" data-time="11:00" data-sc="card-VM"><div class="card-time">11<sup>:00</sup></div><div class="card-name">Aqua Tonic</div><span class="sala-pill pill-VM">Vasca Media</span></div>
+  <div class="class-card card-VM" data-cat="aqua" data-name="AQUA TONIC" data-sala="Vasca Media" data-time="13:30" data-sc="card-VM"><div class="card-time">13<sup>:30</sup></div><div class="card-name">Aqua Tonic</div><span class="sala-pill pill-VM">Vasca Media</span></div>
+  <div class="class-card card-VM" data-cat="aqua" data-name="HYDROBIKE" data-sala="Vasca Media" data-time="18:00" data-sc="card-VM"><div class="card-time">18<sup>:00</sup></div><div class="card-name">Hydrobike</div><span class="sala-pill pill-VM">Vasca Media</span></div>
+  <div class="class-card card-VM" data-cat="aqua" data-name="HYDROBIKE" data-sala="Vasca Media" data-time="18:50" data-sc="card-VM"><div class="card-time">18<sup>:50</sup></div><div class="card-name">Hydrobike</div><span class="sala-pill pill-VM">Vasca Media</span></div>
+  <div class="class-card card-VM" data-cat="aqua" data-name="AQUA TONIC" data-sala="Vasca Media" data-time="19:40" data-sc="card-VM"><div class="card-time">19<sup>:40</sup></div><div class="card-name">Aqua Tonic</div><span class="sala-pill pill-VM">Vasca Media</span></div>
+  <div class="section-hdr">Scuola Nuoto Adulti</div>
+  <div class="class-card card-VG" data-cat="nuoto-adulti" data-name="SCUOLA NUOTO" data-sala="Vasca Grande" data-time="19:20" data-sc="card-VG"><div class="card-time">19<sup>:20</sup></div><div class="card-name">Scuola Nuoto · 19:20–20:10</div><span class="sala-pill pill-VG">Vasca Grande</span></div>
+  <div class="class-card card-VG" data-cat="nuoto-adulti" data-name="SCUOLA NUOTO" data-sala="Vasca Grande" data-time="20:10" data-sc="card-VG"><div class="card-time">20<sup>:10</sup></div><div class="card-name">Scuola Nuoto · 20:10–21:00</div><span class="sala-pill pill-VG">Vasca Grande</span></div>
+  <div class="section-hdr">Nuoto Libero</div>
+  <div class="class-card card-VG" data-cat="nuoto-libero" data-name="NUOTO LIBERO" data-sala="Vasca Grande" data-time="07:00" data-sc="card-VG"><div class="card-time">07<sup>:00</sup></div><div class="card-name">Nuoto Libero · 07:00–11:00</div><span class="sala-pill pill-VG">Vasca Grande</span></div>
+  <div class="class-card card-VG" data-cat="nuoto-libero" data-name="NUOTO LIBERO" data-sala="Vasca Grande" data-time="12:30" data-sc="card-VG"><div class="card-time">12<sup>:30</sup></div><div class="card-name">Nuoto Libero · 12:30–15:00</div><span class="sala-pill pill-VG">Vasca Grande</span></div>
+  <div class="class-card card-VG" data-cat="nuoto-libero" data-name="NUOTO LIBERO" data-sala="Vasca Grande" data-time="20:10" data-sc="card-VG"><div class="card-time">20<sup>:10</sup></div><div class="card-name">Nuoto Libero · 20:10–22:00</div><span class="sala-pill pill-VG">Vasca Grande</span></div>
+</div>
+
+<!-- ═══ MARTEDÌ ═══ -->
+<div id="day-mar" class="day-pane">
+  <div class="section-hdr">Corsi Fitness</div>
+  <div class="class-card card-B" data-cat="fitness" data-name="HBX BOXING" data-sala="Sala B" data-time="07:40" data-sc="card-B"><div class="card-time">07<sup>:40</sup></div><div class="card-name">HBX Boxing</div><span class="sala-pill pill-B">Sala B</span></div>
+  <div class="class-card card-A" data-cat="fitness" data-name="PILATES MATWORK" data-sala="Sala A" data-time="09:30" data-sc="card-A"><div class="card-time">09<sup>:30</sup></div><div class="card-name">Pilates Matwork</div><span class="sala-pill pill-A">Sala A</span></div>
+  <div class="class-card card-A" data-cat="fitness" data-name="ANTIGRAVITY" data-sala="Sala A" data-time="11:30" data-sc="card-A"><div class="card-time">11<sup>:30</sup></div><div class="card-name">Antigravity</div><span class="sala-pill pill-A">Sala A</span></div>
+  <div class="class-card card-B" data-cat="fitness" data-name="STRENGHT DEVELOPMENT" data-sala="Sala B" data-time="11:30" data-sc="card-B"><div class="card-time">11<sup>:30</sup></div><div class="card-name">Strenght Development</div><span class="sala-pill pill-B">Sala B</span></div>
+  <div class="class-card card-A" data-cat="fitness" data-name="PILATES MATWORK" data-sala="Sala A" data-time="13:30" data-sc="card-A"><div class="card-time">13<sup>:30</sup></div><div class="card-name">Pilates Matwork</div><span class="sala-pill pill-A">Sala A</span></div>
+  <div class="class-card card-B" data-cat="fitness" data-name="HBX FUSION" data-sala="Sala B" data-time="13:30" data-sc="card-B"><div class="card-time">13<sup>:30</sup></div><div class="card-name">HBX Fusion</div><span class="sala-pill pill-B">Sala B</span></div>
+  <div class="class-card card-A" data-cat="fitness" data-name="GINN. POSTURALE" data-sala="Sala A" data-time="16:50" data-sc="card-A"><div class="card-time">16<sup>:50</sup></div><div class="card-name">Ginn. Posturale</div><span class="sala-pill pill-A">Sala A</span></div>
+  <div class="class-card card-A" data-cat="fitness" data-name="POWER YOGA" data-sala="Sala A" data-time="17:40" data-sc="card-A"><div class="card-time">17<sup>:40</sup></div><div class="card-name">Power Yoga</div><span class="sala-pill pill-A">Sala A</span></div>
+  <div class="class-card card-B" data-cat="fitness" data-name="HBX FUSION" data-sala="Sala B" data-time="17:40" data-sc="card-B"><div class="card-time">17<sup>:40</sup></div><div class="card-name">HBX Fusion</div><span class="sala-pill pill-B">Sala B</span></div>
+  <div class="class-card card-A" data-cat="fitness" data-name="PILATES MATWORK" data-sala="Sala A" data-time="18:30" data-sc="card-A"><div class="card-time">18<sup>:30</sup></div><div class="card-name">Pilates Matwork</div><span class="sala-pill pill-A">Sala A</span></div>
+  <div class="class-card card-B" data-cat="fitness" data-name="STRENGHT DEVELOPMENT" data-sala="Sala B" data-time="18:30" data-sc="card-B"><div class="card-time">18<sup>:30</sup></div><div class="card-name">Strenght Development</div><span class="sala-pill pill-B">Sala B</span></div>
+  <div class="class-card card-A" data-cat="fitness" data-name="GP COREO" data-sala="Sala A" data-time="19:20" data-sc="card-A"><div class="card-time">19<sup>:20</sup></div><div class="card-name">GP Coreo</div><span class="sala-pill pill-A">Sala A</span></div>
+  <div class="class-card card-B" data-cat="fitness" data-name="HBX BOXING" data-sala="Sala B" data-time="19:20" data-sc="card-B"><div class="card-time">19<sup>:20</sup></div><div class="card-name">HBX Boxing</div><span class="sala-pill pill-B">Sala B</span></div>
+  <div class="class-card card-A" data-cat="fitness" data-name="BODY SCULPT" data-sala="Sala A" data-time="20:10" data-sc="card-A"><div class="card-time">20<sup>:10</sup></div><div class="card-name">Body Sculpt</div><span class="sala-pill pill-A">Sala A</span></div>
+  <div class="class-card card-B" data-cat="fitness" data-name="DIFESA PERSONALE" data-sala="Sala B" data-time="20:10" data-sc="card-B"><div class="card-time">20<sup>:10</sup></div><div class="card-name">Difesa Personale</div><span class="sala-pill pill-B">Sala B</span></div>
+  <div class="section-hdr">Group Reformer</div>
+  <div class="class-card card-C" data-cat="reformer" data-name="GROUP REFORMER" data-sala="Sala C" data-time="10:30" data-sc="card-C"><div class="card-time">10<sup>:30</sup></div><div class="card-name">Group Reformer</div><span class="sala-pill pill-C">Sala C</span></div>
+  <div class="class-card card-C" data-cat="reformer" data-name="GROUP REFORMER" data-sala="Sala C" data-time="18:10" data-sc="card-C"><div class="card-time">18<sup>:10</sup></div><div class="card-name">Group Reformer</div><span class="sala-pill pill-C">Sala C</span></div>
+  <div class="class-card card-C" data-cat="reformer" data-name="GROUP REFORMER" data-sala="Sala C" data-time="19:00" data-sc="card-C"><div class="card-time">19<sup>:00</sup></div><div class="card-name">Group Reformer</div><span class="sala-pill pill-C">Sala C</span></div>
+  <div class="class-card card-C" data-cat="reformer" data-name="GROUP REFORMER" data-sala="Sala C" data-time="19:50" data-sc="card-C"><div class="card-time">19<sup>:50</sup></div><div class="card-name">Group Reformer</div><span class="sala-pill pill-C">Sala C</span></div>
+  <div class="section-hdr">Aqua Fitness</div>
+  <div class="class-card card-VM" data-cat="aqua" data-name="AQUA SOFT" data-sala="Vasca Media" data-time="09:00" data-sc="card-VM"><div class="card-time">09<sup>:00</sup></div><div class="card-name">Aqua Soft</div><span class="sala-pill pill-VM">Vasca Media</span></div>
+  <div class="class-card card-VM" data-cat="aqua" data-name="AQUA TONIC" data-sala="Vasca Media" data-time="11:00" data-sc="card-VM"><div class="card-time">11<sup>:00</sup></div><div class="card-name">Aqua Tonic</div><span class="sala-pill pill-VM">Vasca Media</span></div>
+  <div class="class-card card-VM" data-cat="aqua" data-name="HYDROBIKE" data-sala="Vasca Media" data-time="13:00" data-sc="card-VM"><div class="card-time">13<sup>:00</sup></div><div class="card-name">Hydrobike</div><span class="sala-pill pill-VM">Vasca Media</span></div>
+  <div class="class-card card-VM" data-cat="aqua" data-name="AQUA AEROBIC" data-sala="Vasca Media" data-time="13:50" data-sc="card-VM"><div class="card-time">13<sup>:50</sup></div><div class="card-name">Aqua Aerobic</div><span class="sala-pill pill-VM">Vasca Media</span></div>
+  <div class="class-card card-VM" data-cat="aqua" data-name="AQUA AEROBIC" data-sala="Vasca Media" data-time="18:50" data-sc="card-VM"><div class="card-time">18<sup>:50</sup></div><div class="card-name">Aqua Aerobic</div><span class="sala-pill pill-VM">Vasca Media</span></div>
+  <div class="class-card card-VM" data-cat="aqua" data-name="HYDROBIKE" data-sala="Vasca Media" data-time="19:40" data-sc="card-VM"><div class="card-time">19<sup>:40</sup></div><div class="card-name">Hydrobike</div><span class="sala-pill pill-VM">Vasca Media</span></div>
+  <div class="class-card card-VM" data-cat="aqua" data-name="HYDROBIKE" data-sala="Vasca Media" data-time="20:25" data-sc="card-VM"><div class="card-time">20<sup>:25</sup></div><div class="card-name">Hydrobike</div><span class="sala-pill pill-VM">Vasca Media</span></div>
+  <div class="section-hdr">Scuola Nuoto Adulti</div>
+  <div class="class-card card-VG" data-cat="nuoto-adulti" data-name="SCUOLA NUOTO" data-sala="Vasca Grande" data-time="14:10" data-sc="card-VG"><div class="card-time">14<sup>:10</sup></div><div class="card-name">Scuola Nuoto · 14:10–15:00</div><span class="sala-pill pill-VG">Vasca Grande</span></div>
+  <div class="class-card card-VG" data-cat="nuoto-adulti" data-name="SCUOLA NUOTO" data-sala="Vasca Grande" data-time="19:20" data-sc="card-VG"><div class="card-time">19<sup>:20</sup></div><div class="card-name">Scuola Nuoto · 19:20–20:10</div><span class="sala-pill pill-VG">Vasca Grande</span></div>
+  <div class="class-card card-VG" data-cat="nuoto-adulti" data-name="SCUOLA NUOTO" data-sala="Vasca Grande" data-time="20:10" data-sc="card-VG"><div class="card-time">20<sup>:10</sup></div><div class="card-name">Scuola Nuoto · 20:10–21:00</div><span class="sala-pill pill-VG">Vasca Grande</span></div>
+  <div class="section-hdr">Nuoto Libero</div>
+  <div class="class-card card-VG" data-cat="nuoto-libero" data-name="NUOTO LIBERO" data-sala="Vasca Grande" data-time="07:00" data-sc="card-VG"><div class="card-time">07<sup>:00</sup></div><div class="card-name">Nuoto Libero · 07:00–10:00</div><span class="sala-pill pill-VG">Vasca Grande</span></div>
+  <div class="class-card card-VG" data-cat="nuoto-libero" data-name="NUOTO LIBERO" data-sala="Vasca Grande" data-time="12:30" data-sc="card-VG"><div class="card-time">12<sup>:30</sup></div><div class="card-name">Nuoto Libero · 12:30–14:30</div><span class="sala-pill pill-VG">Vasca Grande</span></div>
+  <div class="class-card card-VG" data-cat="nuoto-libero" data-name="NUOTO LIBERO" data-sala="Vasca Grande" data-time="21:00" data-sc="card-VG"><div class="card-time">21<sup>:00</sup></div><div class="card-name">Nuoto Libero · 21:00–22:00</div><span class="sala-pill pill-VG">Vasca Grande</span></div>
+</div>
+
+<!-- ═══ MERCOLEDÌ ═══ -->
+<div id="day-mer" class="day-pane">
+  <div class="section-hdr">Corsi Fitness</div>
+  <div class="class-card card-B" data-cat="fitness" data-name="STRENGHT DEVELOPMENT" data-sala="Sala B" data-time="07:40" data-sc="card-B"><div class="card-time">07<sup>:40</sup></div><div class="card-name">Strenght Development</div><span class="sala-pill pill-B">Sala B</span></div>
+  <div class="class-card card-A" data-cat="fitness" data-name="PILATES MATWORK" data-sala="Sala A" data-time="09:30" data-sc="card-A"><div class="card-time">09<sup>:30</sup></div><div class="card-name">Pilates Matwork</div><span class="sala-pill pill-A">Sala A</span></div>
+  <div class="class-card card-A" data-cat="fitness" data-name="GINN. POSTURALE" data-sala="Sala A" data-time="10:30" data-sc="card-A"><div class="card-time">10<sup>:30</sup></div><div class="card-name">Ginn. Posturale</div><span class="sala-pill pill-A">Sala A</span></div>
+  <div class="class-card card-B" data-cat="fitness" data-name="HBX FUSION" data-sala="Sala B" data-time="11:00" data-sc="card-B"><div class="card-time">11<sup>:00</sup></div><div class="card-name">HBX Fusion</div><span class="sala-pill pill-B">Sala B</span></div>
+  <div class="class-card card-A" data-cat="fitness" data-name="BODY SCULPT" data-sala="Sala A" data-time="13:00" data-sc="card-A"><div class="card-time">13<sup>:00</sup></div><div class="card-name">Body Sculpt</div><span class="sala-pill pill-A">Sala A</span></div>
+  <div class="class-card card-A" data-cat="fitness" data-name="BOOTY WORKOUT" data-sala="Sala A" data-time="17:30" data-sc="card-A"><div class="card-time">17<sup>:30</sup></div><div class="card-name">Booty Workout</div><span class="sala-pill pill-A">Sala A</span></div>
+  <div class="class-card card-B" data-cat="fitness" data-name="MOTR" data-sala="Sala B" data-time="17:30" data-sc="card-B"><div class="card-time">17<sup>:30</sup></div><div class="card-name">MOTR</div><span class="sala-pill pill-B">Sala B</span></div>
+  <div class="class-card card-A" data-cat="fitness" data-name="BODY SCULPT" data-sala="Sala A" data-time="18:20" data-sc="card-A"><div class="card-time">18<sup>:20</sup></div><div class="card-name">Body Sculpt</div><span class="sala-pill pill-A">Sala A</span></div>
+  <div class="class-card card-B" data-cat="fitness" data-name="HBX FUSION" data-sala="Sala B" data-time="18:20" data-sc="card-B"><div class="card-time">18<sup>:20</sup></div><div class="card-name">HBX Fusion</div><span class="sala-pill pill-B">Sala B</span></div>
+  <div class="class-card card-A" data-cat="fitness" data-name="PILATES MATWORK" data-sala="Sala A" data-time="19:10" data-sc="card-A"><div class="card-time">19<sup>:10</sup></div><div class="card-name">Pilates Matwork</div><span class="sala-pill pill-A">Sala A</span></div>
+  <div class="class-card card-B" data-cat="fitness" data-name="STRENGHT DEVELOPMENT" data-sala="Sala B" data-time="19:10" data-sc="card-B"><div class="card-time">19<sup>:10</sup></div><div class="card-name">Strenght Development</div><span class="sala-pill pill-B">Sala B</span></div>
+  <div class="class-card card-A" data-cat="fitness" data-name="LES MILLS BODY PUMP" data-sala="Sala A" data-time="20:00" data-sc="card-A"><div class="card-time">20<sup>:00</sup></div><div class="card-name">Les Mills Body Pump</div><span class="sala-pill pill-A">Sala A</span></div>
+  <div class="class-card card-B" data-cat="fitness" data-name="CALISTHENICS" data-sala="Sala B" data-time="20:00" data-sc="card-B"><div class="card-time">20<sup>:00</sup></div><div class="card-name">Calisthenics</div><span class="sala-pill pill-B">Sala B</span></div>
+  <div class="section-hdr">Group Reformer</div>
+  <div class="class-card card-C" data-cat="reformer" data-name="GROUP REFORMER" data-sala="Sala C" data-time="08:30" data-sc="card-C"><div class="card-time">08<sup>:30</sup></div><div class="card-name">Group Reformer</div><span class="sala-pill pill-C">Sala C</span></div>
+  <div class="class-card card-C" data-cat="reformer" data-name="GROUP REFORMER" data-sala="Sala C" data-time="10:00" data-sc="card-C"><div class="card-time">10<sup>:00</sup></div><div class="card-name">Group Reformer</div><span class="sala-pill pill-C">Sala C</span></div>
+  <div class="class-card card-C" data-cat="reformer" data-name="GROUP REFORMER" data-sala="Sala C" data-time="13:30" data-sc="card-C"><div class="card-time">13<sup>:30</sup></div><div class="card-name">Group Reformer</div><span class="sala-pill pill-C">Sala C</span></div>
+  <div class="class-card card-C" data-cat="reformer" data-name="GROUP REFORMER" data-sala="Sala C" data-time="18:20" data-sc="card-C"><div class="card-time">18<sup>:20</sup></div><div class="card-name">Group Reformer</div><span class="sala-pill pill-C">Sala C</span></div>
+  <div class="class-card card-C" data-cat="reformer" data-name="GROUP REFORMER" data-sala="Sala C" data-time="19:10" data-sc="card-C"><div class="card-time">19<sup>:10</sup></div><div class="card-name">Group Reformer</div><span class="sala-pill pill-C">Sala C</span></div>
+  <div class="section-hdr">Aqua Fitness</div>
+  <div class="class-card card-VM" data-cat="aqua" data-name="AQUA SOFT" data-sala="Vasca Media" data-time="09:00" data-sc="card-VM"><div class="card-time">09<sup>:00</sup></div><div class="card-name">Aqua Soft</div><span class="sala-pill pill-VM">Vasca Media</span></div>
+  <div class="class-card card-VM" data-cat="aqua" data-name="AQUA TONIC" data-sala="Vasca Media" data-time="11:00" data-sc="card-VM"><div class="card-time">11<sup>:00</sup></div><div class="card-name">Aqua Tonic</div><span class="sala-pill pill-VM">Vasca Media</span></div>
+  <div class="class-card card-VM" data-cat="aqua" data-name="AQUA TONIC" data-sala="Vasca Media" data-time="13:00" data-sc="card-VM"><div class="card-time">13<sup>:00</sup></div><div class="card-name">Aqua Tonic</div><span class="sala-pill pill-VM">Vasca Media</span></div>
+  <div class="class-card card-VM" data-cat="aqua" data-name="HYDROBIKE" data-sala="Vasca Media" data-time="13:50" data-sc="card-VM"><div class="card-time">13<sup>:50</sup></div><div class="card-name">Hydrobike</div><span class="sala-pill pill-VM">Vasca Media</span></div>
+  <div class="class-card card-VM" data-cat="aqua" data-name="AQUA TONIC" data-sala="Vasca Media" data-time="19:20" data-sc="card-VM"><div class="card-time">19<sup>:20</sup></div><div class="card-name">Aqua Tonic</div><span class="sala-pill pill-VM">Vasca Media</span></div>
+  <div class="class-card card-VM" data-cat="aqua" data-name="HYDROBIKE" data-sala="Vasca Media" data-time="20:10" data-sc="card-VM"><div class="card-time">20<sup>:10</sup></div><div class="card-name">Hydrobike</div><span class="sala-pill pill-VM">Vasca Media</span></div>
+  <div class="section-hdr">Scuola Nuoto Adulti</div>
+  <div class="class-card card-VG" data-cat="nuoto-adulti" data-name="SCUOLA NUOTO" data-sala="Vasca Grande" data-time="18:30" data-sc="card-VG"><div class="card-time">18<sup>:30</sup></div><div class="card-name">Scuola Nuoto · 18:30–19:20</div><span class="sala-pill pill-VG">Vasca Grande</span></div>
+  <div class="class-card card-VG" data-cat="nuoto-adulti" data-name="SCUOLA NUOTO" data-sala="Vasca Grande" data-time="20:10" data-sc="card-VG"><div class="card-time">20<sup>:10</sup></div><div class="card-name">Scuola Nuoto · 20:10–21:00</div><span class="sala-pill pill-VG">Vasca Grande</span></div>
+  <div class="section-hdr">Nuoto Libero</div>
+  <div class="class-card card-VG" data-cat="nuoto-libero" data-name="NUOTO LIBERO" data-sala="Vasca Grande" data-time="07:00" data-sc="card-VG"><div class="card-time">07<sup>:00</sup></div><div class="card-name">Nuoto Libero · 07:00–11:00</div><span class="sala-pill pill-VG">Vasca Grande</span></div>
+  <div class="class-card card-VG" data-cat="nuoto-libero" data-name="NUOTO LIBERO" data-sala="Vasca Grande" data-time="12:30" data-sc="card-VG"><div class="card-time">12<sup>:30</sup></div><div class="card-name">Nuoto Libero · 12:30–14:30</div><span class="sala-pill pill-VG">Vasca Grande</span></div>
+  <div class="class-card card-VG" data-cat="nuoto-libero" data-name="NUOTO LIBERO" data-sala="Vasca Grande" data-time="20:10" data-sc="card-VG"><div class="card-time">20<sup>:10</sup></div><div class="card-name">Nuoto Libero · 20:10–22:00</div><span class="sala-pill pill-VG">Vasca Grande</span></div>
+</div>
+
+<!-- ═══ GIOVEDÌ ═══ -->
+<div id="day-gio" class="day-pane">
+  <div class="section-hdr">Corsi Fitness</div>
+  <div class="class-card card-A" data-cat="fitness" data-name="BODY SCULPT" data-sala="Sala A" data-time="07:40" data-sc="card-A"><div class="card-time">07<sup>:40</sup></div><div class="card-name">Body Sculpt</div><span class="sala-pill pill-A">Sala A</span></div>
+  <div class="class-card card-A" data-cat="fitness" data-name="GINNASTICA DOLCE" data-sala="Sala A" data-time="10:30" data-sc="card-A"><div class="card-time">10<sup>:30</sup></div><div class="card-name">Ginnastica Dolce</div><span class="sala-pill pill-A">Sala A</span></div>
+  <div class="class-card card-A" data-cat="fitness" data-name="PILATES MATWORK" data-sala="Sala A" data-time="11:30" data-sc="card-A"><div class="card-time">11<sup>:30</sup></div><div class="card-name">Pilates Matwork</div><span class="sala-pill pill-A">Sala A</span></div>
+  <div class="class-card card-B" data-cat="fitness" data-name="HBX BOXING" data-sala="Sala B" data-time="11:30" data-sc="card-B"><div class="card-time">11<sup>:30</sup></div><div class="card-name">HBX Boxing</div><span class="sala-pill pill-B">Sala B</span></div>
+  <div class="class-card card-A" data-cat="fitness" data-name="LES MILLS BODY PUMP" data-sala="Sala A" data-time="13:30" data-sc="card-A"><div class="card-time">13<sup>:30</sup></div><div class="card-name">Les Mills Body Pump</div><span class="sala-pill pill-A">Sala A</span></div>
+  <div class="class-card card-A" data-cat="fitness" data-name="ANTIGRAVITY" data-sala="Sala A" data-time="17:40" data-sc="card-A"><div class="card-time">17<sup>:40</sup></div><div class="card-name">Antigravity</div><span class="sala-pill pill-A">Sala A</span></div>
+  <div class="class-card card-B" data-cat="fitness" data-name="MOTR" data-sala="Sala B" data-time="17:40" data-sc="card-B"><div class="card-time">17<sup>:40</sup></div><div class="card-name">MOTR</div><span class="sala-pill pill-B">Sala B</span></div>
+  <div class="class-card card-A" data-cat="fitness" data-name="YOGASSÈ" data-sala="Sala A" data-time="18:30" data-sc="card-A"><div class="card-time">18<sup>:30</sup></div><div class="card-name">Yogassè</div><span class="sala-pill pill-A">Sala A</span></div>
+  <div class="class-card card-B" data-cat="fitness" data-name="HBX FUSION" data-sala="Sala B" data-time="18:30" data-sc="card-B"><div class="card-time">18<sup>:30</sup></div><div class="card-name">HBX Fusion</div><span class="sala-pill pill-B">Sala B</span></div>
+  <div class="class-card card-A" data-cat="fitness" data-name="BOOTY WORKOUT" data-sala="Sala A" data-time="19:20" data-sc="card-A"><div class="card-time">19<sup>:20</sup></div><div class="card-name">Booty Workout</div><span class="sala-pill pill-A">Sala A</span></div>
+  <div class="class-card card-B" data-cat="fitness" data-name="STRENGHT DEVELOPMENT" data-sala="Sala B" data-time="19:20" data-sc="card-B"><div class="card-time">19<sup>:20</sup></div><div class="card-name">Strenght Development</div><span class="sala-pill pill-B">Sala B</span></div>
+  <div class="class-card card-A" data-cat="fitness" data-name="BODY SCULPT" data-sala="Sala A" data-time="20:10" data-sc="card-A"><div class="card-time">20<sup>:10</sup></div><div class="card-name">Body Sculpt</div><span class="sala-pill pill-A">Sala A</span></div>
+  <div class="section-hdr">Group Reformer</div>
+  <div class="class-card card-C" data-cat="reformer" data-name="GROUP REFORMER" data-sala="Sala C" data-time="09:30" data-sc="card-C"><div class="card-time">09<sup>:30</sup></div><div class="card-name">Group Reformer</div><span class="sala-pill pill-C">Sala C</span></div>
+  <div class="class-card card-C" data-cat="reformer" data-name="GROUP REFORMER" data-sala="Sala C" data-time="10:30" data-sc="card-C"><div class="card-time">10<sup>:30</sup></div><div class="card-name">Group Reformer</div><span class="sala-pill pill-C">Sala C</span></div>
+  <div class="class-card card-C" data-cat="reformer" data-name="GROUP REFORMER" data-sala="Sala C" data-time="13:30" data-sc="card-C"><div class="card-time">13<sup>:30</sup></div><div class="card-name">Group Reformer</div><span class="sala-pill pill-C">Sala C</span></div>
+  <div class="class-card card-C" data-cat="reformer" data-name="GROUP REFORMER" data-sala="Sala C" data-time="17:40" data-sc="card-C"><div class="card-time">17<sup>:40</sup></div><div class="card-name">Group Reformer</div><span class="sala-pill pill-C">Sala C</span></div>
+  <div class="class-card card-C" data-cat="reformer" data-name="GROUP REFORMER" data-sala="Sala C" data-time="18:30" data-sc="card-C"><div class="card-time">18<sup>:30</sup></div><div class="card-name">Group Reformer</div><span class="sala-pill pill-C">Sala C</span></div>
+  <div class="class-card card-C" data-cat="reformer" data-name="GROUP REFORMER" data-sala="Sala C" data-time="19:20" data-sc="card-C"><div class="card-time">19<sup>:20</sup></div><div class="card-name">Group Reformer</div><span class="sala-pill pill-C">Sala C</span></div>
+  <div class="section-hdr">Aqua Fitness</div>
+  <div class="class-card card-VM" data-cat="aqua" data-name="AQUA SOFT" data-sala="Vasca Media" data-time="09:00" data-sc="card-VM"><div class="card-time">09<sup>:00</sup></div><div class="card-name">Aqua Soft</div><span class="sala-pill pill-VM">Vasca Media</span></div>
+  <div class="class-card card-VM" data-cat="aqua" data-name="AQUA TONIC" data-sala="Vasca Media" data-time="11:00" data-sc="card-VM"><div class="card-time">11<sup>:00</sup></div><div class="card-name">Aqua Tonic</div><span class="sala-pill pill-VM">Vasca Media</span></div>
+  <div class="class-card card-VM" data-cat="aqua" data-name="AQUA AEROBIC" data-sala="Vasca Media" data-time="13:30" data-sc="card-VM"><div class="card-time">13<sup>:30</sup></div><div class="card-name">Aqua Aerobic</div><span class="sala-pill pill-VM">Vasca Media</span></div>
+  <div class="class-card card-VM" data-cat="aqua" data-name="AQUA AEROBIC" data-sala="Vasca Media" data-time="18:50" data-sc="card-VM"><div class="card-time">18<sup>:50</sup></div><div class="card-name">Aqua Aerobic</div><span class="sala-pill pill-VM">Vasca Media</span></div>
+  <div class="class-card card-VM" data-cat="aqua" data-name="HYDROBIKE" data-sala="Vasca Media" data-time="19:40" data-sc="card-VM"><div class="card-time">19<sup>:40</sup></div><div class="card-name">Hydrobike</div><span class="sala-pill pill-VM">Vasca Media</span></div>
+  <div class="class-card card-VM" data-cat="aqua" data-name="HYDROBIKE" data-sala="Vasca Media" data-time="20:25" data-sc="card-VM"><div class="card-time">20<sup>:25</sup></div><div class="card-name">Hydrobike</div><span class="sala-pill pill-VM">Vasca Media</span></div>
+  <div class="section-hdr">Scuola Nuoto Adulti</div>
+  <div class="class-card card-VG" data-cat="nuoto-adulti" data-name="SCUOLA NUOTO" data-sala="Vasca Grande" data-time="14:10" data-sc="card-VG"><div class="card-time">14<sup>:10</sup></div><div class="card-name">Scuola Nuoto · 14:10–15:00</div><span class="sala-pill pill-VG">Vasca Grande</span></div>
+  <div class="class-card card-VG" data-cat="nuoto-adulti" data-name="SCUOLA NUOTO" data-sala="Vasca Grande" data-time="19:20" data-sc="card-VG"><div class="card-time">19<sup>:20</sup></div><div class="card-name">Scuola Nuoto · 19:20–20:10</div><span class="sala-pill pill-VG">Vasca Grande</span></div>
+  <div class="class-card card-VG" data-cat="nuoto-adulti" data-name="SCUOLA NUOTO" data-sala="Vasca Grande" data-time="20:10" data-sc="card-VG"><div class="card-time">20<sup>:10</sup></div><div class="card-name">Scuola Nuoto · 20:10–21:00</div><span class="sala-pill pill-VG">Vasca Grande</span></div>
+  <div class="section-hdr">Nuoto Libero</div>
+  <div class="class-card card-VG" data-cat="nuoto-libero" data-name="NUOTO LIBERO" data-sala="Vasca Grande" data-time="07:00" data-sc="card-VG"><div class="card-time">07<sup>:00</sup></div><div class="card-name">Nuoto Libero · 07:00–11:00</div><span class="sala-pill pill-VG">Vasca Grande</span></div>
+  <div class="class-card card-VG" data-cat="nuoto-libero" data-name="NUOTO LIBERO" data-sala="Vasca Grande" data-time="12:30" data-sc="card-VG"><div class="card-time">12<sup>:30</sup></div><div class="card-name">Nuoto Libero · 12:30–14:30</div><span class="sala-pill pill-VG">Vasca Grande</span></div>
+  <div class="class-card card-VG" data-cat="nuoto-libero" data-name="NUOTO LIBERO" data-sala="Vasca Grande" data-time="20:10" data-sc="card-VG"><div class="card-time">20<sup>:10</sup></div><div class="card-name">Nuoto Libero · 20:10–22:00</div><span class="sala-pill pill-VG">Vasca Grande</span></div>
+</div>
+
+<!-- ═══ VENERDÌ ═══ -->
+<div id="day-ven" class="day-pane">
+  <div class="section-hdr">Corsi Fitness</div>
+  <div class="class-card card-A" data-cat="fitness" data-name="BODY SCULPT" data-sala="Sala A" data-time="07:40" data-sc="card-A"><div class="card-time">07<sup>:40</sup></div><div class="card-name">Body Sculpt</div><span class="sala-pill pill-A">Sala A</span></div>
+  <div class="class-card card-A" data-cat="fitness" data-name="GINN. POSTURALE" data-sala="Sala A" data-time="09:30" data-sc="card-A"><div class="card-time">09<sup>:30</sup></div><div class="card-name">Ginn. Posturale</div><span class="sala-pill pill-A">Sala A</span></div>
+  <div class="class-card card-A" data-cat="fitness" data-name="BODY SCULPT" data-sala="Sala A" data-time="11:30" data-sc="card-A"><div class="card-time">11<sup>:30</sup></div><div class="card-name">Body Sculpt</div><span class="sala-pill pill-A">Sala A</span></div>
+  <div class="class-card card-A" data-cat="fitness" data-name="GINN. PILATES" data-sala="Sala A" data-time="13:30" data-sc="card-A"><div class="card-time">13<sup>:30</sup></div><div class="card-name">Ginn. Pilates</div><span class="sala-pill pill-A">Sala A</span></div>
+  <div class="class-card card-B" data-cat="fitness" data-name="STRENGHT DEVELOPMENT" data-sala="Sala B" data-time="13:30" data-sc="card-B"><div class="card-time">13<sup>:30</sup></div><div class="card-name">Strenght Development</div><span class="sala-pill pill-B">Sala B</span></div>
+  <div class="class-card card-A" data-cat="fitness" data-name="BODY SCULPT" data-sala="Sala A" data-time="16:50" data-sc="card-A"><div class="card-time">16<sup>:50</sup></div><div class="card-name">Body Sculpt</div><span class="sala-pill pill-A">Sala A</span></div>
+  <div class="class-card card-B" data-cat="fitness" data-name="MOTR" data-sala="Sala B" data-time="16:50" data-sc="card-B"><div class="card-time">16<sup>:50</sup></div><div class="card-name">MOTR</div><span class="sala-pill pill-B">Sala B</span></div>
+  <div class="class-card card-A" data-cat="fitness" data-name="PILATES MATWORK" data-sala="Sala A" data-time="17:40" data-sc="card-A"><div class="card-time">17<sup>:40</sup></div><div class="card-name">Pilates Matwork</div><span class="sala-pill pill-A">Sala A</span></div>
+  <div class="class-card card-B" data-cat="fitness" data-name="HBX FUSION" data-sala="Sala B" data-time="17:40" data-sc="card-B"><div class="card-time">17<sup>:40</sup></div><div class="card-name">HBX Fusion</div><span class="sala-pill pill-B">Sala B</span></div>
+  <div class="class-card card-A" data-cat="fitness" data-name="GINN. POSTURALE" data-sala="Sala A" data-time="18:30" data-sc="card-A"><div class="card-time">18<sup>:30</sup></div><div class="card-name">Ginn. Posturale</div><span class="sala-pill pill-A">Sala A</span></div>
+  <div class="class-card card-B" data-cat="fitness" data-name="HBX BOXING" data-sala="Sala B" data-time="18:30" data-sc="card-B"><div class="card-time">18<sup>:30</sup></div><div class="card-name">HBX Boxing</div><span class="sala-pill pill-B">Sala B</span></div>
+  <div class="class-card card-A" data-cat="fitness" data-name="LES MILLS BODY PUMP" data-sala="Sala A" data-time="19:20" data-sc="card-A"><div class="card-time">19<sup>:20</sup></div><div class="card-name">Les Mills Body Pump</div><span class="sala-pill pill-A">Sala A</span></div>
+  <div class="class-card card-B" data-cat="fitness" data-name="CALISTHENICS" data-sala="Sala B" data-time="19:20" data-sc="card-B"><div class="card-time">19<sup>:20</sup></div><div class="card-name">Calisthenics</div><span class="sala-pill pill-B">Sala B</span></div>
+  <div class="class-card card-B" data-cat="fitness" data-name="DIFESA PERSONALE" data-sala="Sala B" data-time="20:10" data-sc="card-B"><div class="card-time">20<sup>:10</sup></div><div class="card-name">Difesa Personale</div><span class="sala-pill pill-B">Sala B</span></div>
+  <div class="section-hdr">Group Reformer</div>
+  <div class="class-card card-C" data-cat="reformer" data-name="GROUP REFORMER" data-sala="Sala C" data-time="08:30" data-sc="card-C"><div class="card-time">08<sup>:30</sup></div><div class="card-name">Group Reformer</div><span class="sala-pill pill-C">Sala C</span></div>
+  <div class="class-card card-C" data-cat="reformer" data-name="GROUP REFORMER" data-sala="Sala C" data-time="10:30" data-sc="card-C"><div class="card-time">10<sup>:30</sup></div><div class="card-name">Group Reformer</div><span class="sala-pill pill-C">Sala C</span></div>
+  <div class="class-card card-C" data-cat="reformer" data-name="GROUP REFORMER" data-sala="Sala C" data-time="18:30" data-sc="card-C"><div class="card-time">18<sup>:30</sup></div><div class="card-name">Group Reformer</div><span class="sala-pill pill-C">Sala C</span></div>
+  <div class="class-card card-C" data-cat="reformer" data-name="GROUP REFORMER" data-sala="Sala C" data-time="19:20" data-sc="card-C"><div class="card-time">19<sup>:20</sup></div><div class="card-name">Group Reformer</div><span class="sala-pill pill-C">Sala C</span></div>
+  <div class="section-hdr">Aqua Fitness</div>
+  <div class="class-card card-VM" data-cat="aqua" data-name="HYDROBIKE" data-sala="Vasca Media" data-time="08:15" data-sc="card-VM"><div class="card-time">08<sup>:15</sup></div><div class="card-name">Hydrobike</div><span class="sala-pill pill-VM">Vasca Media</span></div>
+  <div class="class-card card-VM" data-cat="aqua" data-name="AQUA SOFT" data-sala="Vasca Media" data-time="09:00" data-sc="card-VM"><div class="card-time">09<sup>:00</sup></div><div class="card-name">Aqua Soft</div><span class="sala-pill pill-VM">Vasca Media</span></div>
+  <div class="class-card card-VM" data-cat="aqua" data-name="AQUA TONIC" data-sala="Vasca Media" data-time="10:30" data-sc="card-VM"><div class="card-time">10<sup>:30</sup></div><div class="card-name">Aqua Tonic</div><span class="sala-pill pill-VM">Vasca Media</span></div>
+  <div class="class-card card-VM" data-cat="aqua" data-name="HYDROBIKE" data-sala="Vasca Media" data-time="13:00" data-sc="card-VM"><div class="card-time">13<sup>:00</sup></div><div class="card-name">Hydrobike</div><span class="sala-pill pill-VM">Vasca Media</span></div>
+  <div class="class-card card-VM" data-cat="aqua" data-name="AQUA AEROBIC" data-sala="Vasca Media" data-time="13:50" data-sc="card-VM"><div class="card-time">13<sup>:50</sup></div><div class="card-name">Aqua Aerobic</div><span class="sala-pill pill-VM">Vasca Media</span></div>
+  <div class="class-card card-VM" data-cat="aqua" data-name="HYDROBIKE" data-sala="Vasca Media" data-time="18:50" data-sc="card-VM"><div class="card-time">18<sup>:50</sup></div><div class="card-name">Hydrobike</div><span class="sala-pill pill-VM">Vasca Media</span></div>
+  <div class="class-card card-VM" data-cat="aqua" data-name="AQUA TONIC" data-sala="Vasca Media" data-time="19:40" data-sc="card-VM"><div class="card-time">19<sup>:40</sup></div><div class="card-name">Aqua Tonic</div><span class="sala-pill pill-VM">Vasca Media</span></div>
+  <div class="section-hdr">Scuola Nuoto Adulti</div>
+  <div class="class-card card-VG" data-cat="nuoto-adulti" data-name="SCUOLA NUOTO" data-sala="Vasca Grande" data-time="10:00" data-sc="card-VG"><div class="card-time">10<sup>:00</sup></div><div class="card-name">Scuola Nuoto · 10:00–10:50</div><span class="sala-pill pill-VG">Vasca Grande</span></div>
+  <div class="class-card card-VG" data-cat="nuoto-adulti" data-name="SCUOLA NUOTO" data-sala="Vasca Grande" data-time="14:10" data-sc="card-VG"><div class="card-time">14<sup>:10</sup></div><div class="card-name">Scuola Nuoto · 14:10–15:00</div><span class="sala-pill pill-VG">Vasca Grande</span></div>
+  <div class="class-card card-VG" data-cat="nuoto-adulti" data-name="SCUOLA NUOTO" data-sala="Vasca Grande" data-time="19:20" data-sc="card-VG"><div class="card-time">19<sup>:20</sup></div><div class="card-name">Scuola Nuoto · 19:20–20:10</div><span class="sala-pill pill-VG">Vasca Grande</span></div>
+  <div class="class-card card-VG" data-cat="nuoto-adulti" data-name="SCUOLA NUOTO" data-sala="Vasca Grande" data-time="20:10" data-sc="card-VG"><div class="card-time">20<sup>:10</sup></div><div class="card-name">Scuola Nuoto · 20:10–21:00</div><span class="sala-pill pill-VG">Vasca Grande</span></div>
+  <div class="section-hdr">Nuoto Libero</div>
+  <div class="class-card card-VG" data-cat="nuoto-libero" data-name="NUOTO LIBERO" data-sala="Vasca Grande" data-time="07:00" data-sc="card-VG"><div class="card-time">07<sup>:00</sup></div><div class="card-name">Nuoto Libero · 07:00–11:00</div><span class="sala-pill pill-VG">Vasca Grande</span></div>
+  <div class="class-card card-VG" data-cat="nuoto-libero" data-name="NUOTO LIBERO" data-sala="Vasca Grande" data-time="12:30" data-sc="card-VG"><div class="card-time">12<sup>:30</sup></div><div class="card-name">Nuoto Libero · 12:30–15:00</div><span class="sala-pill pill-VG">Vasca Grande</span></div>
+  <div class="class-card card-VG" data-cat="nuoto-libero" data-name="NUOTO LIBERO" data-sala="Vasca Grande" data-time="20:10" data-sc="card-VG"><div class="card-time">20<sup>:10</sup></div><div class="card-name">Nuoto Libero · 20:10–22:00</div><span class="sala-pill pill-VG">Vasca Grande</span></div>
+</div>
+
+<!-- ═══ SABATO ═══ -->
+<div id="day-sab" class="day-pane">
+  <div class="section-hdr">Corsi Fitness</div>
+  <div class="class-card card-A" data-cat="fitness" data-name="PILATES MATWORK" data-sala="Sala A" data-time="09:30" data-sc="card-A"><div class="card-time">09<sup>:30</sup></div><div class="card-name">Pilates Matwork</div><span class="sala-pill pill-A">Sala A</span></div>
+  <div class="class-card card-B" data-cat="fitness" data-name="HBX FUSION" data-sala="Sala B" data-time="09:30" data-sc="card-B"><div class="card-time">09<sup>:30</sup></div><div class="card-name">HBX Fusion</div><span class="sala-pill pill-B">Sala B</span></div>
+  <div class="class-card card-A" data-cat="fitness" data-name="BODY SCULPT" data-sala="Sala A" data-time="10:30" data-sc="card-A"><div class="card-time">10<sup>:30</sup></div><div class="card-name">Body Sculpt</div><span class="sala-pill pill-A">Sala A</span></div>
+  <div class="class-card card-A" data-cat="fitness" data-name="ANTIGRAVITY" data-sala="Sala A" data-time="11:30" data-sc="card-A"><div class="card-time">11<sup>:30</sup></div><div class="card-name">Antigravity</div><span class="sala-pill pill-A">Sala A</span></div>
+  <div class="class-card card-B" data-cat="fitness" data-name="HBX BOXING" data-sala="Sala B" data-time="11:30" data-sc="card-B"><div class="card-time">11<sup>:30</sup></div><div class="card-name">HBX Boxing</div><span class="sala-pill pill-B">Sala B</span></div>
+  <div class="class-card card-B" data-cat="fitness" data-name="STRENGHT DEVELOPMENT" data-sala="Sala B" data-time="12:30" data-sc="card-B"><div class="card-time">12<sup>:30</sup></div><div class="card-name">Strenght Development</div><span class="sala-pill pill-B">Sala B</span></div>
+  <div class="section-hdr">Group Reformer</div>
+  <div class="class-card card-C" data-cat="reformer" data-name="GROUP REFORMER" data-sala="Sala C" data-time="09:30" data-sc="card-C"><div class="card-time">09<sup>:30</sup></div><div class="card-name">Group Reformer</div><span class="sala-pill pill-C">Sala C</span></div>
+  <div class="class-card card-C" data-cat="reformer" data-name="GROUP REFORMER" data-sala="Sala C" data-time="10:30" data-sc="card-C"><div class="card-time">10<sup>:30</sup></div><div class="card-name">Group Reformer</div><span class="sala-pill pill-C">Sala C</span></div>
+  <div class="class-card card-C" data-cat="reformer" data-name="GROUP REFORMER" data-sala="Sala C" data-time="12:30" data-sc="card-C"><div class="card-time">12<sup>:30</sup></div><div class="card-name">Group Reformer</div><span class="sala-pill pill-C">Sala C</span></div>
+  <div class="section-hdr">Aqua Fitness</div>
+  <div class="class-card card-VM" data-cat="aqua" data-name="AQUA TONIC" data-sala="Vasca Media" data-time="11:30" data-sc="card-VM"><div class="card-time">11<sup>:30</sup></div><div class="card-name">Aqua Tonic</div><span class="sala-pill pill-VM">Vasca Media</span></div>
+  <div class="class-card card-VM" data-cat="aqua" data-name="HYDROBIKE" data-sala="Vasca Media" data-time="12:20" data-sc="card-VM"><div class="card-time">12<sup>:20</sup></div><div class="card-name">Hydrobike</div><span class="sala-pill pill-VM">Vasca Media</span></div>
+  <div class="section-hdr">Scuola Nuoto Adulti</div>
+  <div class="class-card card-VG" data-cat="nuoto-adulti" data-name="SCUOLA NUOTO" data-sala="Vasca Grande" data-time="10:00" data-sc="card-VG"><div class="card-time">10<sup>:00</sup></div><div class="card-name">Scuola Nuoto · 10:00–10:50</div><span class="sala-pill pill-VG">Vasca Grande</span></div>
+  <div class="section-hdr">Nuoto Libero</div>
+  <div class="class-card card-VG" data-cat="nuoto-libero" data-name="NUOTO LIBERO" data-sala="Vasca Grande" data-time="08:00" data-sc="card-VG"><div class="card-time">08<sup>:00</sup></div><div class="card-name">Nuoto Libero · 08:00–10:00</div><span class="sala-pill pill-VG">Vasca Grande</span></div>
+  <div class="class-card card-VG" data-cat="nuoto-libero" data-name="NUOTO LIBERO" data-sala="Vasca Grande" data-time="12:00" data-sc="card-VG"><div class="card-time">12<sup>:00</sup></div><div class="card-name">Nuoto Libero · 12:00–14:30</div><span class="sala-pill pill-VG">Vasca Grande</span></div>
+</div>
+
+<!-- ═══ DOMENICA ═══ -->
+<div id="day-dom" class="day-pane">
+  <div class="section-hdr">Aqua Fitness</div>
+  <div class="class-card card-VM" data-cat="aqua" data-name="BABY SWIM" data-sala="Vasca Media" data-time="09:30" data-sc="card-VM"><div class="card-time">09<sup>:30</sup></div><div class="card-name">Baby Swim</div><span class="sala-pill pill-VM">Vasca Media</span></div>
+  <div class="class-card card-VM" data-cat="aqua" data-name="BABY SWIM" data-sala="Vasca Media" data-time="10:10" data-sc="card-VM"><div class="card-time">10<sup>:10</sup></div><div class="card-name">Baby Swim</div><span class="sala-pill pill-VM">Vasca Media</span></div>
+  <div class="class-card card-VM" data-cat="aqua" data-name="BABY SWIM" data-sala="Vasca Media" data-time="10:50" data-sc="card-VM"><div class="card-time">10<sup>:50</sup></div><div class="card-name">Baby Swim</div><span class="sala-pill pill-VM">Vasca Media</span></div>
+  <div class="class-card card-VM" data-cat="aqua" data-name="AQUA TONIC" data-sala="Vasca Media" data-time="11:30" data-sc="card-VM"><div class="card-time">11<sup>:30</sup></div><div class="card-name">Aqua Tonic</div><span class="sala-pill pill-VM">Vasca Media</span></div>
+  <div class="section-hdr">Nuoto Libero</div>
+  <div class="class-card card-VG" data-cat="nuoto-libero" data-name="NUOTO LIBERO" data-sala="Vasca Grande" data-time="09:30" data-sc="card-VG"><div class="card-time">09<sup>:30</sup></div><div class="card-name">Nuoto Libero · 09:30–12:30</div><span class="sala-pill pill-VG">Vasca Grande</span></div>
+</div>
+
+  <footer>
+    <strong>ATHLON CLUB 4.0</strong> — Talenti, Roma<br>
+    Soc. Sportiva Dilettantistica · Affiliazione ASI: LAZ-RM4453<br>
+    Orari soggetti a variazioni
+  </footer>
+
+</div><!-- /content -->
+
+<!-- MODAL -->
+<div class="modal-overlay" id="modal" onclick="closeModal(event)">
+  <div class="modal-sheet">
+    <div class="modal-drag"></div>
+    <div class="modal-header">
+      <div class="modal-sala-pill" id="modal-sala-pill"></div>
+      <div class="modal-title" id="modal-title">—</div>
+      <div class="modal-time-badge" id="modal-time-badge"></div>
+    </div>
+    <div class="modal-desc" id="modal-desc"></div>
+    <div id="modal-video-wrap" class="modal-video-wrap" style="display:none">
+      <span class="modal-video-label-top">Video corso</span>
+      <div class="modal-video-player">
+        <video id="modal-video-player" autoplay muted loop playsinline preload="none">
+          <source id="modal-video-src" src="" type="video/mp4">
+        </video>
+      </div>
+    </div>
+    <div class="modal-stats" id="modal-stats"></div>
+    <button class="modal-close" onclick="document.getElementById('modal').classList.remove('open');const _p=document.getElementById('modal-video-player');if(_p){_p.pause();_p.currentTime=0;}">Chiudi</button>
+  </div>
+</div>
+
+<script>
+let currentFilter = 'tutti';
+let currentDay = 'lun';
+
+const gymData = {
+  lun: { h: '06:00 – 22:00', d: 'Lunedì' },
+  mar: { h: '06:00 – 22:00', d: 'Martedì' },
+  mer: { h: '06:00 – 22:00', d: 'Mercoledì' },
+  gio: { h: '06:00 – 22:00', d: 'Giovedì' },
+  ven: { h: '06:00 – 22:00', d: 'Venerdì' },
+  sab: { h: '08:00 – 18:00', d: 'Sabato' },
+  dom: { h: '09:30 – 13:00', d: 'Domenica' },
+};
+
+const pillColors = {
+  'Sala A': '#ff5701', 'Sala B': '#005ecb', 'Sala C': '#00998a',
+  'Vasca Media': '#2255dd', 'Vasca Grande': '#6633cc'
+};
+
+const lessons = {
+  'BODY SCULPT': { desc: 'Lezione di tonificazione muscolare completa per definire e rassodare tutto il corpo. Si lavora con elastici, manubri e step per allenare ogni gruppo muscolare. Adatta a tutti i livelli.', stats: [{l:'Intensità muscolare',v:75},{l:'Intensità cardiovascolare',v:45},{l:'Coordinazione',v:40},{l:'Flessibilità',v:30}] },
+  'GINNASTICA DOLCE': { desc: 'Attività motoria dolce e a basso impatto, ideale per mantenere la mobilità articolare e il benessere generale. Perfetta per chi inizia o desidera un allenamento moderato.', stats: [{l:'Intensità muscolare',v:25},{l:'Intensità cardiovascolare',v:20},{l:'Coordinazione',v:35},{l:'Flessibilità',v:70}] },
+  'PILATES MATWORK': { desc: 'Il Pilates a corpo libero sul tappetino lavora su respiro, stabilizzazione del core e postura. Migliora forza profonda, flessibilità e consapevolezza corporea.', stats: [{l:'Intensità muscolare',v:55},{l:'Intensità cardiovascolare',v:25},{l:'Coordinazione',v:60},{l:'Flessibilità',v:80}] },
+  'HBX FUSION': { desc: 'Corso ad alta intensità che fonde pugilato, arti marziali miste e allenamento funzionale. Cardio esplosivo, coordinazione e forza in un\'unica lezione coinvolgente.', stats: [{l:'Intensità muscolare',v:70},{l:'Intensità cardiovascolare',v:90},{l:'Coordinazione',v:75},{l:'Flessibilità',v:35}] },
+  'HBX BOXING': { desc: 'Allenamento ispirato alla boxe: combinazioni di pugni, lavoro sulle gambe e difesa. Migliora resistenza cardiovascolare e coordinazione. Nessun contatto fisico.', stats: [{l:'Intensità muscolare',v:65},{l:'Intensità cardiovascolare',v:85},{l:'Coordinazione',v:80},{l:'Flessibilità',v:30}] },
+  'MOTR': { desc: 'MOTR® combina pilates, stabilizzazione del core e allenamento funzionale. Le fasce di resistenza integrate offrono un training versatile e progressivo su tutti i gruppi muscolari.', stats: [{l:'Intensità muscolare',v:65},{l:'Intensità cardiovascolare',v:40},{l:'Coordinazione',v:70},{l:'Flessibilità',v:65}] },
+  'BOOTY WORKOUT': { desc: 'Lezione focalizzata sul potenziamento di glutei e cosce con esercizi specifici per scolpire la zona inferiore, migliorare la stabilità e aumentare la forza degli arti inferiori.', stats: [{l:'Intensità muscolare',v:85},{l:'Intensità cardiovascolare',v:50},{l:'Coordinazione',v:35},{l:'Flessibilità',v:40}] },
+  'POWER YOGA': { desc: 'Versione dinamica e fisicamente impegnativa dello yoga tradizionale. Flussi continui di asana che sviluppano forza, flessibilità, equilibrio e concentrazione mentale.', stats: [{l:'Intensità muscolare',v:60},{l:'Intensità cardiovascolare',v:50},{l:'Coordinazione',v:65},{l:'Flessibilità',v:85}] },
+  'CALISTHENICS': { desc: 'Allenamento a corpo libero: piegamenti, trazioni, dip, plank e movimenti acrobatici progressivi. Sviluppa forza funzionale, coordinazione e controllo corporeo totale.', stats: [{l:'Intensità muscolare',v:80},{l:'Intensità cardiovascolare',v:60},{l:'Coordinazione',v:75},{l:'Flessibilità',v:45}] },
+  'ANTIGRAVITY': { desc: 'Yoga e ginnastica aerea su amache in tessuto. Decompressione della colonna, allungamento profondo e tonificazione in totale sospensione. Adatto a tutti.', stats: [{l:'Intensità muscolare',v:50},{l:'Intensità cardiovascolare',v:31},{l:'Coordinazione',v:60},{l:'Flessibilità',v:80}] },
+  'STRENGHT DEVELOPMENT': { desc: 'Programma dedicato allo sviluppo della forza con bilancieri, manubri e kettlebell. Progressione strutturata per migliorare la prestanza atletica e la composizione corporea.', stats: [{l:'Intensità muscolare',v:95},{l:'Intensità cardiovascolare',v:40},{l:'Coordinazione',v:50},{l:'Flessibilità',v:25}] },
+  'GINN. POSTURALE': { desc: 'Esercizi per correggere i disequilibri posturali, rinforzare i muscoli profondi della schiena e migliorare l\'allineamento. Indicata per tensioni cervicali, dorsali o lombari.', stats: [{l:'Intensità muscolare',v:40},{l:'Intensità cardiovascolare',v:15},{l:'Coordinazione',v:50},{l:'Flessibilità',v:75}] },
+  'GP COREO': { desc: 'Ginnastica coreografata a ritmo di musica: sequenze di passi e movimenti coordinati per allenare memoria motoria, coordinazione e ritmo. Come una lezione di danza.', stats: [{l:'Intensità muscolare',v:45},{l:'Intensità cardiovascolare',v:65},{l:'Coordinazione',v:90},{l:'Flessibilità',v:50}] },
+  'DIFESA PERSONALE': { desc: 'Tecniche pratiche di autodifesa ispirate al Krav Maga e alle arti marziali. Si imparano situazioni reali di pericolo e come reagire con efficacia. Adatto a tutti.', stats: [{l:'Intensità muscolare',v:70},{l:'Intensità cardiovascolare',v:75},{l:'Coordinazione',v:85},{l:'Flessibilità',v:40}] },
+  'YOGASSÈ': { desc: 'Mix originale di yoga e movimento danzato. Fluire tra posture yoga, respirazione consapevole e sequenze coreutiche libere per unire benessere e piacere del movimento.', stats: [{l:'Intensità muscolare',v:40},{l:'Intensità cardiovascolare',v:35},{l:'Coordinazione',v:70},{l:'Flessibilità',v:88}] },
+  'LES MILLS BODY PUMP': { desc: 'Il programma Les Mills con bilanciere: 800 ripetizioni per tonificare ogni muscolo del corpo. Musica motivante, carichi personalizzabili, risultati visibili in poche settimane.', stats: [{l:'Intensità muscolare',v:88},{l:'Intensità cardiovascolare',v:70},{l:'Coordinazione',v:45},{l:'Flessibilità',v:20}] },
+  'GINN. PILATES': { desc: 'Fusione di ginnastica tradizionale e principi del metodo Pilates. Lavoro su postura, rinforzo del tronco e mobilità articolare con un approccio accessibile a tutte le età.', stats: [{l:'Intensità muscolare',v:50},{l:'Intensità cardiovascolare',v:20},{l:'Coordinazione',v:55},{l:'Flessibilità',v:78}] },
+  'GROUP REFORMER': { desc: 'Allenamento in piccoli gruppi sul Reformer Pilates: carrello, molle e corde per un training completo di forza, flessibilità e controllo. Ogni esercizio è adattabile. Prenotazione obbligatoria.', videoUrl: 'https://www.athlonroma.it/wp-content/uploads/2025/03/Video-Reformer-Compresso-per-Sito.mp4', stats: [{l:'Intensità muscolare',v:65},{l:'Intensità cardiovascolare',v:30},{l:'Coordinazione',v:70},{l:'Flessibilità',v:75}] },
+  'HYDROBIKE': { desc: 'Pedalata in acqua su biciclette fisse sommerse. L\'acqua offre resistenza naturale che protegge le articolazioni e massaggia i tessuti. Ottima per cardio e drenaggio.', stats: [{l:'Intensità muscolare',v:55},{l:'Intensità cardiovascolare',v:80},{l:'Coordinazione',v:30},{l:'Flessibilità',v:20}] },
+  'AQUA SOFT': { desc: 'Ginnastica dolce in acqua a basso impatto articolare. Movimenti fluidi per migliorare mobilità, equilibrio e tono muscolare. Ideale per chi inizia o cerca attività riabilitativa.', stats: [{l:'Intensità muscolare',v:30},{l:'Intensità cardiovascolare',v:25},{l:'Coordinazione',v:40},{l:'Flessibilità',v:65}] },
+  'AQUA TONIC': { desc: 'Tonificazione muscolare in acqua con attrezzi galleggianti. La resistenza dell\'acqua intensifica ogni movimento senza sovraccaricare le articolazioni. Efficace per gambe e glutei.', stats: [{l:'Intensità muscolare',v:60},{l:'Intensità cardiovascolare',v:50},{l:'Coordinazione',v:40},{l:'Flessibilità',v:35}] },
+  'AQUA AEROBIC': { desc: 'Aerobica in acqua: sequenze coreografate a ritmo musicale per il sistema cardiovascolare. L\'acqua attutisce gli impatti rendendo la lezione sicura e divertente per tutti.', stats: [{l:'Intensità muscolare',v:45},{l:'Intensità cardiovascolare',v:75},{l:'Coordinazione',v:60},{l:'Flessibilità',v:30}] },
+  'BABY SWIM': { desc: 'Attività acquatica per neonati e bambini piccoli (da 4 mesi) con un genitore. In un ambiente caldo e sicuro si favorisce la familiarizzazione con l\'acqua e la motricità.', stats: [{l:'Divertimento',v:100},{l:'Sicurezza',v:100},{l:'Sviluppo motorio',v:85},{l:'Relax',v:80}] },
+  'SCUOLA NUOTO': { desc: 'Corso di nuoto per adulti principianti e perfezionisti. Si impara o migliora la tecnica dei quattro stili con istruttori FIN certificati. Gruppi ridotti. Prenotazione obbligatoria.', stats: [{l:'Resistenza',v:70},{l:'Tecnica',v:85},{l:'Coordinazione',v:75},{l:'Flessibilità',v:60}] },
+  'NUOTO LIBERO': { desc: 'Accesso libero alle corsie della piscina (25m) per nuotare in autonomia. Incluso nell\'abbonamento Smart e Premium. Nessuna prenotazione richiesta.', stats: [{l:'Intensità cardiovascolare',v:75},{l:'Intensità muscolare',v:60},{l:'Coordinazione',v:55},{l:'Flessibilità',v:50}] },
+};
+
+function openModal(name, sala, time) {
+  const info = lessons[name] || { desc: 'Descrizione non disponibile.', stats: [] };
+  const color = pillColors[sala] || '#ff5701';
+
+  const pill = document.getElementById('modal-sala-pill');
+  pill.textContent = sala;
+  pill.style.background = color;
+
+  document.getElementById('modal-title').textContent = name;
+  document.getElementById('modal-time-badge').textContent = time;
+  document.getElementById('modal-desc').textContent = info.desc;
+
+  // Video section
+  const videoWrap = document.getElementById('modal-video-wrap');
+  if (info.videoUrl) {
+    const src = document.getElementById('modal-video-src');
+    const player = document.getElementById('modal-video-player');
+    src.src = info.videoUrl;
+    player.load();
+    player.play();
+    videoWrap.style.display = 'block';
+  } else {
+    videoWrap.style.display = 'none';
+  }
+
+  // Build stats HTML
+  const statsEl = document.getElementById('modal-stats');
+  if (info.stats && info.stats.length) {
+    statsEl.innerHTML = '<div class="modal-stats-title">Caratteristiche</div>' +
+      info.stats.map(s => `
+        <div class="stat-row">
+          <div class="stat-label">${s.l}</div>
+          <div class="stat-track">
+            <div class="stat-fill" data-val="${s.v}">
+              <span class="stat-fill-label">${s.l}</span>
+            </div>
+            <span class="stat-pct">${s.v}%</span>
+          </div>
+        </div>`).join('');
+    statsEl.style.display = 'block';
+  } else {
+    statsEl.innerHTML = '';
+    statsEl.style.display = 'none';
+  }
+
+  document.getElementById('modal').classList.add('open');
+
+  // Trigger bar animations after a frame
+  requestAnimationFrame(() => {
+    requestAnimationFrame(() => {
+      document.querySelectorAll('.stat-fill').forEach(bar => {
+        bar.style.width = bar.dataset.val + '%';
+      });
+    });
+  });
+}
+
+function closeModal(e) {
+  if (e.target === document.getElementById('modal')) {
+    document.getElementById('modal').classList.remove('open');
+    const p = document.getElementById('modal-video-player');
+    if (p) { p.pause(); p.currentTime = 0; }
+  }
+}
+
+function setDay(id, btn) {
+  document.querySelectorAll('.day-pane').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.day-tab').forEach(b => b.classList.remove('active'));
+  document.getElementById('day-' + id).classList.add('active');
+  btn.classList.add('active');
+  currentDay = id;
+  document.getElementById('gym-hours-val').textContent = gymData[id].h;
+  document.getElementById('gym-hours-day').textContent = gymData[id].d;
+  // Scroll content to top
+  document.querySelector('.content').scrollTop = 0;
+  applyFilter();
+}
+
+function setFilter(f, btn) {
+  document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  currentFilter = f;
+  applyFilter();
+}
+
+// Auto-wire all cards via event delegation
+document.querySelector('.content').addEventListener('click', function(e) {
+  const card = e.target.closest('.class-card');
+  if (!card) return;
+  const name = card.dataset.name;
+  const sala = card.dataset.sala;
+  const time = card.dataset.time;
+  const sc   = card.dataset.sc;
+  if (name) openModal(name, sala, time);
+});
+
+function applyFilter() {
+  const pane = document.getElementById('day-' + currentDay);
+  if (!pane) return;
+  pane.querySelectorAll('.class-card').forEach(card => {
+    card.style.display = (currentFilter === 'tutti' || card.dataset.cat === currentFilter) ? 'flex' : 'none';
+  });
+  pane.querySelectorAll('.section-hdr').forEach(hdr => {
+    let next = hdr.nextElementSibling;
+    let vis = false;
+    while (next && !next.classList.contains('section-hdr')) {
+      if (next.classList.contains('class-card') && next.style.display !== 'none') { vis = true; break; }
+      next = next.nextElementSibling;
+    }
+    hdr.style.display = vis ? 'block' : 'none';
+  });
+}
+</script>
+</body>
+</html>
