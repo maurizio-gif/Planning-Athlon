@@ -58,6 +58,7 @@ body {
 .header-right { text-align: right; }
 .header-month { font-size: 14px; font-weight: 900; letter-spacing: 2px; text-transform: uppercase; color: var(--accent); line-height:1; }
 .header-sub { font-size: 10px; font-weight: 600; color: #666; letter-spacing: 1px; text-transform: uppercase; margin-top: 2px; }
+.header-booking { font-size: 9px; font-weight: 800; color: var(--accent); letter-spacing: 1.5px; text-transform: uppercase; margin-top: 3px; }
 
 /* ── Gym Floor row ── */
 .gym-row {
@@ -140,13 +141,31 @@ body {
 
 /* ── Section header ── */
 .section-hdr {
-  font-size: 11px; font-weight: 900; letter-spacing: 2.5px; text-transform: uppercase;
-  color: var(--muted);
-  padding: 16px 2px 6px;
-  border-bottom: 1px solid var(--border);
-  margin-bottom: 8px;
+  font-size: 22px; font-weight: 900; letter-spacing: 2px; text-transform: uppercase;
+  color: var(--black);
+  padding: 24px 2px 8px;
+  border-bottom: 3px solid var(--black);
+  margin-bottom: 10px;
 }
-.section-hdr:first-child { padding-top: 4px; }
+.section-hdr:first-child { padding-top: 6px; }
+
+/* ── Gym floor section card ── */
+.gym-floor-card {
+  background: var(--black);
+  border-radius: 8px;
+  padding: 14px 18px;
+  margin-bottom: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+.gym-floor-hours {
+  font-size: 24px; font-weight: 900; color: var(--accent); letter-spacing: 0.5px; line-height: 1;
+}
+.gym-floor-note {
+  font-size: 10px; font-weight: 700; color: #555; letter-spacing: 1.5px; text-transform: uppercase; text-align: right; margin-top: 3px;
+}
 
 /* ── Class card ── */
 .class-card {
@@ -240,7 +259,9 @@ body {
   width: 100%; max-width: 600px;
   padding: 0 0 40px;
   max-height: 88vh;
+  max-height: 82svh;
   overflow-y: auto;
+  overscroll-behavior: contain;
   animation: slideUp .28s cubic-bezier(.2,.8,.4,1);
 }
 .modal-sheet::-webkit-scrollbar { display: none; }
@@ -287,12 +308,7 @@ body {
   font-size: 11px; font-weight: 900; letter-spacing: 3px; text-transform: uppercase;
   color: #555; margin-bottom: 18px;
 }
-.stat-row { margin-bottom: 18px; }
-.stat-label {
-  font-family: 'Barlow Condensed', sans-serif;
-  font-size: 15px; font-weight: 800; letter-spacing: 2px; text-transform: uppercase;
-  color: #fff; margin-bottom: 7px;
-}
+.stat-row { margin-bottom: 8px; }
 .stat-track {
   background: #2e2e2e;
   border-radius: 4px;
@@ -372,17 +388,7 @@ footer strong { color: var(--accent); }
     <div class="header-right">
       <div class="header-month">Luglio 2026</div>
       <div class="header-sub">Planning Corsi</div>
-    </div>
-  </div>
-
-  <!-- Gym Floor -->
-  <div class="gym-row">
-    <div class="gym-row-left">
-      <div class="gym-label">Gym Floor — Sala Pesi<small>Accesso libero, senza prenotazione</small></div>
-    </div>
-    <div>
-      <div class="gym-hours-val" id="gym-hours-val">06:00 – 22:00</div>
-      <div class="gym-hours-day" id="gym-hours-day">Lun – Ven</div>
+      <div class="header-booking">Prenotazione obbligatoria</div>
     </div>
   </div>
 
@@ -729,7 +735,7 @@ const lessons = {
   'AQUA AEROBIC': { desc: 'Aerobica in acqua: sequenze coreografate a ritmo musicale per il sistema cardiovascolare. L\'acqua attutisce gli impatti rendendo la lezione sicura e divertente per tutti.', stats: [{l:'Intensità muscolare',v:45},{l:'Intensità cardiovascolare',v:75},{l:'Coordinazione',v:60},{l:'Flessibilità',v:30}] },
   'BABY SWIM': { desc: 'Attività acquatica per neonati e bambini piccoli (da 4 mesi) con un genitore. In un ambiente caldo e sicuro si favorisce la familiarizzazione con l\'acqua e la motricità.', stats: [{l:'Divertimento',v:100},{l:'Sicurezza',v:100},{l:'Sviluppo motorio',v:85},{l:'Relax',v:80}] },
   'SCUOLA NUOTO': { desc: 'Corso di nuoto per adulti principianti e perfezionisti. Si impara o migliora la tecnica dei quattro stili con istruttori FIN certificati. Gruppi ridotti. Prenotazione obbligatoria.', stats: [{l:'Resistenza',v:70},{l:'Tecnica',v:85},{l:'Coordinazione',v:75},{l:'Flessibilità',v:60}] },
-  'NUOTO LIBERO': { desc: 'Accesso libero alle corsie della piscina (25m) per nuotare in autonomia. Incluso nell\'abbonamento Smart e Premium. Nessuna prenotazione richiesta.', stats: [{l:'Intensità cardiovascolare',v:75},{l:'Intensità muscolare',v:60},{l:'Coordinazione',v:55},{l:'Flessibilità',v:50}] },
+  'NUOTO LIBERO': { desc: 'Accesso alle corsie della piscina (25m) per nuotare in autonomia. Incluso nell\'abbonamento Smart e Premium.', stats: [{l:'Intensità cardiovascolare',v:75},{l:'Intensità muscolare',v:60},{l:'Coordinazione',v:55},{l:'Flessibilità',v:50}] },
 };
 
 function openModal(name, sala, time) {
@@ -763,7 +769,6 @@ function openModal(name, sala, time) {
     statsEl.innerHTML = '<div class="modal-stats-title">Caratteristiche</div>' +
       info.stats.map(s => `
         <div class="stat-row">
-          <div class="stat-label">${s.l}</div>
           <div class="stat-track">
             <div class="stat-fill" data-val="${s.v}">
               <span class="stat-fill-label">${s.l}</span>
@@ -797,18 +802,34 @@ function closeModal(e) {
   }
 }
 
+function gymFloorHTML(id) {
+  return `<div class="section-hdr section-hdr--gym">Gym Floor — Sala Pesi</div>
+<div class="gym-floor-card">
+  <div>
+    <div class="gym-floor-hours">${gymData[id].h}</div>
+  </div>
+</div>`;
+}
+
+function initGymSections() {
+  Object.keys(gymData).forEach(id => {
+    const pane = document.getElementById('day-' + id);
+    if (!pane) return;
+    pane.insertAdjacentHTML('afterbegin', gymFloorHTML(id));
+  });
+}
+
 function setDay(id, btn) {
   document.querySelectorAll('.day-pane').forEach(p => p.classList.remove('active'));
   document.querySelectorAll('.day-tab').forEach(b => b.classList.remove('active'));
   document.getElementById('day-' + id).classList.add('active');
   btn.classList.add('active');
   currentDay = id;
-  document.getElementById('gym-hours-val').textContent = gymData[id].h;
-  document.getElementById('gym-hours-day').textContent = gymData[id].d;
-  // Scroll content to top
   document.querySelector('.content').scrollTop = 0;
   applyFilter();
 }
+
+initGymSections();
 
 function setFilter(f, btn) {
   document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
@@ -835,6 +856,7 @@ function applyFilter() {
     card.style.display = (currentFilter === 'tutti' || card.dataset.cat === currentFilter) ? 'flex' : 'none';
   });
   pane.querySelectorAll('.section-hdr').forEach(hdr => {
+    if (hdr.classList.contains('section-hdr--gym')) return;
     let next = hdr.nextElementSibling;
     let vis = false;
     while (next && !next.classList.contains('section-hdr')) {
