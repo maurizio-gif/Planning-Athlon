@@ -220,20 +220,26 @@ body {
   flex: 1;
 }
 
-/* Group Reformer (C) e Nuoto (VG): solo orario, sfondo sala pieno */
+/* Group Reformer (C) e Nuoto (VG): solo orario centrato */
 .class-entry.card-C .entry-name,
 .class-entry.card-VG .entry-name { display: none; }
+.class-entry.card-C,
+.class-entry.card-VG {
+  justify-content: center;
+  align-items: center;
+}
 .class-entry.card-C .entry-time,
 .class-entry.card-VG .entry-time {
   font-size: 12px;
   font-weight: 800;
   color: #111;
-  white-space: normal;
-  overflow-wrap: break-word;
-  word-break: break-word;
-  text-overflow: clip;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  text-align: center;
   background: transparent;
-  padding: 5px 5px;
+  padding: 0;
+  width: 100%;
 }
 
 /* ── Gym entry ── */
@@ -1312,40 +1318,9 @@ footer strong { color: var(--accent); }
   <div class="band-day">
   </div>
   <div class="band-day">
-  </div>
-  <div class="band-day">
-    <button class="class-entry card-VM" data-name="BABY SWIM" data-sala="Vasca Media" data-time="09:30"><span class="entry-time">09:30</span><span class="entry-name">Baby Swim</span></button>
-  </div>
-</div>
-<div class="time-row">
-  <div class="band-day">
-  </div>
-  <div class="band-day">
-  </div>
-  <div class="band-day">
-  </div>
-  <div class="band-day">
-  </div>
-  <div class="band-day">
-  </div>
-  <div class="band-day">
-    <button class="class-entry card-VM" data-name="BABY SWIM" data-sala="Vasca Media" data-time="10:10"><span class="entry-time">10:10</span><span class="entry-name">Baby Swim</span></button>
-  </div>
-</div>
-<div class="time-row">
-  <div class="band-day">
-  </div>
-  <div class="band-day">
-  </div>
-  <div class="band-day">
-  </div>
-  <div class="band-day">
-  </div>
-  <div class="band-day">
     <button class="class-entry card-VM" data-name="AQUA TONIC" data-sala="Vasca Media" data-time="10:30"><span class="entry-time">10:30</span><span class="entry-name">Aqua Tonic</span></button>
   </div>
   <div class="band-day">
-    <button class="class-entry card-VM" data-name="BABY SWIM" data-sala="Vasca Media" data-time="10:50"><span class="entry-time">10:50</span><span class="entry-name">Baby Swim</span></button>
   </div>
 </div>
 <div class="time-row">
@@ -1378,7 +1353,6 @@ footer strong { color: var(--accent); }
   <div class="band-day">
   </div>
   <div class="band-day">
-    <button class="class-entry card-VM" data-name="AQUA TONIC" data-sala="Vasca Media" data-time="11:30"><span class="entry-time">11:30</span><span class="entry-name">Aqua Tonic</span></button>
     <button class="class-entry card-VM" data-name="AQUA TONIC" data-sala="Vasca Media" data-time="11:30"><span class="entry-time">11:30</span><span class="entry-name">Aqua Tonic</span></button>
   </div>
 </div>
