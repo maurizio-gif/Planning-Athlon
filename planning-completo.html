@@ -17,7 +17,14 @@ body {
   color: #111;
 }
 
-/* ── Page Header (sticky) ── */
+/* ── Sticky top wrapper (header + day bar) ── */
+.sticky-top {
+  position: sticky;
+  top: 0;
+  z-index: 30;
+}
+
+/* ── Page Header ── */
 .page-header {
   padding: 10px 12px 9px;
   display: flex;
@@ -26,9 +33,6 @@ body {
   gap: 8px;
   border-bottom: 1px solid #1e1e1e;
   background: var(--black);
-  position: sticky;
-  top: 0;
-  z-index: 30;
 }
 .logo { display: flex; align-items: center; }
 .logo-img { height: 30px; width: auto; display: block; }
@@ -37,11 +41,8 @@ body {
 .header-dates { font-size: 15px; font-weight: 900; letter-spacing: 1px; color: #fff; line-height: 1.1; margin-top: 2px; }
 .header-booking { font-size: 8px; font-weight: 800; color: var(--accent); letter-spacing: 1.5px; text-transform: uppercase; margin-top: 2px; }
 
-/* ── Day headers bar (sticky) ── */
+/* ── Day headers bar ── */
 .day-headers-bar {
-  position: sticky;
-  top: 50px;
-  z-index: 20;
   background: #111;
 }
 .day-headers-grid {
@@ -364,30 +365,28 @@ footer strong { color: var(--accent); }
 <body>
 
 <!-- ══════════════════════════════════
-     PAGE HEADER
+     STICKY TOP (header + day bar)
 ══════════════════════════════════ -->
-<div class="page-header">
-  <div class="logo">
-    <img src="https://www.athlonroma.it/wp-content/uploads/2025/08/Logo-oriz-full-2.png" alt="Athlon Club" class="logo-img">
+<div class="sticky-top">
+  <div class="page-header">
+    <div class="logo">
+      <img src="https://www.athlonroma.it/wp-content/uploads/2025/08/Logo-oriz-full-2.png" alt="Athlon Club" class="logo-img">
+    </div>
+    <div class="header-right">
+      <div class="header-month">Planning Corsi</div>
+      <div class="header-dates">1 – 31 Luglio 2026</div>
+      <div class="header-booking">Prenotazione obbligatoria</div>
+    </div>
   </div>
-  <div class="header-right">
-    <div class="header-month">Planning Corsi</div>
-    <div class="header-dates">1 – 31 Luglio 2026</div>
-    <div class="header-booking">Prenotazione obbligatoria</div>
-  </div>
-</div>
-
-<!-- ══════════════════════════════════
-     STICKY DAY HEADERS
-══════════════════════════════════ -->
-<div class="day-headers-bar">
-  <div class="day-headers-grid">
-    <div class="dh">LUN</div>
-    <div class="dh">MAR</div>
-    <div class="dh">MER</div>
-    <div class="dh">GIO</div>
-    <div class="dh">VEN</div>
-    <div class="dh">SAB<br><span class="dh-sub">DOM</span></div>
+  <div class="day-headers-bar">
+    <div class="day-headers-grid">
+      <div class="dh">LUN</div>
+      <div class="dh">MAR</div>
+      <div class="dh">MER</div>
+      <div class="dh">GIO</div>
+      <div class="dh">VEN</div>
+      <div class="dh">SAB<br><span class="dh-sub">DOM</span></div>
+    </div>
   </div>
 </div>
 
