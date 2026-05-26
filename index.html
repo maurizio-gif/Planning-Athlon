@@ -325,20 +325,14 @@ body {
   font-size: 16px; font-weight: 400; color: #ddd; line-height: 1.45;
 }
 
-/* Video: altezza cappata, le barre seguono subito dopo */
+/* Video: piena larghezza, allineato alle barre */
 .modal-video-wrap {
   flex: 0 0 auto;
-  display: flex; align-items: center; justify-content: center;
   padding: 10px 18px 40px;
-  max-height: 44vh;
-}
-@media (max-width: 767px) {
-  .modal-video-wrap { max-height: 32svh; padding: 8px 18px 16px; }
 }
 .modal-video-player {
+  width: 100%;
   aspect-ratio: 4 / 3;
-  max-width: 100%;
-  max-height: 100%;
   overflow: hidden;
   border-radius: 12px;
   display: block;
