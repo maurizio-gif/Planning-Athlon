@@ -246,6 +246,30 @@ body {
   text-align: center;
 }
 
+/* ── App download floating button ── */
+.app-fab {
+  position: fixed;
+  bottom: 20px;
+  right: 14px;
+  z-index: 50;
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  background: var(--accent);
+  color: #fff;
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 12px;
+  font-weight: 900;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  text-decoration: none;
+  padding: 10px 14px 10px 12px;
+  border-radius: 28px;
+  box-shadow: 0 4px 16px rgba(255,87,1,0.45);
+}
+.app-fab:active { opacity: 0.85; }
+.app-fab-icon { font-size: 16px; line-height: 1; }
+
 /* Day mini label inside SAB/DOM column */
 .day-mini-label {
   font-size: 8px;
@@ -1465,6 +1489,12 @@ footer strong { color: var(--accent); }
   Soc. Sportiva Dilettantistica · Affiliazione ASI: LAZ-RM4453<br>
   Orari soggetti a variazioni
 </footer>
+
+<!-- APP DOWNLOAD BUTTON -->
+<a class="app-fab" href="https://onelink.to/athlon" target="_blank" rel="noopener">
+  <span class="app-fab-icon">📲</span>
+  <span>Scarica l'App</span>
+</a>
 
 <!-- MODAL -->
 <div class="modal-overlay" id="modal">
