@@ -264,9 +264,6 @@ body {
   background: #1a1a1a;
   flex-direction: column;
 }
-@media (max-width: 768px) {
-  .modal-overlay { bottom: 5%; }
-}
 .modal-overlay.open { display: flex; }
 
 /* Sheet = flex colonna scrollabile */
@@ -276,6 +273,9 @@ body {
   overflow-y: auto;
   -webkit-overflow-scrolling: touch;
   animation: slideUp .25s cubic-bezier(.2,.8,.4,1);
+}
+@media (max-width: 768px) {
+  .modal-sheet { padding-bottom: 5%; }
 }
 .modal-sheet::-webkit-scrollbar { display: none; }
 @keyframes slideUp {
