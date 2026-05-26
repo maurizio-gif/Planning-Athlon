@@ -16,24 +16,45 @@
   --text: #111;
 }
 * { margin:0; padding:0; box-sizing:border-box; }
-html,body { height:100%; }
+html,body { height:100%; overflow:hidden; }
 body {
   font-family: 'Barlow Condensed', sans-serif;
   background: var(--bg);
   color: var(--text);
+}
+
+/* ── Scroll container principale ── */
+.scroll-container {
+  height: 100%;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
   display: flex;
   flex-direction: column;
 }
+.scroll-container::-webkit-scrollbar { display: none; }
+
+/* ── Hero video ── */
+.hero-video-wrap {
+  width: 100%;
+  background: var(--black);
+  line-height: 0;
+  flex-shrink: 0;
+}
+.hero-video-wrap video {
+  width: 100%;
+  display: block;
+  max-height: 56vw; /* mantiene ~16:9 */
+  object-fit: cover;
+}
 
 /* ══════════════════════════════
-   STICKY NAV BLOCK
+   STICKY NAV BLOCK (solo filtri)
 ══════════════════════════════ */
 .sticky-nav {
   position: sticky;
   top: 0;
   z-index: 100;
   background: var(--black);
-  /* single unified dark block */
 }
 
 /* ── Logo row ── */
@@ -44,6 +65,8 @@ body {
   justify-content: space-between;
   gap: 12px;
   border-bottom: 1px solid #1e1e1e;
+  background: var(--black);
+  flex-shrink: 0;
 }
 .logo { display: flex; align-items: center; }
 .logo-img { height: 38px; width: auto; display: block; }
@@ -128,9 +151,7 @@ body {
    SCROLLABLE CONTENT
 ══════════════════════════════ */
 .content {
-  flex: 1;
-  overflow-y: auto;
-  -webkit-overflow-scrolling: touch;
+  flex: 1 0 auto;
 }
 
 /* ── Day pane ── */
@@ -444,23 +465,35 @@ footer strong { color: var(--accent); }
 </style>
 </head>
 <body>
+<div class="scroll-container">
 
 <!-- ══════════════════════════════════
-     STICKY NAV
+     HEADER (scorre via)
+══════════════════════════════════ -->
+<div class="header">
+  <div class="logo">
+    <img src="https://www.athlonroma.it/wp-content/uploads/2025/08/Logotipo-full-2.png" alt="Athlon Club" class="logo-img">
+  </div>
+  <div class="header-right">
+    <div class="header-month">Planning Corsi</div>
+    <div class="header-dates">1 – 31 Luglio 2026</div>
+    <div class="header-booking">Prenotazione obbligatoria</div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════
+     HERO VIDEO (scorre via)
+══════════════════════════════════ -->
+<div class="hero-video-wrap">
+  <video autoplay muted loop playsinline preload="auto">
+    <source src="https://www.athlonroma.it/wp-content/uploads/2025/12/Athlon-Tour-2025-COMPRESSED.mp4" type="video/mp4">
+  </video>
+</div>
+
+<!-- ══════════════════════════════════
+     STICKY NAV (solo filtri)
 ══════════════════════════════════ -->
 <div class="sticky-nav">
-
-  <!-- Logo -->
-  <div class="header">
-    <div class="logo">
-      <img src="https://www.athlonroma.it/wp-content/uploads/2025/08/Logotipo-full-2.png" alt="Athlon Club" class="logo-img">
-    </div>
-    <div class="header-right">
-      <div class="header-month">Planning Corsi</div>
-      <div class="header-dates">1 – 31 Luglio 2026</div>
-      <div class="header-booking">Prenotazione obbligatoria</div>
-    </div>
-  </div>
 
   <!-- Filters -->
   <div class="filter-row">
@@ -486,7 +519,7 @@ footer strong { color: var(--accent); }
 </div><!-- /sticky-nav -->
 
 <!-- ══════════════════════════════════
-     SCROLLABLE CONTENT
+     CONTENT
 ══════════════════════════════════ -->
 <div class="content">
 
@@ -737,6 +770,7 @@ footer strong { color: var(--accent); }
   </footer>
 
 </div><!-- /content -->
+</div><!-- /scroll-container -->
 
 <!-- MODAL -->
 <div class="modal-overlay" id="modal">
