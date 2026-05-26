@@ -1637,6 +1637,17 @@ document.body.addEventListener('click', function(e) {
   openModal(card.dataset.name, card.dataset.sala, card.dataset.time);
 });
 
+// Espandi l'orario con fine lezione (+50 min) per fitness / aqua / reformer
+document.querySelectorAll('.class-entry[data-time] .entry-time').forEach(el => {
+  const t = el.closest('.class-entry').dataset.time;
+  if (!t) return;
+  const [h, m] = t.split(':').map(Number);
+  const endTot = h * 60 + m + 50;
+  const eH = String(Math.floor(endTot / 60)).padStart(2, '0');
+  const eM = String(endTot % 60).padStart(2, '0');
+  el.textContent = t + '–' + eH + ':' + eM;
+});
+
 // Nascondi l'orario di inizio quando il nome contiene già una fascia oraria (es. "· 07:00–11:00")
 document.querySelectorAll('.entry-name').forEach(el => {
   if (el.textContent.includes('·')) {
