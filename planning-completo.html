@@ -99,6 +99,23 @@ body {
   white-space: nowrap;
 }
 
+/* ── CTA bar ── */
+.cta-bar {
+  background: #1a1a1a;
+  text-align: center;
+  padding: 5px 12px 6px;
+  border-bottom: 1px solid #2a2a2a;
+}
+.cta-bar span {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 10px;
+  font-weight: 700;
+  color: var(--accent);
+  text-transform: uppercase;
+  letter-spacing: 1.2px;
+}
+.cta-bar span::before { content: '▶ '; font-size: 8px; }
+
 /* ── Band section wrapper ── */
 .band-section {
   margin: 16px 8px 0;
@@ -439,6 +456,7 @@ footer strong { color: var(--accent); }
     <div class="legend-item"><div class="legend-dot" style="background:#99bff5"></div><span class="legend-label">Vasca Grande</span></div>
     <div class="legend-item"><div class="legend-dot" style="background:#99dff5"></div><span class="legend-label">Vasca Media</span></div>
   </div>
+  <div class="cta-bar"><span>Clicca sulla lezione per il video e la descrizione</span></div>
   <div class="day-headers-bar">
     <div class="day-headers-grid">
       <div class="dh">LUN</div>
