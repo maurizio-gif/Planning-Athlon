@@ -17,10 +17,12 @@ body {
   color: #111;
 }
 
-/* ── Sticky top wrapper (header + day bar) ── */
+/* ── Fixed top wrapper (header + day bar) ── */
 .sticky-top {
-  position: sticky;
+  position: fixed;
   top: 0;
+  left: 0;
+  right: 0;
   z-index: 30;
 }
 
@@ -1541,6 +1543,13 @@ document.querySelectorAll('.class-entry[data-time] .entry-time').forEach(el => {
   const eM = String(endTot % 60).padStart(2, '0');
   el.textContent = t + '–' + eH + ':' + eM;
 });
+// Imposta padding-top pari all'altezza dell'header fisso
+function adjustPadding() {
+  const h = document.querySelector('.sticky-top').offsetHeight;
+  document.body.style.paddingTop = h + 'px';
+}
+adjustPadding();
+window.addEventListener('resize', adjustPadding);
 </script>
 </body>
 </html>
