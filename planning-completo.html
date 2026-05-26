@@ -10,16 +10,15 @@
   --accent: #ff5701;
   --black: #111111;
 }
-* { margin:0; padding:0; box-sizing:border-box; }
-html,body { height:auto; overflow-x:auto; overflow-y:auto; }
+html, body { margin: 0; padding: 0; background: #0e0e0e; overflow-x: auto; }
+* { box-sizing: border-box; }
 body {
   font-family: 'Barlow Condensed', sans-serif;
-  background: #0e0e0e;
   color: #fff;
 }
 
-/* ── Header (sticky) ── */
-.header {
+/* ── Page Header (sticky) ── */
+.page-header {
   padding: 14px 16px 12px;
   display: flex;
   align-items: center;
@@ -27,62 +26,81 @@ body {
   gap: 12px;
   border-bottom: 1px solid #1e1e1e;
   background: var(--black);
-  flex-shrink: 0;
   position: sticky;
   top: 0;
-  z-index: 20;
+  z-index: 30;
+  min-width: 600px;
 }
 .logo { display: flex; align-items: center; }
 .logo-img { height: 38px; width: auto; display: block; }
 .header-right { text-align: right; }
-@media (max-width: 767px) {
-  .header { flex-direction: column; align-items: flex-start; gap: 6px; padding: 12px 16px 10px; }
-  .header-right { text-align: left; }
-}
 .header-month { font-size: 11px; font-weight: 900; letter-spacing: 2px; text-transform: uppercase; color: var(--accent); line-height: 1; }
 .header-dates { font-size: 18px; font-weight: 900; letter-spacing: 1px; color: #fff; line-height: 1.1; margin-top: 3px; }
-.header-sub { font-size: 10px; font-weight: 600; color: #555; letter-spacing: 1px; text-transform: uppercase; margin-top: 3px; }
 .header-booking { font-size: 9px; font-weight: 800; color: var(--accent); letter-spacing: 1.5px; text-transform: uppercase; margin-top: 3px; }
 
-/* ── Week grid ── */
-.week-grid {
+/* ── Day headers bar (sticky) ── */
+.day-headers-bar {
+  position: sticky;
+  top: 63px;
+  z-index: 20;
+  background: #0e0e0e;
+  min-width: 600px;
+}
+.day-headers-grid {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap: 1px;
+  background: #222;
+}
+.dh {
+  background: #1a1a1a;
+  color: #fff;
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 13px;
+  font-weight: 900;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  padding: 8px 6px;
+  text-align: center;
+  border-bottom: 2px solid #ff5701;
+}
+.dh-sub { font-size: 10px; color: #888; letter-spacing: 1px; }
+
+/* ── Band title (full-width section header) ── */
+.band-title {
+  background: #000;
+  color: #fff;
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 26px;
+  font-weight: 900;
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  padding: 14px 18px 12px;
+  min-width: 600px;
+  border-top: 3px solid #222;
+}
+
+/* ── Band grid ── */
+.band-grid {
   display: grid;
   grid-template-columns: repeat(6, 1fr);
   gap: 1px;
   background: #222;
   min-width: 600px;
+  margin-bottom: 0;
 }
-
-/* ── Day column ── */
-.day-col { min-width: 0; background: #0e0e0e; }
-.day-col-title {
-  font-size: 11px; font-weight: 900; letter-spacing: 2px; text-transform: uppercase;
-  color: #fff; background: #1a1a1a; padding: 9px 6px;
-  text-align: center; position: sticky; top: 63px; z-index: 10;
-  border-bottom: 2px solid #ff5701;
+.band-day {
+  background: #0e0e0e;
+  padding: 3px 2px;
+  min-height: 20px;
 }
-.day-col-title--sub {
-  margin-top: 12px; border-top: 1px solid #2a2a2a;
-  border-bottom-color: #444; color: #aaa;
-}
-
-/* ── Day pane ── */
-.day-pane { display: block; padding: 0 0 8px; }
-
-/* ── Section header ── */
-.section-hdr {
-  font-size: 8px; font-weight: 900; letter-spacing: 1.5px; text-transform: uppercase;
-  color: #555; padding: 10px 6px 3px; border-bottom: 1px solid #2a2a2a;
-  margin-bottom: 2px;
-}
-.section-hdr:first-child { padding-top: 4px; }
 
 /* ── Class entry ── */
 .class-entry {
   display: flex;
   align-items: center;
-  gap: 5px;
-  padding: 5px 6px;
+  gap: 4px;
+  padding: 5px 5px;
   margin-bottom: 1px;
   cursor: pointer;
   width: 100%;
@@ -97,24 +115,48 @@ body {
 .class-entry.card-VG { background: #6633cc; }
 .class-entry:active { opacity: 0.85; }
 .entry-time {
-  font-size: 11px; font-weight: 900; color: rgba(255,255,255,0.9);
-  white-space: nowrap; flex-shrink: 0; letter-spacing: 0.5px;
+  font-size: 11px;
+  font-weight: 900;
+  color: rgba(255,255,255,0.9);
+  white-space: nowrap;
+  flex-shrink: 0;
 }
 .entry-name {
-  font-size: 10px; font-weight: 800; color: #fff;
-  text-transform: uppercase; letter-spacing: 0.3px; line-height: 1.2;
+  font-size: 10px;
+  font-weight: 800;
+  color: #fff;
+  text-transform: uppercase;
+  letter-spacing: 0.3px;
+  line-height: 1.2;
 }
 
-/* ── Gym floor entry ── */
+/* ── Gym entry ── */
 .gym-entry {
-  display: flex; align-items: center; gap: 5px;
-  padding: 6px 6px; margin-bottom: 1px;
-  background: #1c1c1c; cursor: pointer; width: 100%;
-  border: none; text-align: left; font-family: 'Barlow Condensed', sans-serif;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  padding: 6px 5px;
+  margin-bottom: 1px;
+  background: #1c1c1c;
+  cursor: pointer;
+  width: 100%;
+  border: none;
+  text-align: left;
+  font-family: 'Barlow Condensed', sans-serif;
   border-left: 3px solid #ff5701;
 }
-.gym-entry-label { font-size: 9px; font-weight: 900; color: #ff5701; letter-spacing: 1px; text-transform: uppercase; }
-.gym-entry-hours { font-size: 13px; font-weight: 900; color: #fff; }
+.gym-entry-label { font-size: 8px; font-weight: 900; color: #ff5701; letter-spacing: 1px; text-transform: uppercase; }
+.gym-entry-hours { font-size: 12px; font-weight: 900; color: #fff; }
+
+/* Day mini label inside SAB/DOM column */
+.day-mini-label {
+  font-size: 8px;
+  font-weight: 900;
+  color: #444;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  padding: 4px 4px 1px;
+}
 
 /* ── VIDEO LABEL ── */
 .modal-video-label-top {
@@ -132,7 +174,6 @@ body {
 }
 .modal-overlay.open { display: flex; }
 
-/* Sheet = flex colonna scrollabile */
 .modal-sheet {
   flex: 1; min-height: 0;
   display: flex; flex-direction: column;
@@ -147,7 +188,6 @@ body {
 }
 .modal-drag { display: none; }
 
-/* Sezioni fisse */
 .modal-topbar {
   flex-shrink: 0;
   display: flex; align-items: center; justify-content: flex-end;
@@ -189,7 +229,6 @@ body {
   font-size: 16px; font-weight: 400; color: #ddd; line-height: 1.45;
 }
 
-/* Video: piena larghezza, allineato alle barre */
 .modal-video-wrap {
   flex: 0 0 auto;
   padding: 10px 18px 40px;
@@ -212,7 +251,6 @@ body {
   border-radius: 12px;
 }
 
-/* Stats */
 .modal-stats {
   flex-shrink: 0;
   padding: 10px 18px 16px;
@@ -224,7 +262,6 @@ body {
 }
 .stat-row { margin-bottom: 5px; }
 
-/* Equipment list */
 .modal-equipment {
   flex: 1; min-height: 0;
   overflow-y: auto; -webkit-overflow-scrolling: touch;
@@ -293,6 +330,7 @@ footer {
   padding: 14px 16px;
   font-size: 10px; font-weight: 600; letter-spacing: 1px; text-transform: uppercase;
   text-align: center; line-height: 1.9;
+  min-width: 600px;
 }
 footer strong { color: var(--accent); }
 </style>
@@ -300,9 +338,9 @@ footer strong { color: var(--accent); }
 <body>
 
 <!-- ══════════════════════════════════
-     HEADER
+     PAGE HEADER
 ══════════════════════════════════ -->
-<div class="header">
+<div class="page-header">
   <div class="logo">
     <img src="https://www.athlonroma.it/wp-content/uploads/2025/08/Logo-oriz-full-2.png" alt="Athlon Club" class="logo-img">
   </div>
@@ -314,260 +352,409 @@ footer strong { color: var(--accent); }
 </div>
 
 <!-- ══════════════════════════════════
-     WEEK GRID
+     STICKY DAY HEADERS
 ══════════════════════════════════ -->
-<div class="week-grid">
+<div class="day-headers-bar">
+  <div class="day-headers-grid">
+    <div class="dh">LUN</div>
+    <div class="dh">MAR</div>
+    <div class="dh">MER</div>
+    <div class="dh">GIO</div>
+    <div class="dh">VEN</div>
+    <div class="dh">SAB<br><span class="dh-sub">DOM</span></div>
+  </div>
+</div>
 
-  <!-- ═══ LUNEDÌ ═══ -->
-  <div class="day-col">
-    <div class="day-col-title">LUN</div>
-    <div id="day-lun" class="day-pane">
-      <div class="section-hdr">Corsi Fitness</div>
-      <div class="class-entry card-A" data-cat="fitness" data-name="BODY SCULPT" data-sala="Sala A" data-time="07:40" data-sc="card-A"><span class="entry-time">07:40</span><span class="entry-name">Body Sculpt</span></div>
-      <div class="class-entry card-A" data-cat="fitness" data-name="GINNASTICA DOLCE" data-sala="Sala A" data-time="09:30" data-sc="card-A"><span class="entry-time">09:30</span><span class="entry-name">Ginnastica Dolce</span></div>
-      <div class="class-entry card-A" data-cat="fitness" data-name="PILATES MATWORK" data-sala="Sala A" data-time="10:30" data-sc="card-A"><span class="entry-time">10:30</span><span class="entry-name">Pilates Matwork</span></div>
-      <div class="class-entry card-B" data-cat="fitness" data-name="HBX FUSION" data-sala="Sala B" data-time="11:30" data-sc="card-B"><span class="entry-time">11:30</span><span class="entry-name">HBX Fusion</span></div>
-      <div class="class-entry card-B" data-cat="fitness" data-name="HBX BOXING" data-sala="Sala B" data-time="13:30" data-sc="card-B"><span class="entry-time">13:30</span><span class="entry-name">HBX Boxing</span></div>
-      <div class="class-entry card-A" data-cat="fitness" data-name="PILATES MATWORK" data-sala="Sala A" data-time="17:30" data-sc="card-A"><span class="entry-time">17:30</span><span class="entry-name">Pilates Matwork</span></div>
-      <div class="class-entry card-A" data-cat="fitness" data-name="BODY SCULPT" data-sala="Sala A" data-time="18:20" data-sc="card-A"><span class="entry-time">18:20</span><span class="entry-name">Body Sculpt</span></div>
-      <div class="class-entry card-B" data-cat="fitness" data-name="MOTR" data-sala="Sala B" data-time="18:20" data-sc="card-B"><span class="entry-time">18:20</span><span class="entry-name">MOTR</span></div>
-      <div class="class-entry card-A" data-cat="fitness" data-name="BOOTY WORKOUT" data-sala="Sala A" data-time="19:10" data-sc="card-A"><span class="entry-time">19:10</span><span class="entry-name">Booty Workout</span></div>
-      <div class="class-entry card-B" data-cat="fitness" data-name="HBX FUSION" data-sala="Sala B" data-time="19:10" data-sc="card-B"><span class="entry-time">19:10</span><span class="entry-name">HBX Fusion</span></div>
-      <div class="class-entry card-A" data-cat="fitness" data-name="POWER YOGA" data-sala="Sala A" data-time="20:00" data-sc="card-A"><span class="entry-time">20:00</span><span class="entry-name">Power Yoga</span></div>
-      <div class="class-entry card-B" data-cat="fitness" data-name="CALISTHENICS" data-sala="Sala B" data-time="20:00" data-sc="card-B"><span class="entry-time">20:00</span><span class="entry-name">Calisthenics</span></div>
-      <div class="section-hdr">Group Reformer</div>
-      <div class="class-entry card-C" data-cat="reformer" data-name="GROUP REFORMER" data-sala="Sala C" data-time="08:30" data-sc="card-C"><span class="entry-time">08:30</span><span class="entry-name">Group Reformer</span></div>
-      <div class="class-entry card-C" data-cat="reformer" data-name="GROUP REFORMER" data-sala="Sala C" data-time="13:30" data-sc="card-C"><span class="entry-time">13:30</span><span class="entry-name">Group Reformer</span></div>
-      <div class="class-entry card-C" data-cat="reformer" data-name="GROUP REFORMER" data-sala="Sala C" data-time="17:30" data-sc="card-C"><span class="entry-time">17:30</span><span class="entry-name">Group Reformer</span></div>
-      <div class="class-entry card-C" data-cat="reformer" data-name="GROUP REFORMER" data-sala="Sala C" data-time="18:20" data-sc="card-C"><span class="entry-time">18:20</span><span class="entry-name">Group Reformer</span></div>
-      <div class="class-entry card-C" data-cat="reformer" data-name="GROUP REFORMER" data-sala="Sala C" data-time="19:10" data-sc="card-C"><span class="entry-time">19:10</span><span class="entry-name">Group Reformer</span></div>
-      <div class="section-hdr">Aqua Fitness</div>
-      <div class="class-entry card-VM" data-cat="aqua" data-name="HYDROBIKE" data-sala="Vasca Media" data-time="08:15" data-sc="card-VM"><span class="entry-time">08:15</span><span class="entry-name">Hydrobike</span></div>
-      <div class="class-entry card-VM" data-cat="aqua" data-name="AQUA SOFT" data-sala="Vasca Media" data-time="09:00" data-sc="card-VM"><span class="entry-time">09:00</span><span class="entry-name">Aqua Soft</span></div>
-      <div class="class-entry card-VM" data-cat="aqua" data-name="AQUA TONIC" data-sala="Vasca Media" data-time="11:00" data-sc="card-VM"><span class="entry-time">11:00</span><span class="entry-name">Aqua Tonic</span></div>
-      <div class="class-entry card-VM" data-cat="aqua" data-name="AQUA TONIC" data-sala="Vasca Media" data-time="13:30" data-sc="card-VM"><span class="entry-time">13:30</span><span class="entry-name">Aqua Tonic</span></div>
-      <div class="class-entry card-VM" data-cat="aqua" data-name="HYDROBIKE" data-sala="Vasca Media" data-time="18:00" data-sc="card-VM"><span class="entry-time">18:00</span><span class="entry-name">Hydrobike</span></div>
-      <div class="class-entry card-VM" data-cat="aqua" data-name="HYDROBIKE" data-sala="Vasca Media" data-time="18:50" data-sc="card-VM"><span class="entry-time">18:50</span><span class="entry-name">Hydrobike</span></div>
-      <div class="class-entry card-VM" data-cat="aqua" data-name="AQUA TONIC" data-sala="Vasca Media" data-time="19:40" data-sc="card-VM"><span class="entry-time">19:40</span><span class="entry-name">Aqua Tonic</span></div>
-      <div class="section-hdr">Scuola Nuoto Adulti</div>
-      <div class="class-entry card-VG" data-cat="nuoto-adulti" data-name="SCUOLA NUOTO" data-sala="Vasca Grande" data-time="19:20" data-sc="card-VG"><span class="entry-time">19:20</span><span class="entry-name">Scuola Nuoto · 19:20–20:10</span></div>
-      <div class="class-entry card-VG" data-cat="nuoto-adulti" data-name="SCUOLA NUOTO" data-sala="Vasca Grande" data-time="20:10" data-sc="card-VG"><span class="entry-time">20:10</span><span class="entry-name">Scuola Nuoto · 20:10–21:00</span></div>
-      <div class="section-hdr">Nuoto Libero</div>
-      <div class="class-entry card-VG" data-cat="nuoto-libero" data-name="NUOTO LIBERO" data-sala="Vasca Grande" data-time="07:00" data-sc="card-VG"><span class="entry-time">07:00</span><span class="entry-name">Nuoto Libero · 07:00–11:00</span></div>
-      <div class="class-entry card-VG" data-cat="nuoto-libero" data-name="NUOTO LIBERO" data-sala="Vasca Grande" data-time="12:30" data-sc="card-VG"><span class="entry-time">12:30</span><span class="entry-name">Nuoto Libero · 12:30–15:00</span></div>
-      <div class="class-entry card-VG" data-cat="nuoto-libero" data-name="NUOTO LIBERO" data-sala="Vasca Grande" data-time="20:10" data-sc="card-VG"><span class="entry-time">20:10</span><span class="entry-name">Nuoto Libero · 20:10–22:00</span></div>
-    </div>
+<!-- ══════════════════════════════════
+     BAND: GYM FLOOR — SALA PESI
+══════════════════════════════════ -->
+<div class="band-title">GYM FLOOR — SALA PESI</div>
+<div class="band-grid">
+
+  <!-- LUN -->
+  <div class="band-day">
+    <button class="gym-entry" onclick="openModal('GYM FLOOR','Gym Floor','06:00 – 22:00')">
+      <div><div class="gym-entry-label">Sala Pesi</div><div class="gym-entry-hours">06:00 – 22:00</div></div>
+    </button>
   </div>
 
-  <!-- ═══ MARTEDÌ ═══ -->
-  <div class="day-col">
-    <div class="day-col-title">MAR</div>
-    <div id="day-mar" class="day-pane">
-      <div class="section-hdr">Corsi Fitness</div>
-      <div class="class-entry card-B" data-cat="fitness" data-name="HBX BOXING" data-sala="Sala B" data-time="07:40" data-sc="card-B"><span class="entry-time">07:40</span><span class="entry-name">HBX Boxing</span></div>
-      <div class="class-entry card-A" data-cat="fitness" data-name="PILATES MATWORK" data-sala="Sala A" data-time="09:30" data-sc="card-A"><span class="entry-time">09:30</span><span class="entry-name">Pilates Matwork</span></div>
-      <div class="class-entry card-A" data-cat="fitness" data-name="ANTIGRAVITY" data-sala="Sala A" data-time="11:30" data-sc="card-A"><span class="entry-time">11:30</span><span class="entry-name">Antigravity</span></div>
-      <div class="class-entry card-B" data-cat="fitness" data-name="STRENGHT DEVELOPMENT" data-sala="Sala B" data-time="11:30" data-sc="card-B"><span class="entry-time">11:30</span><span class="entry-name">Strenght Development</span></div>
-      <div class="class-entry card-A" data-cat="fitness" data-name="PILATES MATWORK" data-sala="Sala A" data-time="13:30" data-sc="card-A"><span class="entry-time">13:30</span><span class="entry-name">Pilates Matwork</span></div>
-      <div class="class-entry card-B" data-cat="fitness" data-name="HBX FUSION" data-sala="Sala B" data-time="13:30" data-sc="card-B"><span class="entry-time">13:30</span><span class="entry-name">HBX Fusion</span></div>
-      <div class="class-entry card-A" data-cat="fitness" data-name="GINN. POSTURALE" data-sala="Sala A" data-time="16:50" data-sc="card-A"><span class="entry-time">16:50</span><span class="entry-name">Ginn. Posturale</span></div>
-      <div class="class-entry card-A" data-cat="fitness" data-name="POWER YOGA" data-sala="Sala A" data-time="17:40" data-sc="card-A"><span class="entry-time">17:40</span><span class="entry-name">Power Yoga</span></div>
-      <div class="class-entry card-B" data-cat="fitness" data-name="HBX FUSION" data-sala="Sala B" data-time="17:40" data-sc="card-B"><span class="entry-time">17:40</span><span class="entry-name">HBX Fusion</span></div>
-      <div class="class-entry card-A" data-cat="fitness" data-name="PILATES MATWORK" data-sala="Sala A" data-time="18:30" data-sc="card-A"><span class="entry-time">18:30</span><span class="entry-name">Pilates Matwork</span></div>
-      <div class="class-entry card-B" data-cat="fitness" data-name="STRENGHT DEVELOPMENT" data-sala="Sala B" data-time="18:30" data-sc="card-B"><span class="entry-time">18:30</span><span class="entry-name">Strenght Development</span></div>
-      <div class="class-entry card-A" data-cat="fitness" data-name="GP COREO" data-sala="Sala A" data-time="19:20" data-sc="card-A"><span class="entry-time">19:20</span><span class="entry-name">GP Coreo</span></div>
-      <div class="class-entry card-B" data-cat="fitness" data-name="HBX BOXING" data-sala="Sala B" data-time="19:20" data-sc="card-B"><span class="entry-time">19:20</span><span class="entry-name">HBX Boxing</span></div>
-      <div class="class-entry card-A" data-cat="fitness" data-name="BODY SCULPT" data-sala="Sala A" data-time="20:10" data-sc="card-A"><span class="entry-time">20:10</span><span class="entry-name">Body Sculpt</span></div>
-      <div class="class-entry card-B" data-cat="fitness" data-name="DIFESA PERSONALE" data-sala="Sala B" data-time="20:10" data-sc="card-B"><span class="entry-time">20:10</span><span class="entry-name">Difesa Personale</span></div>
-      <div class="section-hdr">Group Reformer</div>
-      <div class="class-entry card-C" data-cat="reformer" data-name="GROUP REFORMER" data-sala="Sala C" data-time="10:30" data-sc="card-C"><span class="entry-time">10:30</span><span class="entry-name">Group Reformer</span></div>
-      <div class="class-entry card-C" data-cat="reformer" data-name="GROUP REFORMER" data-sala="Sala C" data-time="18:10" data-sc="card-C"><span class="entry-time">18:10</span><span class="entry-name">Group Reformer</span></div>
-      <div class="class-entry card-C" data-cat="reformer" data-name="GROUP REFORMER" data-sala="Sala C" data-time="19:00" data-sc="card-C"><span class="entry-time">19:00</span><span class="entry-name">Group Reformer</span></div>
-      <div class="class-entry card-C" data-cat="reformer" data-name="GROUP REFORMER" data-sala="Sala C" data-time="19:50" data-sc="card-C"><span class="entry-time">19:50</span><span class="entry-name">Group Reformer</span></div>
-      <div class="section-hdr">Aqua Fitness</div>
-      <div class="class-entry card-VM" data-cat="aqua" data-name="AQUA SOFT" data-sala="Vasca Media" data-time="09:00" data-sc="card-VM"><span class="entry-time">09:00</span><span class="entry-name">Aqua Soft</span></div>
-      <div class="class-entry card-VM" data-cat="aqua" data-name="AQUA TONIC" data-sala="Vasca Media" data-time="11:00" data-sc="card-VM"><span class="entry-time">11:00</span><span class="entry-name">Aqua Tonic</span></div>
-      <div class="class-entry card-VM" data-cat="aqua" data-name="HYDROBIKE" data-sala="Vasca Media" data-time="13:00" data-sc="card-VM"><span class="entry-time">13:00</span><span class="entry-name">Hydrobike</span></div>
-      <div class="class-entry card-VM" data-cat="aqua" data-name="AQUA AEROBIC" data-sala="Vasca Media" data-time="13:50" data-sc="card-VM"><span class="entry-time">13:50</span><span class="entry-name">Aqua Aerobic</span></div>
-      <div class="class-entry card-VM" data-cat="aqua" data-name="AQUA AEROBIC" data-sala="Vasca Media" data-time="18:50" data-sc="card-VM"><span class="entry-time">18:50</span><span class="entry-name">Aqua Aerobic</span></div>
-      <div class="class-entry card-VM" data-cat="aqua" data-name="HYDROBIKE" data-sala="Vasca Media" data-time="19:40" data-sc="card-VM"><span class="entry-time">19:40</span><span class="entry-name">Hydrobike</span></div>
-      <div class="class-entry card-VM" data-cat="aqua" data-name="HYDROBIKE" data-sala="Vasca Media" data-time="20:25" data-sc="card-VM"><span class="entry-time">20:25</span><span class="entry-name">Hydrobike</span></div>
-      <div class="section-hdr">Scuola Nuoto Adulti</div>
-      <div class="class-entry card-VG" data-cat="nuoto-adulti" data-name="SCUOLA NUOTO" data-sala="Vasca Grande" data-time="14:10" data-sc="card-VG"><span class="entry-time">14:10</span><span class="entry-name">Scuola Nuoto · 14:10–15:00</span></div>
-      <div class="class-entry card-VG" data-cat="nuoto-adulti" data-name="SCUOLA NUOTO" data-sala="Vasca Grande" data-time="19:20" data-sc="card-VG"><span class="entry-time">19:20</span><span class="entry-name">Scuola Nuoto · 19:20–20:10</span></div>
-      <div class="class-entry card-VG" data-cat="nuoto-adulti" data-name="SCUOLA NUOTO" data-sala="Vasca Grande" data-time="20:10" data-sc="card-VG"><span class="entry-time">20:10</span><span class="entry-name">Scuola Nuoto · 20:10–21:00</span></div>
-      <div class="section-hdr">Nuoto Libero</div>
-      <div class="class-entry card-VG" data-cat="nuoto-libero" data-name="NUOTO LIBERO" data-sala="Vasca Grande" data-time="07:00" data-sc="card-VG"><span class="entry-time">07:00</span><span class="entry-name">Nuoto Libero · 07:00–10:00</span></div>
-      <div class="class-entry card-VG" data-cat="nuoto-libero" data-name="NUOTO LIBERO" data-sala="Vasca Grande" data-time="12:30" data-sc="card-VG"><span class="entry-time">12:30</span><span class="entry-name">Nuoto Libero · 12:30–14:30</span></div>
-      <div class="class-entry card-VG" data-cat="nuoto-libero" data-name="NUOTO LIBERO" data-sala="Vasca Grande" data-time="21:00" data-sc="card-VG"><span class="entry-time">21:00</span><span class="entry-name">Nuoto Libero · 21:00–22:00</span></div>
-    </div>
+  <!-- MAR -->
+  <div class="band-day">
+    <button class="gym-entry" onclick="openModal('GYM FLOOR','Gym Floor','06:00 – 22:00')">
+      <div><div class="gym-entry-label">Sala Pesi</div><div class="gym-entry-hours">06:00 – 22:00</div></div>
+    </button>
   </div>
 
-  <!-- ═══ MERCOLEDÌ ═══ -->
-  <div class="day-col">
-    <div class="day-col-title">MER</div>
-    <div id="day-mer" class="day-pane">
-      <div class="section-hdr">Corsi Fitness</div>
-      <div class="class-entry card-B" data-cat="fitness" data-name="STRENGHT DEVELOPMENT" data-sala="Sala B" data-time="07:40" data-sc="card-B"><span class="entry-time">07:40</span><span class="entry-name">Strenght Development</span></div>
-      <div class="class-entry card-A" data-cat="fitness" data-name="PILATES MATWORK" data-sala="Sala A" data-time="09:30" data-sc="card-A"><span class="entry-time">09:30</span><span class="entry-name">Pilates Matwork</span></div>
-      <div class="class-entry card-A" data-cat="fitness" data-name="GINN. POSTURALE" data-sala="Sala A" data-time="10:30" data-sc="card-A"><span class="entry-time">10:30</span><span class="entry-name">Ginn. Posturale</span></div>
-      <div class="class-entry card-B" data-cat="fitness" data-name="HBX FUSION" data-sala="Sala B" data-time="11:00" data-sc="card-B"><span class="entry-time">11:00</span><span class="entry-name">HBX Fusion</span></div>
-      <div class="class-entry card-A" data-cat="fitness" data-name="BODY SCULPT" data-sala="Sala A" data-time="13:00" data-sc="card-A"><span class="entry-time">13:00</span><span class="entry-name">Body Sculpt</span></div>
-      <div class="class-entry card-A" data-cat="fitness" data-name="BOOTY WORKOUT" data-sala="Sala A" data-time="17:30" data-sc="card-A"><span class="entry-time">17:30</span><span class="entry-name">Booty Workout</span></div>
-      <div class="class-entry card-B" data-cat="fitness" data-name="MOTR" data-sala="Sala B" data-time="17:30" data-sc="card-B"><span class="entry-time">17:30</span><span class="entry-name">MOTR</span></div>
-      <div class="class-entry card-A" data-cat="fitness" data-name="BODY SCULPT" data-sala="Sala A" data-time="18:20" data-sc="card-A"><span class="entry-time">18:20</span><span class="entry-name">Body Sculpt</span></div>
-      <div class="class-entry card-B" data-cat="fitness" data-name="HBX FUSION" data-sala="Sala B" data-time="18:20" data-sc="card-B"><span class="entry-time">18:20</span><span class="entry-name">HBX Fusion</span></div>
-      <div class="class-entry card-A" data-cat="fitness" data-name="PILATES MATWORK" data-sala="Sala A" data-time="19:10" data-sc="card-A"><span class="entry-time">19:10</span><span class="entry-name">Pilates Matwork</span></div>
-      <div class="class-entry card-B" data-cat="fitness" data-name="STRENGHT DEVELOPMENT" data-sala="Sala B" data-time="19:10" data-sc="card-B"><span class="entry-time">19:10</span><span class="entry-name">Strenght Development</span></div>
-      <div class="class-entry card-A" data-cat="fitness" data-name="LES MILLS BODY PUMP" data-sala="Sala A" data-time="20:00" data-sc="card-A"><span class="entry-time">20:00</span><span class="entry-name">Les Mills Body Pump</span></div>
-      <div class="class-entry card-B" data-cat="fitness" data-name="CALISTHENICS" data-sala="Sala B" data-time="20:00" data-sc="card-B"><span class="entry-time">20:00</span><span class="entry-name">Calisthenics</span></div>
-      <div class="section-hdr">Group Reformer</div>
-      <div class="class-entry card-C" data-cat="reformer" data-name="GROUP REFORMER" data-sala="Sala C" data-time="08:30" data-sc="card-C"><span class="entry-time">08:30</span><span class="entry-name">Group Reformer</span></div>
-      <div class="class-entry card-C" data-cat="reformer" data-name="GROUP REFORMER" data-sala="Sala C" data-time="10:00" data-sc="card-C"><span class="entry-time">10:00</span><span class="entry-name">Group Reformer</span></div>
-      <div class="class-entry card-C" data-cat="reformer" data-name="GROUP REFORMER" data-sala="Sala C" data-time="13:30" data-sc="card-C"><span class="entry-time">13:30</span><span class="entry-name">Group Reformer</span></div>
-      <div class="class-entry card-C" data-cat="reformer" data-name="GROUP REFORMER" data-sala="Sala C" data-time="18:20" data-sc="card-C"><span class="entry-time">18:20</span><span class="entry-name">Group Reformer</span></div>
-      <div class="class-entry card-C" data-cat="reformer" data-name="GROUP REFORMER" data-sala="Sala C" data-time="19:10" data-sc="card-C"><span class="entry-time">19:10</span><span class="entry-name">Group Reformer</span></div>
-      <div class="section-hdr">Aqua Fitness</div>
-      <div class="class-entry card-VM" data-cat="aqua" data-name="AQUA SOFT" data-sala="Vasca Media" data-time="09:00" data-sc="card-VM"><span class="entry-time">09:00</span><span class="entry-name">Aqua Soft</span></div>
-      <div class="class-entry card-VM" data-cat="aqua" data-name="AQUA TONIC" data-sala="Vasca Media" data-time="11:00" data-sc="card-VM"><span class="entry-time">11:00</span><span class="entry-name">Aqua Tonic</span></div>
-      <div class="class-entry card-VM" data-cat="aqua" data-name="AQUA TONIC" data-sala="Vasca Media" data-time="13:00" data-sc="card-VM"><span class="entry-time">13:00</span><span class="entry-name">Aqua Tonic</span></div>
-      <div class="class-entry card-VM" data-cat="aqua" data-name="HYDROBIKE" data-sala="Vasca Media" data-time="13:50" data-sc="card-VM"><span class="entry-time">13:50</span><span class="entry-name">Hydrobike</span></div>
-      <div class="class-entry card-VM" data-cat="aqua" data-name="AQUA TONIC" data-sala="Vasca Media" data-time="19:20" data-sc="card-VM"><span class="entry-time">19:20</span><span class="entry-name">Aqua Tonic</span></div>
-      <div class="class-entry card-VM" data-cat="aqua" data-name="HYDROBIKE" data-sala="Vasca Media" data-time="20:10" data-sc="card-VM"><span class="entry-time">20:10</span><span class="entry-name">Hydrobike</span></div>
-      <div class="section-hdr">Scuola Nuoto Adulti</div>
-      <div class="class-entry card-VG" data-cat="nuoto-adulti" data-name="SCUOLA NUOTO" data-sala="Vasca Grande" data-time="18:30" data-sc="card-VG"><span class="entry-time">18:30</span><span class="entry-name">Scuola Nuoto · 18:30–19:20</span></div>
-      <div class="class-entry card-VG" data-cat="nuoto-adulti" data-name="SCUOLA NUOTO" data-sala="Vasca Grande" data-time="20:10" data-sc="card-VG"><span class="entry-time">20:10</span><span class="entry-name">Scuola Nuoto · 20:10–21:00</span></div>
-      <div class="section-hdr">Nuoto Libero</div>
-      <div class="class-entry card-VG" data-cat="nuoto-libero" data-name="NUOTO LIBERO" data-sala="Vasca Grande" data-time="07:00" data-sc="card-VG"><span class="entry-time">07:00</span><span class="entry-name">Nuoto Libero · 07:00–11:00</span></div>
-      <div class="class-entry card-VG" data-cat="nuoto-libero" data-name="NUOTO LIBERO" data-sala="Vasca Grande" data-time="12:30" data-sc="card-VG"><span class="entry-time">12:30</span><span class="entry-name">Nuoto Libero · 12:30–14:30</span></div>
-      <div class="class-entry card-VG" data-cat="nuoto-libero" data-name="NUOTO LIBERO" data-sala="Vasca Grande" data-time="20:10" data-sc="card-VG"><span class="entry-time">20:10</span><span class="entry-name">Nuoto Libero · 20:10–22:00</span></div>
-    </div>
+  <!-- MER -->
+  <div class="band-day">
+    <button class="gym-entry" onclick="openModal('GYM FLOOR','Gym Floor','06:00 – 22:00')">
+      <div><div class="gym-entry-label">Sala Pesi</div><div class="gym-entry-hours">06:00 – 22:00</div></div>
+    </button>
   </div>
 
-  <!-- ═══ GIOVEDÌ ═══ -->
-  <div class="day-col">
-    <div class="day-col-title">GIO</div>
-    <div id="day-gio" class="day-pane">
-      <div class="section-hdr">Corsi Fitness</div>
-      <div class="class-entry card-A" data-cat="fitness" data-name="BODY SCULPT" data-sala="Sala A" data-time="07:40" data-sc="card-A"><span class="entry-time">07:40</span><span class="entry-name">Body Sculpt</span></div>
-      <div class="class-entry card-A" data-cat="fitness" data-name="GINNASTICA DOLCE" data-sala="Sala A" data-time="10:30" data-sc="card-A"><span class="entry-time">10:30</span><span class="entry-name">Ginnastica Dolce</span></div>
-      <div class="class-entry card-A" data-cat="fitness" data-name="PILATES MATWORK" data-sala="Sala A" data-time="11:30" data-sc="card-A"><span class="entry-time">11:30</span><span class="entry-name">Pilates Matwork</span></div>
-      <div class="class-entry card-B" data-cat="fitness" data-name="HBX BOXING" data-sala="Sala B" data-time="11:30" data-sc="card-B"><span class="entry-time">11:30</span><span class="entry-name">HBX Boxing</span></div>
-      <div class="class-entry card-A" data-cat="fitness" data-name="LES MILLS BODY PUMP" data-sala="Sala A" data-time="13:30" data-sc="card-A"><span class="entry-time">13:30</span><span class="entry-name">Les Mills Body Pump</span></div>
-      <div class="class-entry card-A" data-cat="fitness" data-name="ANTIGRAVITY" data-sala="Sala A" data-time="17:40" data-sc="card-A"><span class="entry-time">17:40</span><span class="entry-name">Antigravity</span></div>
-      <div class="class-entry card-B" data-cat="fitness" data-name="MOTR" data-sala="Sala B" data-time="17:40" data-sc="card-B"><span class="entry-time">17:40</span><span class="entry-name">MOTR</span></div>
-      <div class="class-entry card-A" data-cat="fitness" data-name="YOGASSÈ" data-sala="Sala A" data-time="18:30" data-sc="card-A"><span class="entry-time">18:30</span><span class="entry-name">Yogassè</span></div>
-      <div class="class-entry card-B" data-cat="fitness" data-name="HBX FUSION" data-sala="Sala B" data-time="18:30" data-sc="card-B"><span class="entry-time">18:30</span><span class="entry-name">HBX Fusion</span></div>
-      <div class="class-entry card-A" data-cat="fitness" data-name="BOOTY WORKOUT" data-sala="Sala A" data-time="19:20" data-sc="card-A"><span class="entry-time">19:20</span><span class="entry-name">Booty Workout</span></div>
-      <div class="class-entry card-B" data-cat="fitness" data-name="STRENGHT DEVELOPMENT" data-sala="Sala B" data-time="19:20" data-sc="card-B"><span class="entry-time">19:20</span><span class="entry-name">Strenght Development</span></div>
-      <div class="class-entry card-A" data-cat="fitness" data-name="BODY SCULPT" data-sala="Sala A" data-time="20:10" data-sc="card-A"><span class="entry-time">20:10</span><span class="entry-name">Body Sculpt</span></div>
-      <div class="section-hdr">Group Reformer</div>
-      <div class="class-entry card-C" data-cat="reformer" data-name="GROUP REFORMER" data-sala="Sala C" data-time="09:30" data-sc="card-C"><span class="entry-time">09:30</span><span class="entry-name">Group Reformer</span></div>
-      <div class="class-entry card-C" data-cat="reformer" data-name="GROUP REFORMER" data-sala="Sala C" data-time="10:30" data-sc="card-C"><span class="entry-time">10:30</span><span class="entry-name">Group Reformer</span></div>
-      <div class="class-entry card-C" data-cat="reformer" data-name="GROUP REFORMER" data-sala="Sala C" data-time="13:30" data-sc="card-C"><span class="entry-time">13:30</span><span class="entry-name">Group Reformer</span></div>
-      <div class="class-entry card-C" data-cat="reformer" data-name="GROUP REFORMER" data-sala="Sala C" data-time="17:40" data-sc="card-C"><span class="entry-time">17:40</span><span class="entry-name">Group Reformer</span></div>
-      <div class="class-entry card-C" data-cat="reformer" data-name="GROUP REFORMER" data-sala="Sala C" data-time="18:30" data-sc="card-C"><span class="entry-time">18:30</span><span class="entry-name">Group Reformer</span></div>
-      <div class="class-entry card-C" data-cat="reformer" data-name="GROUP REFORMER" data-sala="Sala C" data-time="19:20" data-sc="card-C"><span class="entry-time">19:20</span><span class="entry-name">Group Reformer</span></div>
-      <div class="section-hdr">Aqua Fitness</div>
-      <div class="class-entry card-VM" data-cat="aqua" data-name="AQUA SOFT" data-sala="Vasca Media" data-time="09:00" data-sc="card-VM"><span class="entry-time">09:00</span><span class="entry-name">Aqua Soft</span></div>
-      <div class="class-entry card-VM" data-cat="aqua" data-name="AQUA TONIC" data-sala="Vasca Media" data-time="11:00" data-sc="card-VM"><span class="entry-time">11:00</span><span class="entry-name">Aqua Tonic</span></div>
-      <div class="class-entry card-VM" data-cat="aqua" data-name="AQUA AEROBIC" data-sala="Vasca Media" data-time="13:30" data-sc="card-VM"><span class="entry-time">13:30</span><span class="entry-name">Aqua Aerobic</span></div>
-      <div class="class-entry card-VM" data-cat="aqua" data-name="AQUA AEROBIC" data-sala="Vasca Media" data-time="18:50" data-sc="card-VM"><span class="entry-time">18:50</span><span class="entry-name">Aqua Aerobic</span></div>
-      <div class="class-entry card-VM" data-cat="aqua" data-name="HYDROBIKE" data-sala="Vasca Media" data-time="19:40" data-sc="card-VM"><span class="entry-time">19:40</span><span class="entry-name">Hydrobike</span></div>
-      <div class="class-entry card-VM" data-cat="aqua" data-name="HYDROBIKE" data-sala="Vasca Media" data-time="20:25" data-sc="card-VM"><span class="entry-time">20:25</span><span class="entry-name">Hydrobike</span></div>
-      <div class="section-hdr">Scuola Nuoto Adulti</div>
-      <div class="class-entry card-VG" data-cat="nuoto-adulti" data-name="SCUOLA NUOTO" data-sala="Vasca Grande" data-time="14:10" data-sc="card-VG"><span class="entry-time">14:10</span><span class="entry-name">Scuola Nuoto · 14:10–15:00</span></div>
-      <div class="class-entry card-VG" data-cat="nuoto-adulti" data-name="SCUOLA NUOTO" data-sala="Vasca Grande" data-time="19:20" data-sc="card-VG"><span class="entry-time">19:20</span><span class="entry-name">Scuola Nuoto · 19:20–20:10</span></div>
-      <div class="class-entry card-VG" data-cat="nuoto-adulti" data-name="SCUOLA NUOTO" data-sala="Vasca Grande" data-time="20:10" data-sc="card-VG"><span class="entry-time">20:10</span><span class="entry-name">Scuola Nuoto · 20:10–21:00</span></div>
-      <div class="section-hdr">Nuoto Libero</div>
-      <div class="class-entry card-VG" data-cat="nuoto-libero" data-name="NUOTO LIBERO" data-sala="Vasca Grande" data-time="07:00" data-sc="card-VG"><span class="entry-time">07:00</span><span class="entry-name">Nuoto Libero · 07:00–11:00</span></div>
-      <div class="class-entry card-VG" data-cat="nuoto-libero" data-name="NUOTO LIBERO" data-sala="Vasca Grande" data-time="12:30" data-sc="card-VG"><span class="entry-time">12:30</span><span class="entry-name">Nuoto Libero · 12:30–14:30</span></div>
-      <div class="class-entry card-VG" data-cat="nuoto-libero" data-name="NUOTO LIBERO" data-sala="Vasca Grande" data-time="20:10" data-sc="card-VG"><span class="entry-time">20:10</span><span class="entry-name">Nuoto Libero · 20:10–22:00</span></div>
-    </div>
+  <!-- GIO -->
+  <div class="band-day">
+    <button class="gym-entry" onclick="openModal('GYM FLOOR','Gym Floor','06:00 – 22:00')">
+      <div><div class="gym-entry-label">Sala Pesi</div><div class="gym-entry-hours">06:00 – 22:00</div></div>
+    </button>
   </div>
 
-  <!-- ═══ VENERDÌ ═══ -->
-  <div class="day-col">
-    <div class="day-col-title">VEN</div>
-    <div id="day-ven" class="day-pane">
-      <div class="section-hdr">Corsi Fitness</div>
-      <div class="class-entry card-A" data-cat="fitness" data-name="BODY SCULPT" data-sala="Sala A" data-time="07:40" data-sc="card-A"><span class="entry-time">07:40</span><span class="entry-name">Body Sculpt</span></div>
-      <div class="class-entry card-A" data-cat="fitness" data-name="GINN. POSTURALE" data-sala="Sala A" data-time="09:30" data-sc="card-A"><span class="entry-time">09:30</span><span class="entry-name">Ginn. Posturale</span></div>
-      <div class="class-entry card-A" data-cat="fitness" data-name="BODY SCULPT" data-sala="Sala A" data-time="11:30" data-sc="card-A"><span class="entry-time">11:30</span><span class="entry-name">Body Sculpt</span></div>
-      <div class="class-entry card-A" data-cat="fitness" data-name="GINN. PILATES" data-sala="Sala A" data-time="13:30" data-sc="card-A"><span class="entry-time">13:30</span><span class="entry-name">Ginn. Pilates</span></div>
-      <div class="class-entry card-B" data-cat="fitness" data-name="STRENGHT DEVELOPMENT" data-sala="Sala B" data-time="13:30" data-sc="card-B"><span class="entry-time">13:30</span><span class="entry-name">Strenght Development</span></div>
-      <div class="class-entry card-A" data-cat="fitness" data-name="BODY SCULPT" data-sala="Sala A" data-time="16:50" data-sc="card-A"><span class="entry-time">16:50</span><span class="entry-name">Body Sculpt</span></div>
-      <div class="class-entry card-B" data-cat="fitness" data-name="MOTR" data-sala="Sala B" data-time="16:50" data-sc="card-B"><span class="entry-time">16:50</span><span class="entry-name">MOTR</span></div>
-      <div class="class-entry card-A" data-cat="fitness" data-name="PILATES MATWORK" data-sala="Sala A" data-time="17:40" data-sc="card-A"><span class="entry-time">17:40</span><span class="entry-name">Pilates Matwork</span></div>
-      <div class="class-entry card-B" data-cat="fitness" data-name="HBX FUSION" data-sala="Sala B" data-time="17:40" data-sc="card-B"><span class="entry-time">17:40</span><span class="entry-name">HBX Fusion</span></div>
-      <div class="class-entry card-A" data-cat="fitness" data-name="GINN. POSTURALE" data-sala="Sala A" data-time="18:30" data-sc="card-A"><span class="entry-time">18:30</span><span class="entry-name">Ginn. Posturale</span></div>
-      <div class="class-entry card-B" data-cat="fitness" data-name="HBX BOXING" data-sala="Sala B" data-time="18:30" data-sc="card-B"><span class="entry-time">18:30</span><span class="entry-name">HBX Boxing</span></div>
-      <div class="class-entry card-A" data-cat="fitness" data-name="LES MILLS BODY PUMP" data-sala="Sala A" data-time="19:20" data-sc="card-A"><span class="entry-time">19:20</span><span class="entry-name">Les Mills Body Pump</span></div>
-      <div class="class-entry card-B" data-cat="fitness" data-name="CALISTHENICS" data-sala="Sala B" data-time="19:20" data-sc="card-B"><span class="entry-time">19:20</span><span class="entry-name">Calisthenics</span></div>
-      <div class="class-entry card-B" data-cat="fitness" data-name="DIFESA PERSONALE" data-sala="Sala B" data-time="20:10" data-sc="card-B"><span class="entry-time">20:10</span><span class="entry-name">Difesa Personale</span></div>
-      <div class="section-hdr">Group Reformer</div>
-      <div class="class-entry card-C" data-cat="reformer" data-name="GROUP REFORMER" data-sala="Sala C" data-time="08:30" data-sc="card-C"><span class="entry-time">08:30</span><span class="entry-name">Group Reformer</span></div>
-      <div class="class-entry card-C" data-cat="reformer" data-name="GROUP REFORMER" data-sala="Sala C" data-time="10:30" data-sc="card-C"><span class="entry-time">10:30</span><span class="entry-name">Group Reformer</span></div>
-      <div class="class-entry card-C" data-cat="reformer" data-name="GROUP REFORMER" data-sala="Sala C" data-time="18:30" data-sc="card-C"><span class="entry-time">18:30</span><span class="entry-name">Group Reformer</span></div>
-      <div class="class-entry card-C" data-cat="reformer" data-name="GROUP REFORMER" data-sala="Sala C" data-time="19:20" data-sc="card-C"><span class="entry-time">19:20</span><span class="entry-name">Group Reformer</span></div>
-      <div class="section-hdr">Aqua Fitness</div>
-      <div class="class-entry card-VM" data-cat="aqua" data-name="HYDROBIKE" data-sala="Vasca Media" data-time="08:15" data-sc="card-VM"><span class="entry-time">08:15</span><span class="entry-name">Hydrobike</span></div>
-      <div class="class-entry card-VM" data-cat="aqua" data-name="AQUA SOFT" data-sala="Vasca Media" data-time="09:00" data-sc="card-VM"><span class="entry-time">09:00</span><span class="entry-name">Aqua Soft</span></div>
-      <div class="class-entry card-VM" data-cat="aqua" data-name="AQUA TONIC" data-sala="Vasca Media" data-time="10:30" data-sc="card-VM"><span class="entry-time">10:30</span><span class="entry-name">Aqua Tonic</span></div>
-      <div class="class-entry card-VM" data-cat="aqua" data-name="HYDROBIKE" data-sala="Vasca Media" data-time="13:00" data-sc="card-VM"><span class="entry-time">13:00</span><span class="entry-name">Hydrobike</span></div>
-      <div class="class-entry card-VM" data-cat="aqua" data-name="AQUA AEROBIC" data-sala="Vasca Media" data-time="13:50" data-sc="card-VM"><span class="entry-time">13:50</span><span class="entry-name">Aqua Aerobic</span></div>
-      <div class="class-entry card-VM" data-cat="aqua" data-name="HYDROBIKE" data-sala="Vasca Media" data-time="18:50" data-sc="card-VM"><span class="entry-time">18:50</span><span class="entry-name">Hydrobike</span></div>
-      <div class="class-entry card-VM" data-cat="aqua" data-name="AQUA TONIC" data-sala="Vasca Media" data-time="19:40" data-sc="card-VM"><span class="entry-time">19:40</span><span class="entry-name">Aqua Tonic</span></div>
-      <div class="section-hdr">Scuola Nuoto Adulti</div>
-      <div class="class-entry card-VG" data-cat="nuoto-adulti" data-name="SCUOLA NUOTO" data-sala="Vasca Grande" data-time="10:00" data-sc="card-VG"><span class="entry-time">10:00</span><span class="entry-name">Scuola Nuoto · 10:00–10:50</span></div>
-      <div class="class-entry card-VG" data-cat="nuoto-adulti" data-name="SCUOLA NUOTO" data-sala="Vasca Grande" data-time="14:10" data-sc="card-VG"><span class="entry-time">14:10</span><span class="entry-name">Scuola Nuoto · 14:10–15:00</span></div>
-      <div class="class-entry card-VG" data-cat="nuoto-adulti" data-name="SCUOLA NUOTO" data-sala="Vasca Grande" data-time="19:20" data-sc="card-VG"><span class="entry-time">19:20</span><span class="entry-name">Scuola Nuoto · 19:20–20:10</span></div>
-      <div class="class-entry card-VG" data-cat="nuoto-adulti" data-name="SCUOLA NUOTO" data-sala="Vasca Grande" data-time="20:10" data-sc="card-VG"><span class="entry-time">20:10</span><span class="entry-name">Scuola Nuoto · 20:10–21:00</span></div>
-      <div class="section-hdr">Nuoto Libero</div>
-      <div class="class-entry card-VG" data-cat="nuoto-libero" data-name="NUOTO LIBERO" data-sala="Vasca Grande" data-time="07:00" data-sc="card-VG"><span class="entry-time">07:00</span><span class="entry-name">Nuoto Libero · 07:00–11:00</span></div>
-      <div class="class-entry card-VG" data-cat="nuoto-libero" data-name="NUOTO LIBERO" data-sala="Vasca Grande" data-time="12:30" data-sc="card-VG"><span class="entry-time">12:30</span><span class="entry-name">Nuoto Libero · 12:30–15:00</span></div>
-      <div class="class-entry card-VG" data-cat="nuoto-libero" data-name="NUOTO LIBERO" data-sala="Vasca Grande" data-time="20:10" data-sc="card-VG"><span class="entry-time">20:10</span><span class="entry-name">Nuoto Libero · 20:10–22:00</span></div>
-    </div>
+  <!-- VEN -->
+  <div class="band-day">
+    <button class="gym-entry" onclick="openModal('GYM FLOOR','Gym Floor','06:00 – 22:00')">
+      <div><div class="gym-entry-label">Sala Pesi</div><div class="gym-entry-hours">06:00 – 22:00</div></div>
+    </button>
   </div>
 
-  <!-- ═══ SABATO + DOMENICA ═══ -->
-  <div class="day-col">
-    <div class="day-col-title">SAB</div>
-    <div id="day-sab" class="day-pane">
-      <div class="section-hdr">Corsi Fitness</div>
-      <div class="class-entry card-A" data-cat="fitness" data-name="PILATES MATWORK" data-sala="Sala A" data-time="09:30" data-sc="card-A"><span class="entry-time">09:30</span><span class="entry-name">Pilates Matwork</span></div>
-      <div class="class-entry card-B" data-cat="fitness" data-name="HBX FUSION" data-sala="Sala B" data-time="09:30" data-sc="card-B"><span class="entry-time">09:30</span><span class="entry-name">HBX Fusion</span></div>
-      <div class="class-entry card-A" data-cat="fitness" data-name="BODY SCULPT" data-sala="Sala A" data-time="10:30" data-sc="card-A"><span class="entry-time">10:30</span><span class="entry-name">Body Sculpt</span></div>
-      <div class="class-entry card-A" data-cat="fitness" data-name="ANTIGRAVITY" data-sala="Sala A" data-time="11:30" data-sc="card-A"><span class="entry-time">11:30</span><span class="entry-name">Antigravity</span></div>
-      <div class="class-entry card-B" data-cat="fitness" data-name="HBX BOXING" data-sala="Sala B" data-time="11:30" data-sc="card-B"><span class="entry-time">11:30</span><span class="entry-name">HBX Boxing</span></div>
-      <div class="class-entry card-B" data-cat="fitness" data-name="STRENGHT DEVELOPMENT" data-sala="Sala B" data-time="12:30" data-sc="card-B"><span class="entry-time">12:30</span><span class="entry-name">Strenght Development</span></div>
-      <div class="section-hdr">Group Reformer</div>
-      <div class="class-entry card-C" data-cat="reformer" data-name="GROUP REFORMER" data-sala="Sala C" data-time="09:30" data-sc="card-C"><span class="entry-time">09:30</span><span class="entry-name">Group Reformer</span></div>
-      <div class="class-entry card-C" data-cat="reformer" data-name="GROUP REFORMER" data-sala="Sala C" data-time="10:30" data-sc="card-C"><span class="entry-time">10:30</span><span class="entry-name">Group Reformer</span></div>
-      <div class="class-entry card-C" data-cat="reformer" data-name="GROUP REFORMER" data-sala="Sala C" data-time="12:30" data-sc="card-C"><span class="entry-time">12:30</span><span class="entry-name">Group Reformer</span></div>
-      <div class="section-hdr">Aqua Fitness</div>
-      <div class="class-entry card-VM" data-cat="aqua" data-name="AQUA TONIC" data-sala="Vasca Media" data-time="11:30" data-sc="card-VM"><span class="entry-time">11:30</span><span class="entry-name">Aqua Tonic</span></div>
-      <div class="class-entry card-VM" data-cat="aqua" data-name="HYDROBIKE" data-sala="Vasca Media" data-time="12:20" data-sc="card-VM"><span class="entry-time">12:20</span><span class="entry-name">Hydrobike</span></div>
-      <div class="section-hdr">Scuola Nuoto Adulti</div>
-      <div class="class-entry card-VG" data-cat="nuoto-adulti" data-name="SCUOLA NUOTO" data-sala="Vasca Grande" data-time="10:00" data-sc="card-VG"><span class="entry-time">10:00</span><span class="entry-name">Scuola Nuoto · 10:00–10:50</span></div>
-      <div class="section-hdr">Nuoto Libero</div>
-      <div class="class-entry card-VG" data-cat="nuoto-libero" data-name="NUOTO LIBERO" data-sala="Vasca Grande" data-time="08:00" data-sc="card-VG"><span class="entry-time">08:00</span><span class="entry-name">Nuoto Libero · 08:00–10:00</span></div>
-      <div class="class-entry card-VG" data-cat="nuoto-libero" data-name="NUOTO LIBERO" data-sala="Vasca Grande" data-time="12:00" data-sc="card-VG"><span class="entry-time">12:00</span><span class="entry-name">Nuoto Libero · 12:00–14:30</span></div>
-    </div>
-
-    <div class="day-col-title day-col-title--sub">DOM</div>
-    <div id="day-dom" class="day-pane">
-      <div class="section-hdr">Aqua Fitness</div>
-      <div class="class-entry card-VM" data-cat="aqua" data-name="BABY SWIM" data-sala="Vasca Media" data-time="09:30" data-sc="card-VM"><span class="entry-time">09:30</span><span class="entry-name">Baby Swim</span></div>
-      <div class="class-entry card-VM" data-cat="aqua" data-name="BABY SWIM" data-sala="Vasca Media" data-time="10:10" data-sc="card-VM"><span class="entry-time">10:10</span><span class="entry-name">Baby Swim</span></div>
-      <div class="class-entry card-VM" data-cat="aqua" data-name="BABY SWIM" data-sala="Vasca Media" data-time="10:50" data-sc="card-VM"><span class="entry-time">10:50</span><span class="entry-name">Baby Swim</span></div>
-      <div class="class-entry card-VM" data-cat="aqua" data-name="AQUA TONIC" data-sala="Vasca Media" data-time="11:30" data-sc="card-VM"><span class="entry-time">11:30</span><span class="entry-name">Aqua Tonic</span></div>
-      <div class="section-hdr">Nuoto Libero</div>
-      <div class="class-entry card-VG" data-cat="nuoto-libero" data-name="NUOTO LIBERO" data-sala="Vasca Grande" data-time="09:30" data-sc="card-VG"><span class="entry-time">09:30</span><span class="entry-name">Nuoto Libero · 09:30–12:30</span></div>
-    </div>
+  <!-- SAB + DOM -->
+  <div class="band-day">
+    <button class="gym-entry" onclick="openModal('GYM FLOOR','Gym Floor','08:00 – 18:00')">
+      <div><div class="gym-entry-label">Sala Pesi · Sab</div><div class="gym-entry-hours">08:00 – 18:00</div></div>
+    </button>
+    <div style="height:4px"></div>
+    <div class="day-mini-label">DOM</div>
+    <button class="gym-entry" onclick="openModal('GYM FLOOR','Gym Floor','09:30 – 13:00')">
+      <div><div class="gym-entry-label">Sala Pesi · Dom</div><div class="gym-entry-hours">09:30 – 13:00</div></div>
+    </button>
   </div>
 
-</div><!-- /week-grid -->
+</div>
+
+<!-- ══════════════════════════════════
+     BAND: CORSI FITNESS
+══════════════════════════════════ -->
+<div class="band-title">Corsi Fitness</div>
+<div class="band-grid">
+
+  <!-- LUN fitness -->
+  <div class="band-day">
+    <button class="class-entry card-A" data-name="BODY SCULPT" data-sala="Sala A" data-time="07:40"><span class="entry-time">07:40</span><span class="entry-name">Body Sculpt</span></button>
+    <button class="class-entry card-A" data-name="GINNASTICA DOLCE" data-sala="Sala A" data-time="09:30"><span class="entry-time">09:30</span><span class="entry-name">Ginnastica Dolce</span></button>
+    <button class="class-entry card-A" data-name="PILATES MATWORK" data-sala="Sala A" data-time="10:30"><span class="entry-time">10:30</span><span class="entry-name">Pilates Matwork</span></button>
+    <button class="class-entry card-B" data-name="HBX FUSION" data-sala="Sala B" data-time="11:30"><span class="entry-time">11:30</span><span class="entry-name">HBX Fusion</span></button>
+    <button class="class-entry card-B" data-name="HBX BOXING" data-sala="Sala B" data-time="13:30"><span class="entry-time">13:30</span><span class="entry-name">HBX Boxing</span></button>
+    <button class="class-entry card-A" data-name="PILATES MATWORK" data-sala="Sala A" data-time="17:30"><span class="entry-time">17:30</span><span class="entry-name">Pilates Matwork</span></button>
+    <button class="class-entry card-A" data-name="BODY SCULPT" data-sala="Sala A" data-time="18:20"><span class="entry-time">18:20</span><span class="entry-name">Body Sculpt</span></button>
+    <button class="class-entry card-B" data-name="MOTR" data-sala="Sala B" data-time="18:20"><span class="entry-time">18:20</span><span class="entry-name">MOTR</span></button>
+    <button class="class-entry card-A" data-name="BOOTY WORKOUT" data-sala="Sala A" data-time="19:10"><span class="entry-time">19:10</span><span class="entry-name">Booty Workout</span></button>
+    <button class="class-entry card-B" data-name="HBX FUSION" data-sala="Sala B" data-time="19:10"><span class="entry-time">19:10</span><span class="entry-name">HBX Fusion</span></button>
+    <button class="class-entry card-A" data-name="POWER YOGA" data-sala="Sala A" data-time="20:00"><span class="entry-time">20:00</span><span class="entry-name">Power Yoga</span></button>
+    <button class="class-entry card-B" data-name="CALISTHENICS" data-sala="Sala B" data-time="20:00"><span class="entry-time">20:00</span><span class="entry-name">Calisthenics</span></button>
+  </div>
+
+  <!-- MAR fitness -->
+  <div class="band-day">
+    <button class="class-entry card-B" data-name="HBX BOXING" data-sala="Sala B" data-time="07:40"><span class="entry-time">07:40</span><span class="entry-name">HBX Boxing</span></button>
+    <button class="class-entry card-A" data-name="PILATES MATWORK" data-sala="Sala A" data-time="09:30"><span class="entry-time">09:30</span><span class="entry-name">Pilates Matwork</span></button>
+    <button class="class-entry card-A" data-name="ANTIGRAVITY" data-sala="Sala A" data-time="11:30"><span class="entry-time">11:30</span><span class="entry-name">Antigravity</span></button>
+    <button class="class-entry card-B" data-name="STRENGHT DEVELOPMENT" data-sala="Sala B" data-time="11:30"><span class="entry-time">11:30</span><span class="entry-name">Strenght Development</span></button>
+    <button class="class-entry card-A" data-name="PILATES MATWORK" data-sala="Sala A" data-time="13:30"><span class="entry-time">13:30</span><span class="entry-name">Pilates Matwork</span></button>
+    <button class="class-entry card-B" data-name="HBX FUSION" data-sala="Sala B" data-time="13:30"><span class="entry-time">13:30</span><span class="entry-name">HBX Fusion</span></button>
+    <button class="class-entry card-A" data-name="GINN. POSTURALE" data-sala="Sala A" data-time="16:50"><span class="entry-time">16:50</span><span class="entry-name">Ginn. Posturale</span></button>
+    <button class="class-entry card-A" data-name="POWER YOGA" data-sala="Sala A" data-time="17:40"><span class="entry-time">17:40</span><span class="entry-name">Power Yoga</span></button>
+    <button class="class-entry card-B" data-name="HBX FUSION" data-sala="Sala B" data-time="17:40"><span class="entry-time">17:40</span><span class="entry-name">HBX Fusion</span></button>
+    <button class="class-entry card-A" data-name="PILATES MATWORK" data-sala="Sala A" data-time="18:30"><span class="entry-time">18:30</span><span class="entry-name">Pilates Matwork</span></button>
+    <button class="class-entry card-B" data-name="STRENGHT DEVELOPMENT" data-sala="Sala B" data-time="18:30"><span class="entry-time">18:30</span><span class="entry-name">Strenght Development</span></button>
+    <button class="class-entry card-A" data-name="GP COREO" data-sala="Sala A" data-time="19:20"><span class="entry-time">19:20</span><span class="entry-name">GP Coreo</span></button>
+    <button class="class-entry card-B" data-name="HBX BOXING" data-sala="Sala B" data-time="19:20"><span class="entry-time">19:20</span><span class="entry-name">HBX Boxing</span></button>
+    <button class="class-entry card-A" data-name="BODY SCULPT" data-sala="Sala A" data-time="20:10"><span class="entry-time">20:10</span><span class="entry-name">Body Sculpt</span></button>
+    <button class="class-entry card-B" data-name="DIFESA PERSONALE" data-sala="Sala B" data-time="20:10"><span class="entry-time">20:10</span><span class="entry-name">Difesa Personale</span></button>
+  </div>
+
+  <!-- MER fitness -->
+  <div class="band-day">
+    <button class="class-entry card-B" data-name="STRENGHT DEVELOPMENT" data-sala="Sala B" data-time="07:40"><span class="entry-time">07:40</span><span class="entry-name">Strenght Development</span></button>
+    <button class="class-entry card-A" data-name="PILATES MATWORK" data-sala="Sala A" data-time="09:30"><span class="entry-time">09:30</span><span class="entry-name">Pilates Matwork</span></button>
+    <button class="class-entry card-A" data-name="GINN. POSTURALE" data-sala="Sala A" data-time="10:30"><span class="entry-time">10:30</span><span class="entry-name">Ginn. Posturale</span></button>
+    <button class="class-entry card-B" data-name="HBX FUSION" data-sala="Sala B" data-time="11:00"><span class="entry-time">11:00</span><span class="entry-name">HBX Fusion</span></button>
+    <button class="class-entry card-A" data-name="BODY SCULPT" data-sala="Sala A" data-time="13:00"><span class="entry-time">13:00</span><span class="entry-name">Body Sculpt</span></button>
+    <button class="class-entry card-A" data-name="BOOTY WORKOUT" data-sala="Sala A" data-time="17:30"><span class="entry-time">17:30</span><span class="entry-name">Booty Workout</span></button>
+    <button class="class-entry card-B" data-name="MOTR" data-sala="Sala B" data-time="17:30"><span class="entry-time">17:30</span><span class="entry-name">MOTR</span></button>
+    <button class="class-entry card-A" data-name="BODY SCULPT" data-sala="Sala A" data-time="18:20"><span class="entry-time">18:20</span><span class="entry-name">Body Sculpt</span></button>
+    <button class="class-entry card-B" data-name="HBX FUSION" data-sala="Sala B" data-time="18:20"><span class="entry-time">18:20</span><span class="entry-name">HBX Fusion</span></button>
+    <button class="class-entry card-A" data-name="PILATES MATWORK" data-sala="Sala A" data-time="19:10"><span class="entry-time">19:10</span><span class="entry-name">Pilates Matwork</span></button>
+    <button class="class-entry card-B" data-name="STRENGHT DEVELOPMENT" data-sala="Sala B" data-time="19:10"><span class="entry-time">19:10</span><span class="entry-name">Strenght Development</span></button>
+    <button class="class-entry card-A" data-name="LES MILLS BODY PUMP" data-sala="Sala A" data-time="20:00"><span class="entry-time">20:00</span><span class="entry-name">Les Mills Body Pump</span></button>
+    <button class="class-entry card-B" data-name="CALISTHENICS" data-sala="Sala B" data-time="20:00"><span class="entry-time">20:00</span><span class="entry-name">Calisthenics</span></button>
+  </div>
+
+  <!-- GIO fitness -->
+  <div class="band-day">
+    <button class="class-entry card-A" data-name="BODY SCULPT" data-sala="Sala A" data-time="07:40"><span class="entry-time">07:40</span><span class="entry-name">Body Sculpt</span></button>
+    <button class="class-entry card-A" data-name="GINNASTICA DOLCE" data-sala="Sala A" data-time="10:30"><span class="entry-time">10:30</span><span class="entry-name">Ginnastica Dolce</span></button>
+    <button class="class-entry card-A" data-name="PILATES MATWORK" data-sala="Sala A" data-time="11:30"><span class="entry-time">11:30</span><span class="entry-name">Pilates Matwork</span></button>
+    <button class="class-entry card-B" data-name="HBX BOXING" data-sala="Sala B" data-time="11:30"><span class="entry-time">11:30</span><span class="entry-name">HBX Boxing</span></button>
+    <button class="class-entry card-A" data-name="LES MILLS BODY PUMP" data-sala="Sala A" data-time="13:30"><span class="entry-time">13:30</span><span class="entry-name">Les Mills Body Pump</span></button>
+    <button class="class-entry card-A" data-name="ANTIGRAVITY" data-sala="Sala A" data-time="17:40"><span class="entry-time">17:40</span><span class="entry-name">Antigravity</span></button>
+    <button class="class-entry card-B" data-name="MOTR" data-sala="Sala B" data-time="17:40"><span class="entry-time">17:40</span><span class="entry-name">MOTR</span></button>
+    <button class="class-entry card-A" data-name="YOGASSÈ" data-sala="Sala A" data-time="18:30"><span class="entry-time">18:30</span><span class="entry-name">Yogassè</span></button>
+    <button class="class-entry card-B" data-name="HBX FUSION" data-sala="Sala B" data-time="18:30"><span class="entry-time">18:30</span><span class="entry-name">HBX Fusion</span></button>
+    <button class="class-entry card-A" data-name="BOOTY WORKOUT" data-sala="Sala A" data-time="19:20"><span class="entry-time">19:20</span><span class="entry-name">Booty Workout</span></button>
+    <button class="class-entry card-B" data-name="STRENGHT DEVELOPMENT" data-sala="Sala B" data-time="19:20"><span class="entry-time">19:20</span><span class="entry-name">Strenght Development</span></button>
+    <button class="class-entry card-A" data-name="BODY SCULPT" data-sala="Sala A" data-time="20:10"><span class="entry-time">20:10</span><span class="entry-name">Body Sculpt</span></button>
+  </div>
+
+  <!-- VEN fitness -->
+  <div class="band-day">
+    <button class="class-entry card-A" data-name="BODY SCULPT" data-sala="Sala A" data-time="07:40"><span class="entry-time">07:40</span><span class="entry-name">Body Sculpt</span></button>
+    <button class="class-entry card-A" data-name="GINN. POSTURALE" data-sala="Sala A" data-time="09:30"><span class="entry-time">09:30</span><span class="entry-name">Ginn. Posturale</span></button>
+    <button class="class-entry card-A" data-name="BODY SCULPT" data-sala="Sala A" data-time="11:30"><span class="entry-time">11:30</span><span class="entry-name">Body Sculpt</span></button>
+    <button class="class-entry card-A" data-name="GINN. PILATES" data-sala="Sala A" data-time="13:30"><span class="entry-time">13:30</span><span class="entry-name">Ginn. Pilates</span></button>
+    <button class="class-entry card-B" data-name="STRENGHT DEVELOPMENT" data-sala="Sala B" data-time="13:30"><span class="entry-time">13:30</span><span class="entry-name">Strenght Development</span></button>
+    <button class="class-entry card-A" data-name="BODY SCULPT" data-sala="Sala A" data-time="16:50"><span class="entry-time">16:50</span><span class="entry-name">Body Sculpt</span></button>
+    <button class="class-entry card-B" data-name="MOTR" data-sala="Sala B" data-time="16:50"><span class="entry-time">16:50</span><span class="entry-name">MOTR</span></button>
+    <button class="class-entry card-A" data-name="PILATES MATWORK" data-sala="Sala A" data-time="17:40"><span class="entry-time">17:40</span><span class="entry-name">Pilates Matwork</span></button>
+    <button class="class-entry card-B" data-name="HBX FUSION" data-sala="Sala B" data-time="17:40"><span class="entry-time">17:40</span><span class="entry-name">HBX Fusion</span></button>
+    <button class="class-entry card-A" data-name="GINN. POSTURALE" data-sala="Sala A" data-time="18:30"><span class="entry-time">18:30</span><span class="entry-name">Ginn. Posturale</span></button>
+    <button class="class-entry card-B" data-name="HBX BOXING" data-sala="Sala B" data-time="18:30"><span class="entry-time">18:30</span><span class="entry-name">HBX Boxing</span></button>
+    <button class="class-entry card-A" data-name="LES MILLS BODY PUMP" data-sala="Sala A" data-time="19:20"><span class="entry-time">19:20</span><span class="entry-name">Les Mills Body Pump</span></button>
+    <button class="class-entry card-B" data-name="CALISTHENICS" data-sala="Sala B" data-time="19:20"><span class="entry-time">19:20</span><span class="entry-name">Calisthenics</span></button>
+    <button class="class-entry card-B" data-name="DIFESA PERSONALE" data-sala="Sala B" data-time="20:10"><span class="entry-time">20:10</span><span class="entry-name">Difesa Personale</span></button>
+  </div>
+
+  <!-- SAB + DOM fitness -->
+  <div class="band-day">
+    <button class="class-entry card-A" data-name="PILATES MATWORK" data-sala="Sala A" data-time="09:30"><span class="entry-time">09:30</span><span class="entry-name">Pilates Matwork</span></button>
+    <button class="class-entry card-B" data-name="HBX FUSION" data-sala="Sala B" data-time="09:30"><span class="entry-time">09:30</span><span class="entry-name">HBX Fusion</span></button>
+    <button class="class-entry card-A" data-name="BODY SCULPT" data-sala="Sala A" data-time="10:30"><span class="entry-time">10:30</span><span class="entry-name">Body Sculpt</span></button>
+    <button class="class-entry card-A" data-name="ANTIGRAVITY" data-sala="Sala A" data-time="11:30"><span class="entry-time">11:30</span><span class="entry-name">Antigravity</span></button>
+    <button class="class-entry card-B" data-name="HBX BOXING" data-sala="Sala B" data-time="11:30"><span class="entry-time">11:30</span><span class="entry-name">HBX Boxing</span></button>
+    <button class="class-entry card-B" data-name="STRENGHT DEVELOPMENT" data-sala="Sala B" data-time="12:30"><span class="entry-time">12:30</span><span class="entry-name">Strenght Development</span></button>
+    <!-- DOM: no fitness entries -->
+  </div>
+
+</div>
+
+<!-- ══════════════════════════════════
+     BAND: GROUP REFORMER
+══════════════════════════════════ -->
+<div class="band-title">Group Reformer</div>
+<div class="band-grid">
+
+  <!-- LUN reformer -->
+  <div class="band-day">
+    <button class="class-entry card-C" data-name="GROUP REFORMER" data-sala="Sala C" data-time="08:30"><span class="entry-time">08:30</span><span class="entry-name">Group Reformer</span></button>
+    <button class="class-entry card-C" data-name="GROUP REFORMER" data-sala="Sala C" data-time="13:30"><span class="entry-time">13:30</span><span class="entry-name">Group Reformer</span></button>
+    <button class="class-entry card-C" data-name="GROUP REFORMER" data-sala="Sala C" data-time="17:30"><span class="entry-time">17:30</span><span class="entry-name">Group Reformer</span></button>
+    <button class="class-entry card-C" data-name="GROUP REFORMER" data-sala="Sala C" data-time="18:20"><span class="entry-time">18:20</span><span class="entry-name">Group Reformer</span></button>
+    <button class="class-entry card-C" data-name="GROUP REFORMER" data-sala="Sala C" data-time="19:10"><span class="entry-time">19:10</span><span class="entry-name">Group Reformer</span></button>
+  </div>
+
+  <!-- MAR reformer -->
+  <div class="band-day">
+    <button class="class-entry card-C" data-name="GROUP REFORMER" data-sala="Sala C" data-time="10:30"><span class="entry-time">10:30</span><span class="entry-name">Group Reformer</span></button>
+    <button class="class-entry card-C" data-name="GROUP REFORMER" data-sala="Sala C" data-time="18:10"><span class="entry-time">18:10</span><span class="entry-name">Group Reformer</span></button>
+    <button class="class-entry card-C" data-name="GROUP REFORMER" data-sala="Sala C" data-time="19:00"><span class="entry-time">19:00</span><span class="entry-name">Group Reformer</span></button>
+    <button class="class-entry card-C" data-name="GROUP REFORMER" data-sala="Sala C" data-time="19:50"><span class="entry-time">19:50</span><span class="entry-name">Group Reformer</span></button>
+  </div>
+
+  <!-- MER reformer -->
+  <div class="band-day">
+    <button class="class-entry card-C" data-name="GROUP REFORMER" data-sala="Sala C" data-time="08:30"><span class="entry-time">08:30</span><span class="entry-name">Group Reformer</span></button>
+    <button class="class-entry card-C" data-name="GROUP REFORMER" data-sala="Sala C" data-time="10:00"><span class="entry-time">10:00</span><span class="entry-name">Group Reformer</span></button>
+    <button class="class-entry card-C" data-name="GROUP REFORMER" data-sala="Sala C" data-time="13:30"><span class="entry-time">13:30</span><span class="entry-name">Group Reformer</span></button>
+    <button class="class-entry card-C" data-name="GROUP REFORMER" data-sala="Sala C" data-time="18:20"><span class="entry-time">18:20</span><span class="entry-name">Group Reformer</span></button>
+    <button class="class-entry card-C" data-name="GROUP REFORMER" data-sala="Sala C" data-time="19:10"><span class="entry-time">19:10</span><span class="entry-name">Group Reformer</span></button>
+  </div>
+
+  <!-- GIO reformer -->
+  <div class="band-day">
+    <button class="class-entry card-C" data-name="GROUP REFORMER" data-sala="Sala C" data-time="09:30"><span class="entry-time">09:30</span><span class="entry-name">Group Reformer</span></button>
+    <button class="class-entry card-C" data-name="GROUP REFORMER" data-sala="Sala C" data-time="10:30"><span class="entry-time">10:30</span><span class="entry-name">Group Reformer</span></button>
+    <button class="class-entry card-C" data-name="GROUP REFORMER" data-sala="Sala C" data-time="13:30"><span class="entry-time">13:30</span><span class="entry-name">Group Reformer</span></button>
+    <button class="class-entry card-C" data-name="GROUP REFORMER" data-sala="Sala C" data-time="17:40"><span class="entry-time">17:40</span><span class="entry-name">Group Reformer</span></button>
+    <button class="class-entry card-C" data-name="GROUP REFORMER" data-sala="Sala C" data-time="18:30"><span class="entry-time">18:30</span><span class="entry-name">Group Reformer</span></button>
+    <button class="class-entry card-C" data-name="GROUP REFORMER" data-sala="Sala C" data-time="19:20"><span class="entry-time">19:20</span><span class="entry-name">Group Reformer</span></button>
+  </div>
+
+  <!-- VEN reformer -->
+  <div class="band-day">
+    <button class="class-entry card-C" data-name="GROUP REFORMER" data-sala="Sala C" data-time="08:30"><span class="entry-time">08:30</span><span class="entry-name">Group Reformer</span></button>
+    <button class="class-entry card-C" data-name="GROUP REFORMER" data-sala="Sala C" data-time="10:30"><span class="entry-time">10:30</span><span class="entry-name">Group Reformer</span></button>
+    <button class="class-entry card-C" data-name="GROUP REFORMER" data-sala="Sala C" data-time="18:30"><span class="entry-time">18:30</span><span class="entry-name">Group Reformer</span></button>
+    <button class="class-entry card-C" data-name="GROUP REFORMER" data-sala="Sala C" data-time="19:20"><span class="entry-time">19:20</span><span class="entry-name">Group Reformer</span></button>
+  </div>
+
+  <!-- SAB + DOM reformer -->
+  <div class="band-day">
+    <button class="class-entry card-C" data-name="GROUP REFORMER" data-sala="Sala C" data-time="09:30"><span class="entry-time">09:30</span><span class="entry-name">Group Reformer</span></button>
+    <button class="class-entry card-C" data-name="GROUP REFORMER" data-sala="Sala C" data-time="10:30"><span class="entry-time">10:30</span><span class="entry-name">Group Reformer</span></button>
+    <button class="class-entry card-C" data-name="GROUP REFORMER" data-sala="Sala C" data-time="12:30"><span class="entry-time">12:30</span><span class="entry-name">Group Reformer</span></button>
+    <!-- DOM: no reformer entries -->
+  </div>
+
+</div>
+
+<!-- ══════════════════════════════════
+     BAND: SCUOLA NUOTO ADULTI
+══════════════════════════════════ -->
+<div class="band-title">Scuola Nuoto Adulti</div>
+<div class="band-grid">
+
+  <!-- LUN nuoto-adulti -->
+  <div class="band-day">
+    <button class="class-entry card-VG" data-name="SCUOLA NUOTO" data-sala="Vasca Grande" data-time="19:20"><span class="entry-time">19:20</span><span class="entry-name">Scuola Nuoto · 19:20–20:10</span></button>
+    <button class="class-entry card-VG" data-name="SCUOLA NUOTO" data-sala="Vasca Grande" data-time="20:10"><span class="entry-time">20:10</span><span class="entry-name">Scuola Nuoto · 20:10–21:00</span></button>
+  </div>
+
+  <!-- MAR nuoto-adulti -->
+  <div class="band-day">
+    <button class="class-entry card-VG" data-name="SCUOLA NUOTO" data-sala="Vasca Grande" data-time="14:10"><span class="entry-time">14:10</span><span class="entry-name">Scuola Nuoto · 14:10–15:00</span></button>
+    <button class="class-entry card-VG" data-name="SCUOLA NUOTO" data-sala="Vasca Grande" data-time="19:20"><span class="entry-time">19:20</span><span class="entry-name">Scuola Nuoto · 19:20–20:10</span></button>
+    <button class="class-entry card-VG" data-name="SCUOLA NUOTO" data-sala="Vasca Grande" data-time="20:10"><span class="entry-time">20:10</span><span class="entry-name">Scuola Nuoto · 20:10–21:00</span></button>
+  </div>
+
+  <!-- MER nuoto-adulti -->
+  <div class="band-day">
+    <button class="class-entry card-VG" data-name="SCUOLA NUOTO" data-sala="Vasca Grande" data-time="18:30"><span class="entry-time">18:30</span><span class="entry-name">Scuola Nuoto · 18:30–19:20</span></button>
+    <button class="class-entry card-VG" data-name="SCUOLA NUOTO" data-sala="Vasca Grande" data-time="20:10"><span class="entry-time">20:10</span><span class="entry-name">Scuola Nuoto · 20:10–21:00</span></button>
+  </div>
+
+  <!-- GIO nuoto-adulti -->
+  <div class="band-day">
+    <button class="class-entry card-VG" data-name="SCUOLA NUOTO" data-sala="Vasca Grande" data-time="14:10"><span class="entry-time">14:10</span><span class="entry-name">Scuola Nuoto · 14:10–15:00</span></button>
+    <button class="class-entry card-VG" data-name="SCUOLA NUOTO" data-sala="Vasca Grande" data-time="19:20"><span class="entry-time">19:20</span><span class="entry-name">Scuola Nuoto · 19:20–20:10</span></button>
+    <button class="class-entry card-VG" data-name="SCUOLA NUOTO" data-sala="Vasca Grande" data-time="20:10"><span class="entry-time">20:10</span><span class="entry-name">Scuola Nuoto · 20:10–21:00</span></button>
+  </div>
+
+  <!-- VEN nuoto-adulti -->
+  <div class="band-day">
+    <button class="class-entry card-VG" data-name="SCUOLA NUOTO" data-sala="Vasca Grande" data-time="10:00"><span class="entry-time">10:00</span><span class="entry-name">Scuola Nuoto · 10:00–10:50</span></button>
+    <button class="class-entry card-VG" data-name="SCUOLA NUOTO" data-sala="Vasca Grande" data-time="14:10"><span class="entry-time">14:10</span><span class="entry-name">Scuola Nuoto · 14:10–15:00</span></button>
+    <button class="class-entry card-VG" data-name="SCUOLA NUOTO" data-sala="Vasca Grande" data-time="19:20"><span class="entry-time">19:20</span><span class="entry-name">Scuola Nuoto · 19:20–20:10</span></button>
+    <button class="class-entry card-VG" data-name="SCUOLA NUOTO" data-sala="Vasca Grande" data-time="20:10"><span class="entry-time">20:10</span><span class="entry-name">Scuola Nuoto · 20:10–21:00</span></button>
+  </div>
+
+  <!-- SAB + DOM nuoto-adulti -->
+  <div class="band-day">
+    <button class="class-entry card-VG" data-name="SCUOLA NUOTO" data-sala="Vasca Grande" data-time="10:00"><span class="entry-time">10:00</span><span class="entry-name">Scuola Nuoto · 10:00–10:50</span></button>
+    <!-- DOM: no scuola nuoto adulti entries -->
+  </div>
+
+</div>
+
+<!-- ══════════════════════════════════
+     BAND: NUOTO LIBERO ASSISTITO
+══════════════════════════════════ -->
+<div class="band-title">Nuoto Libero Assistito</div>
+<div class="band-grid">
+
+  <!-- LUN nuoto-libero -->
+  <div class="band-day">
+    <button class="class-entry card-VG" data-name="NUOTO LIBERO" data-sala="Vasca Grande" data-time="07:00"><span class="entry-time">07:00</span><span class="entry-name">Nuoto Libero · 07:00–11:00</span></button>
+    <button class="class-entry card-VG" data-name="NUOTO LIBERO" data-sala="Vasca Grande" data-time="12:30"><span class="entry-time">12:30</span><span class="entry-name">Nuoto Libero · 12:30–15:00</span></button>
+    <button class="class-entry card-VG" data-name="NUOTO LIBERO" data-sala="Vasca Grande" data-time="20:10"><span class="entry-time">20:10</span><span class="entry-name">Nuoto Libero · 20:10–22:00</span></button>
+  </div>
+
+  <!-- MAR nuoto-libero -->
+  <div class="band-day">
+    <button class="class-entry card-VG" data-name="NUOTO LIBERO" data-sala="Vasca Grande" data-time="07:00"><span class="entry-time">07:00</span><span class="entry-name">Nuoto Libero · 07:00–10:00</span></button>
+    <button class="class-entry card-VG" data-name="NUOTO LIBERO" data-sala="Vasca Grande" data-time="12:30"><span class="entry-time">12:30</span><span class="entry-name">Nuoto Libero · 12:30–14:30</span></button>
+    <button class="class-entry card-VG" data-name="NUOTO LIBERO" data-sala="Vasca Grande" data-time="21:00"><span class="entry-time">21:00</span><span class="entry-name">Nuoto Libero · 21:00–22:00</span></button>
+  </div>
+
+  <!-- MER nuoto-libero -->
+  <div class="band-day">
+    <button class="class-entry card-VG" data-name="NUOTO LIBERO" data-sala="Vasca Grande" data-time="07:00"><span class="entry-time">07:00</span><span class="entry-name">Nuoto Libero · 07:00–11:00</span></button>
+    <button class="class-entry card-VG" data-name="NUOTO LIBERO" data-sala="Vasca Grande" data-time="12:30"><span class="entry-time">12:30</span><span class="entry-name">Nuoto Libero · 12:30–14:30</span></button>
+    <button class="class-entry card-VG" data-name="NUOTO LIBERO" data-sala="Vasca Grande" data-time="20:10"><span class="entry-time">20:10</span><span class="entry-name">Nuoto Libero · 20:10–22:00</span></button>
+  </div>
+
+  <!-- GIO nuoto-libero -->
+  <div class="band-day">
+    <button class="class-entry card-VG" data-name="NUOTO LIBERO" data-sala="Vasca Grande" data-time="07:00"><span class="entry-time">07:00</span><span class="entry-name">Nuoto Libero · 07:00–11:00</span></button>
+    <button class="class-entry card-VG" data-name="NUOTO LIBERO" data-sala="Vasca Grande" data-time="12:30"><span class="entry-time">12:30</span><span class="entry-name">Nuoto Libero · 12:30–14:30</span></button>
+    <button class="class-entry card-VG" data-name="NUOTO LIBERO" data-sala="Vasca Grande" data-time="20:10"><span class="entry-time">20:10</span><span class="entry-name">Nuoto Libero · 20:10–22:00</span></button>
+  </div>
+
+  <!-- VEN nuoto-libero -->
+  <div class="band-day">
+    <button class="class-entry card-VG" data-name="NUOTO LIBERO" data-sala="Vasca Grande" data-time="07:00"><span class="entry-time">07:00</span><span class="entry-name">Nuoto Libero · 07:00–11:00</span></button>
+    <button class="class-entry card-VG" data-name="NUOTO LIBERO" data-sala="Vasca Grande" data-time="12:30"><span class="entry-time">12:30</span><span class="entry-name">Nuoto Libero · 12:30–15:00</span></button>
+    <button class="class-entry card-VG" data-name="NUOTO LIBERO" data-sala="Vasca Grande" data-time="20:10"><span class="entry-time">20:10</span><span class="entry-name">Nuoto Libero · 20:10–22:00</span></button>
+  </div>
+
+  <!-- SAB + DOM nuoto-libero -->
+  <div class="band-day">
+    <button class="class-entry card-VG" data-name="NUOTO LIBERO" data-sala="Vasca Grande" data-time="08:00"><span class="entry-time">08:00</span><span class="entry-name">Nuoto Libero · 08:00–10:00</span></button>
+    <button class="class-entry card-VG" data-name="NUOTO LIBERO" data-sala="Vasca Grande" data-time="12:00"><span class="entry-time">12:00</span><span class="entry-name">Nuoto Libero · 12:00–14:30</span></button>
+    <div class="day-mini-label">DOM</div>
+    <button class="class-entry card-VG" data-name="NUOTO LIBERO" data-sala="Vasca Grande" data-time="09:30"><span class="entry-time">09:30</span><span class="entry-name">Nuoto Libero · 09:30–12:30</span></button>
+  </div>
+
+</div>
+
+<!-- ══════════════════════════════════
+     BAND: AQUA FITNESS
+══════════════════════════════════ -->
+<div class="band-title">Aqua Fitness</div>
+<div class="band-grid">
+
+  <!-- LUN aqua -->
+  <div class="band-day">
+    <button class="class-entry card-VM" data-name="HYDROBIKE" data-sala="Vasca Media" data-time="08:15"><span class="entry-time">08:15</span><span class="entry-name">Hydrobike</span></button>
+    <button class="class-entry card-VM" data-name="AQUA SOFT" data-sala="Vasca Media" data-time="09:00"><span class="entry-time">09:00</span><span class="entry-name">Aqua Soft</span></button>
+    <button class="class-entry card-VM" data-name="AQUA TONIC" data-sala="Vasca Media" data-time="11:00"><span class="entry-time">11:00</span><span class="entry-name">Aqua Tonic</span></button>
+    <button class="class-entry card-VM" data-name="AQUA TONIC" data-sala="Vasca Media" data-time="13:30"><span class="entry-time">13:30</span><span class="entry-name">Aqua Tonic</span></button>
+    <button class="class-entry card-VM" data-name="HYDROBIKE" data-sala="Vasca Media" data-time="18:00"><span class="entry-time">18:00</span><span class="entry-name">Hydrobike</span></button>
+    <button class="class-entry card-VM" data-name="HYDROBIKE" data-sala="Vasca Media" data-time="18:50"><span class="entry-time">18:50</span><span class="entry-name">Hydrobike</span></button>
+    <button class="class-entry card-VM" data-name="AQUA TONIC" data-sala="Vasca Media" data-time="19:40"><span class="entry-time">19:40</span><span class="entry-name">Aqua Tonic</span></button>
+  </div>
+
+  <!-- MAR aqua -->
+  <div class="band-day">
+    <button class="class-entry card-VM" data-name="AQUA SOFT" data-sala="Vasca Media" data-time="09:00"><span class="entry-time">09:00</span><span class="entry-name">Aqua Soft</span></button>
+    <button class="class-entry card-VM" data-name="AQUA TONIC" data-sala="Vasca Media" data-time="11:00"><span class="entry-time">11:00</span><span class="entry-name">Aqua Tonic</span></button>
+    <button class="class-entry card-VM" data-name="HYDROBIKE" data-sala="Vasca Media" data-time="13:00"><span class="entry-time">13:00</span><span class="entry-name">Hydrobike</span></button>
+    <button class="class-entry card-VM" data-name="AQUA AEROBIC" data-sala="Vasca Media" data-time="13:50"><span class="entry-time">13:50</span><span class="entry-name">Aqua Aerobic</span></button>
+    <button class="class-entry card-VM" data-name="AQUA AEROBIC" data-sala="Vasca Media" data-time="18:50"><span class="entry-time">18:50</span><span class="entry-name">Aqua Aerobic</span></button>
+    <button class="class-entry card-VM" data-name="HYDROBIKE" data-sala="Vasca Media" data-time="19:40"><span class="entry-time">19:40</span><span class="entry-name">Hydrobike</span></button>
+    <button class="class-entry card-VM" data-name="HYDROBIKE" data-sala="Vasca Media" data-time="20:25"><span class="entry-time">20:25</span><span class="entry-name">Hydrobike</span></button>
+  </div>
+
+  <!-- MER aqua -->
+  <div class="band-day">
+    <button class="class-entry card-VM" data-name="AQUA SOFT" data-sala="Vasca Media" data-time="09:00"><span class="entry-time">09:00</span><span class="entry-name">Aqua Soft</span></button>
+    <button class="class-entry card-VM" data-name="AQUA TONIC" data-sala="Vasca Media" data-time="11:00"><span class="entry-time">11:00</span><span class="entry-name">Aqua Tonic</span></button>
+    <button class="class-entry card-VM" data-name="AQUA TONIC" data-sala="Vasca Media" data-time="13:00"><span class="entry-time">13:00</span><span class="entry-name">Aqua Tonic</span></button>
+    <button class="class-entry card-VM" data-name="HYDROBIKE" data-sala="Vasca Media" data-time="13:50"><span class="entry-time">13:50</span><span class="entry-name">Hydrobike</span></button>
+    <button class="class-entry card-VM" data-name="AQUA TONIC" data-sala="Vasca Media" data-time="19:20"><span class="entry-time">19:20</span><span class="entry-name">Aqua Tonic</span></button>
+    <button class="class-entry card-VM" data-name="HYDROBIKE" data-sala="Vasca Media" data-time="20:10"><span class="entry-time">20:10</span><span class="entry-name">Hydrobike</span></button>
+  </div>
+
+  <!-- GIO aqua -->
+  <div class="band-day">
+    <button class="class-entry card-VM" data-name="AQUA SOFT" data-sala="Vasca Media" data-time="09:00"><span class="entry-time">09:00</span><span class="entry-name">Aqua Soft</span></button>
+    <button class="class-entry card-VM" data-name="AQUA TONIC" data-sala="Vasca Media" data-time="11:00"><span class="entry-time">11:00</span><span class="entry-name">Aqua Tonic</span></button>
+    <button class="class-entry card-VM" data-name="AQUA AEROBIC" data-sala="Vasca Media" data-time="13:30"><span class="entry-time">13:30</span><span class="entry-name">Aqua Aerobic</span></button>
+    <button class="class-entry card-VM" data-name="AQUA AEROBIC" data-sala="Vasca Media" data-time="18:50"><span class="entry-time">18:50</span><span class="entry-name">Aqua Aerobic</span></button>
+    <button class="class-entry card-VM" data-name="HYDROBIKE" data-sala="Vasca Media" data-time="19:40"><span class="entry-time">19:40</span><span class="entry-name">Hydrobike</span></button>
+    <button class="class-entry card-VM" data-name="HYDROBIKE" data-sala="Vasca Media" data-time="20:25"><span class="entry-time">20:25</span><span class="entry-name">Hydrobike</span></button>
+  </div>
+
+  <!-- VEN aqua -->
+  <div class="band-day">
+    <button class="class-entry card-VM" data-name="HYDROBIKE" data-sala="Vasca Media" data-time="08:15"><span class="entry-time">08:15</span><span class="entry-name">Hydrobike</span></button>
+    <button class="class-entry card-VM" data-name="AQUA SOFT" data-sala="Vasca Media" data-time="09:00"><span class="entry-time">09:00</span><span class="entry-name">Aqua Soft</span></button>
+    <button class="class-entry card-VM" data-name="AQUA TONIC" data-sala="Vasca Media" data-time="10:30"><span class="entry-time">10:30</span><span class="entry-name">Aqua Tonic</span></button>
+    <button class="class-entry card-VM" data-name="HYDROBIKE" data-sala="Vasca Media" data-time="13:00"><span class="entry-time">13:00</span><span class="entry-name">Hydrobike</span></button>
+    <button class="class-entry card-VM" data-name="AQUA AEROBIC" data-sala="Vasca Media" data-time="13:50"><span class="entry-time">13:50</span><span class="entry-name">Aqua Aerobic</span></button>
+    <button class="class-entry card-VM" data-name="HYDROBIKE" data-sala="Vasca Media" data-time="18:50"><span class="entry-time">18:50</span><span class="entry-name">Hydrobike</span></button>
+    <button class="class-entry card-VM" data-name="AQUA TONIC" data-sala="Vasca Media" data-time="19:40"><span class="entry-time">19:40</span><span class="entry-name">Aqua Tonic</span></button>
+  </div>
+
+  <!-- SAB + DOM aqua -->
+  <div class="band-day">
+    <button class="class-entry card-VM" data-name="AQUA TONIC" data-sala="Vasca Media" data-time="11:30"><span class="entry-time">11:30</span><span class="entry-name">Aqua Tonic</span></button>
+    <button class="class-entry card-VM" data-name="HYDROBIKE" data-sala="Vasca Media" data-time="12:20"><span class="entry-time">12:20</span><span class="entry-name">Hydrobike</span></button>
+    <div class="day-mini-label">DOM</div>
+    <button class="class-entry card-VM" data-name="BABY SWIM" data-sala="Vasca Media" data-time="09:30"><span class="entry-time">09:30</span><span class="entry-name">Baby Swim</span></button>
+    <button class="class-entry card-VM" data-name="BABY SWIM" data-sala="Vasca Media" data-time="10:10"><span class="entry-time">10:10</span><span class="entry-name">Baby Swim</span></button>
+    <button class="class-entry card-VM" data-name="BABY SWIM" data-sala="Vasca Media" data-time="10:50"><span class="entry-time">10:50</span><span class="entry-name">Baby Swim</span></button>
+    <button class="class-entry card-VM" data-name="AQUA TONIC" data-sala="Vasca Media" data-time="11:30"><span class="entry-time">11:30</span><span class="entry-name">Aqua Tonic</span></button>
+  </div>
+
+</div>
 
 <footer>
   <strong>ATHLON CLUB 4.0</strong> — Talenti, Roma<br>
@@ -601,19 +788,10 @@ footer strong { color: var(--accent); }
 </div>
 
 <script>
-const gymData = {
-  lun: { h: '06:00 – 22:00', d: 'Lunedì' },
-  mar: { h: '06:00 – 22:00', d: 'Martedì' },
-  mer: { h: '06:00 – 22:00', d: 'Mercoledì' },
-  gio: { h: '06:00 – 22:00', d: 'Giovedì' },
-  ven: { h: '06:00 – 22:00', d: 'Venerdì' },
-  sab: { h: '08:00 – 18:00', d: 'Sabato' },
-  dom: { h: '09:30 – 13:00', d: 'Domenica' },
-};
-
 const pillColors = {
   'Sala A': '#ff5701', 'Sala B': '#005ecb', 'Sala C': '#00998a',
-  'Vasca Media': '#2255dd', 'Vasca Grande': '#6633cc'
+  'Vasca Media': '#2255dd', 'Vasca Grande': '#6633cc',
+  'Gym Floor': '#ff5701'
 };
 
 const lessons = {
@@ -720,29 +898,12 @@ function closeModal(e) {
   }
 }
 
-function gymFloorHTML(id) {
-  return `<div class="section-hdr section-hdr--gym">Gym Floor</div>
-<div class="gym-entry" onclick="openModal('GYM FLOOR','Gym Floor','${gymData[id].h}')">
-  <div><div class="gym-entry-label">Sala Pesi</div><div class="gym-entry-hours">${gymData[id].h}</div></div>
-</div>`;
-}
-
-function initGymSections() {
-  Object.keys(gymData).forEach(id => {
-    const pane = document.getElementById('day-' + id);
-    if (!pane) return;
-    pane.insertAdjacentHTML('afterbegin', gymFloorHTML(id));
-  });
-}
-
 // Event delegation for class entries
-document.querySelector('.week-grid').addEventListener('click', function(e) {
+document.body.addEventListener('click', function(e) {
   const card = e.target.closest('.class-entry');
   if (!card) return;
   openModal(card.dataset.name, card.dataset.sala, card.dataset.time);
 });
-
-initGymSections();
 </script>
 </body>
 </html>
