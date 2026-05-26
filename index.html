@@ -921,6 +921,14 @@ function setDay(id, btn) {
 
 initGymSections();
 
+// Nascondi l'orario di inizio quando il nome contiene già una fascia oraria (es. "· 07:00–11:00")
+document.querySelectorAll('.card-name').forEach(el => {
+  if (el.textContent.includes('·')) {
+    const timeEl = el.previousElementSibling;
+    if (timeEl && timeEl.classList.contains('card-time')) timeEl.style.display = 'none';
+  }
+});
+
 function setFilter(f, btn) {
   document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
   btn.classList.add('active');
