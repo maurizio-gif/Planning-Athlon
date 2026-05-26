@@ -67,6 +67,38 @@ body {
 }
 .dh-sub { font-size: 9px; color: #888; letter-spacing: 0.5px; }
 
+/* ── Legend bar ── */
+.legend-bar {
+  background: #1a1a1a;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 8px 14px;
+  padding: 6px 10px;
+  border-bottom: 1px solid #333;
+}
+.legend-item {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+.legend-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 3px;
+  flex-shrink: 0;
+}
+.legend-label {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 10px;
+  font-weight: 700;
+  color: #ccc;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  white-space: nowrap;
+}
+
 /* ── Band section wrapper ── */
 .band-section {
   margin: 16px 8px 0;
@@ -386,6 +418,13 @@ footer strong { color: var(--accent); }
       <div class="header-dates">1 – 31 Luglio 2026</div>
       <div class="header-booking">Prenotazione obbligatoria</div>
     </div>
+  </div>
+  <div class="legend-bar">
+    <div class="legend-item"><div class="legend-dot" style="background:#ff5701"></div><span class="legend-label">Sala A</span></div>
+    <div class="legend-item"><div class="legend-dot" style="background:#d4a017"></div><span class="legend-label">Sala B</span></div>
+    <div class="legend-item"><div class="legend-dot" style="background:#27a844"></div><span class="legend-label">Sala Reformer</span></div>
+    <div class="legend-item"><div class="legend-dot" style="background:#1a72d4"></div><span class="legend-label">Vasca Grande</span></div>
+    <div class="legend-item"><div class="legend-dot" style="background:#00a8d4"></div><span class="legend-label">Vasca Media</span></div>
   </div>
   <div class="day-headers-bar">
     <div class="day-headers-grid">
