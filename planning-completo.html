@@ -67,8 +67,7 @@ body {
 }
 .dh-sub { font-size: 9px; color: #888; letter-spacing: 0.5px; }
 
-/* ── Band title (sticky within section) ── */
-.band-section { position: relative; }
+/* ── Band title (full-width section header) ── */
 .band-title {
   background: #000;
   color: #fff;
@@ -79,9 +78,6 @@ body {
   text-transform: uppercase;
   padding: 10px 12px 8px;
   border-top: 3px solid #222;
-  position: sticky;
-  top: var(--header-h, 0px);
-  z-index: 10;
 }
 
 /* ── Band grid / time-row ── */
@@ -396,7 +392,6 @@ footer strong { color: var(--accent); }
   </div>
 </div>
 
-<div class="band-section">
 <!-- ══════════════════════════════════
      BAND: GYM FLOOR
 ══════════════════════════════════ -->
@@ -451,9 +446,7 @@ footer strong { color: var(--accent); }
   </div>
 
 </div>
-</div>
 
-<div class="band-section">
 <!-- ══════════════════════════════════
      BAND: CORSI FITNESS
 ══════════════════════════════════ -->
@@ -726,9 +719,7 @@ footer strong { color: var(--accent); }
   <div class="band-day">
   </div>
 </div>
-</div>
 
-<div class="band-section">
 <!-- ══════════════════════════════════
      BAND: GROUP REFORMER
 ══════════════════════════════════ -->
@@ -914,9 +905,7 @@ footer strong { color: var(--accent); }
   <div class="band-day">
   </div>
 </div>
-</div>
 
-<div class="band-section">
 <!-- ══════════════════════════════════
      BAND: SCUOLA NUOTO ADULTI
 ══════════════════════════════════ -->
@@ -1006,9 +995,7 @@ footer strong { color: var(--accent); }
   <div class="band-day">
   </div>
 </div>
-</div>
 
-<div class="band-section">
 <!-- ══════════════════════════════════
      BAND: NUOTO LIBERO ASSISTITO
 ══════════════════════════════════ -->
@@ -1129,9 +1116,7 @@ footer strong { color: var(--accent); }
   <div class="band-day">
   </div>
 </div>
-</div>
 
-<div class="band-section">
 <!-- ══════════════════════════════════
      BAND: AQUA FITNESS
 ══════════════════════════════════ -->
@@ -1385,7 +1370,6 @@ footer strong { color: var(--accent); }
   <div class="band-day">
   </div>
 </div>
-</div>
 
 <footer>
   <strong>ATHLON CLUB 4.0</strong> — Talenti, Roma<br>
@@ -1559,11 +1543,10 @@ document.querySelectorAll('.class-entry[data-time] .entry-time').forEach(el => {
   const eM = String(endTot % 60).padStart(2, '0');
   el.textContent = t + '–' + eH + ':' + eM;
 });
-// Imposta padding-top e --header-h pari all'altezza dell'header fisso
+// Imposta padding-top pari all'altezza dell'header fisso
 function adjustPadding() {
   const h = document.querySelector('.sticky-top').offsetHeight;
   document.body.style.paddingTop = h + 'px';
-  document.documentElement.style.setProperty('--header-h', h + 'px');
 }
 adjustPadding();
 window.addEventListener('resize', adjustPadding);
