@@ -67,17 +67,26 @@ body {
 }
 .dh-sub { font-size: 9px; color: #888; letter-spacing: 0.5px; }
 
+/* ── Band section wrapper ── */
+.band-section {
+  margin: 16px 8px 0;
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 3px 12px rgba(0,0,0,0.13);
+}
+
 /* ── Band title (full-width section header) ── */
 .band-title {
-  background: #000;
+  background: #111;
   color: #fff;
   font-family: 'Barlow Condensed', sans-serif;
   font-size: 32px;
   font-weight: 900;
   letter-spacing: 3px;
   text-transform: uppercase;
-  padding: 10px 12px 8px;
-  border-top: 3px solid #222;
+  padding: 12px 12px 10px;
+  text-align: center;
+  border-bottom: 3px solid var(--accent);
 }
 
 /* ── Band grid / time-row ── */
@@ -357,6 +366,7 @@ body {
 /* Footer */
 footer {
   background: var(--black); color: #444;
+  margin-top: 16px;
   padding: 12px 12px;
   font-size: 9px; font-weight: 600; letter-spacing: 1px; text-transform: uppercase;
   text-align: center; line-height: 1.9;
@@ -392,6 +402,7 @@ footer strong { color: var(--accent); }
   </div>
 </div>
 
+<div class="band-section">
 <!-- ══════════════════════════════════
      BAND: GYM FLOOR
 ══════════════════════════════════ -->
@@ -446,7 +457,9 @@ footer strong { color: var(--accent); }
   </div>
 
 </div>
+</div><!-- /band-section -->
 
+<div class="band-section">
 <!-- ══════════════════════════════════
      BAND: CORSI FITNESS
 ══════════════════════════════════ -->
@@ -719,7 +732,9 @@ footer strong { color: var(--accent); }
   <div class="band-day">
   </div>
 </div>
+</div><!-- /band-section -->
 
+<div class="band-section">
 <!-- ══════════════════════════════════
      BAND: GROUP REFORMER
 ══════════════════════════════════ -->
@@ -905,7 +920,9 @@ footer strong { color: var(--accent); }
   <div class="band-day">
   </div>
 </div>
+</div><!-- /band-section -->
 
+<div class="band-section">
 <!-- ══════════════════════════════════
      BAND: SCUOLA NUOTO ADULTI
 ══════════════════════════════════ -->
@@ -995,7 +1012,9 @@ footer strong { color: var(--accent); }
   <div class="band-day">
   </div>
 </div>
+</div><!-- /band-section -->
 
+<div class="band-section">
 <!-- ══════════════════════════════════
      BAND: NUOTO LIBERO ASSISTITO
 ══════════════════════════════════ -->
@@ -1116,7 +1135,9 @@ footer strong { color: var(--accent); }
   <div class="band-day">
   </div>
 </div>
+</div><!-- /band-section -->
 
+<div class="band-section">
 <!-- ══════════════════════════════════
      BAND: AQUA FITNESS
 ══════════════════════════════════ -->
@@ -1370,6 +1391,7 @@ footer strong { color: var(--accent); }
   <div class="band-day">
   </div>
 </div>
+</div><!-- /band-section -->
 
 <footer>
   <strong>ATHLON CLUB 4.0</strong> — Talenti, Roma<br>
