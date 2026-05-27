@@ -233,16 +233,17 @@ body {
 }
 .class-entry.card-C .entry-time,
 .class-entry.card-VG .entry-time {
-  font-size: 12px;
-  font-weight: 800;
+  font-size: 16px;
+  font-weight: 900;
   color: #111;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
+  white-space: normal;
+  overflow: visible;
   text-align: center;
   background: transparent;
-  padding: 0;
+  padding: 0 2px;
   width: 100%;
+  line-height: 1.35;
+  letter-spacing: 0.5px;
 }
 
 /* ── Gym entry ── */
@@ -1518,6 +1519,13 @@ document.querySelectorAll('.class-entry[data-time] .entry-time').forEach(el => {
   const eH = String(Math.floor(endTot / 60)).padStart(2, '0');
   const eM = String(endTot % 60).padStart(2, '0');
   el.textContent = t + '–' + eH + ':' + eM;
+});
+// Box solo-orario (Reformer / Nuoto): orario inizio sopra, fine sotto
+document.querySelectorAll('.class-entry.card-C .entry-time, .class-entry.card-VG .entry-time').forEach(el => {
+  const text = el.textContent || el.innerText;
+  if (!text.includes('–')) return;
+  const [start, end] = text.split('–');
+  el.innerHTML = start.trim() + '<br>' + end.trim();
 });
 // Imposta padding-top pari all'altezza dell'header fisso
 function adjustPadding() {
