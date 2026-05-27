@@ -1513,9 +1513,11 @@ document.body.addEventListener('click', function(e) {
   openModal(card.dataset.name, card.dataset.sala, displayTime);
 });
 
-// Mostra solo orario di inizio su tutti i box attività
+// Mostra solo orario di inizio (eccetto Nuoto Libero che mantiene la fascia)
 document.querySelectorAll('.class-entry[data-time] .entry-time').forEach(el => {
-  const t = el.closest('.class-entry').dataset.time;
+  const card = el.closest('.class-entry');
+  if (card.dataset.name === 'NUOTO LIBERO') return;
+  const t = card.dataset.time;
   if (t) el.textContent = t;
 });
 // Imposta padding-top pari all'altezza dell'header fisso
