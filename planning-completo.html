@@ -1513,10 +1513,17 @@ document.body.addEventListener('click', function(e) {
   openModal(card.dataset.name, card.dataset.sala, displayTime);
 });
 
-// Mostra solo orario di inizio (eccetto Nuoto Libero che mantiene la fascia)
+// Mostra solo orario di inizio; Nuoto Libero: inizio e fine su due righe
 document.querySelectorAll('.class-entry[data-time] .entry-time').forEach(el => {
   const card = el.closest('.class-entry');
-  if (card.dataset.name === 'NUOTO LIBERO') return;
+  if (card.dataset.name === 'NUOTO LIBERO') {
+    const text = el.textContent;
+    if (text.includes('–')) {
+      const [start, end] = text.split('–');
+      el.innerHTML = start.trim() + '<br>' + end.trim();
+    }
+    return;
+  }
   const t = card.dataset.time;
   if (t) el.textContent = t;
 });
