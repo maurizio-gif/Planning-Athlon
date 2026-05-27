@@ -197,7 +197,7 @@ body {
 .class-entry.card-VG { background: #99bff5; }
 
 .entry-time {
-  font-size: 9px;
+  font-size: 11px;
   font-weight: 800;
   color: rgba(0,0,0,0.75);
   white-space: nowrap;
@@ -238,13 +238,14 @@ body {
   font-size: 16px;
   font-weight: 900;
   color: #111;
-  white-space: normal;
-  overflow: visible;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
   text-align: center;
   background: transparent;
   padding: 0 2px;
   width: 100%;
-  line-height: 1.35;
+  line-height: 1;
   letter-spacing: 0.5px;
 }
 
@@ -1511,23 +1512,10 @@ document.body.addEventListener('click', function(e) {
   openModal(card.dataset.name, card.dataset.sala, displayTime);
 });
 
-// Espandi l'orario con fine lezione (+50 min) — solo se entry-time non ha già un range completo
+// Mostra solo orario di inizio su tutti i box attività
 document.querySelectorAll('.class-entry[data-time] .entry-time').forEach(el => {
-  if (el.textContent.includes('–')) return; // già espanso (es. nuoto libero)
   const t = el.closest('.class-entry').dataset.time;
-  if (!t) return;
-  const [h, m] = t.split(':').map(Number);
-  const endTot = h * 60 + m + 50;
-  const eH = String(Math.floor(endTot / 60)).padStart(2, '0');
-  const eM = String(endTot % 60).padStart(2, '0');
-  el.textContent = t + '–' + eH + ':' + eM;
-});
-// Box solo-orario (Reformer / Nuoto): orario inizio sopra, fine sotto
-document.querySelectorAll('.class-entry.card-C .entry-time, .class-entry.card-VG .entry-time').forEach(el => {
-  const text = el.textContent || el.innerText;
-  if (!text.includes('–')) return;
-  const [start, end] = text.split('–');
-  el.innerHTML = start.trim() + '<br>' + end.trim();
+  if (t) el.textContent = t;
 });
 // Imposta padding-top pari all'altezza dell'header fisso
 function adjustPadding() {
