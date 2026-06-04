@@ -117,9 +117,10 @@ body { font-family: 'Barlow Condensed', sans-serif; color: #111; }
 
 /* ── Week section ── */
 .week-section {
-  margin-top: 16px;
-  border-top: 3px solid #222;
+  margin: 16px 8px 0;
+  border-radius: 10px;
   overflow: hidden;
+  box-shadow: 0 3px 12px rgba(0,0,0,0.13);
 }
 .week-title {
   background: #111; color: #fff;
@@ -135,9 +136,9 @@ body { font-family: 'Barlow Condensed', sans-serif; color: #111; }
 /* ── Gym entry (orario apertura) ── */
 .gym-band {
   display: grid; grid-template-columns: repeat(6, 1fr);
-  gap: 1px; background: #f0f0f0;
+  gap: 0; background: #f0f0f0;
 }
-.gym-day { background: #f0f0f0; padding: 3px 2px; min-width: 0; }
+.gym-day { background: #f0f0f0; padding: 3px 2px; min-width: 0; overflow: hidden; }
 .gym-entry {
   display: flex; flex-direction: column; align-items: center; justify-content: center;
   gap: 2px; padding: 8px 4px;
@@ -152,19 +153,24 @@ body { font-family: 'Barlow Condensed', sans-serif; color: #111; }
 .gym-entry-label { font-size: 7px; font-weight: 900; color: var(--accent); letter-spacing: 1.5px; text-transform: uppercase; }
 .gym-entry-hours { font-size: 13px; font-weight: 900; color: #fff; letter-spacing: 0.5px; line-height: 1.2; }
 
-/* ── Class grid ── */
+/* ── Class grid (una riga = una fascia oraria, come luglio) ── */
 .class-grid {
   display: grid; grid-template-columns: repeat(6, 1fr);
-  gap: 1px; background: #f0f0f0;
+  gap: 0; background: #f0f0f0;
 }
-.class-day { background: #f0f0f0; padding: 3px 2px; display: flex; flex-direction: column; gap: 3px; min-width: 0; }
+.class-day {
+  background: #f0f0f0; padding: 3px 2px;
+  display: flex; flex-direction: column; gap: 3px;
+  min-width: 0; min-height: 0; overflow: hidden;
+}
 
 /* ── CLASS ENTRY — doppia sezione ── */
 .class-entry {
   display: flex; flex-direction: column;
-  cursor: pointer; width: 100%; border: none; text-align: left;
+  cursor: pointer; width: 100%; max-width: 100%; min-width: 0;
+  border: none; text-align: left;
   font-family: 'Barlow Condensed', sans-serif;
-  height: 56px; flex-shrink: 0; overflow: hidden;
+  height: 50px; flex-shrink: 0; overflow: hidden;
   border-radius: 7px; box-shadow: 0 1px 4px rgba(0,0,0,0.13);
   transition: transform 0.1s, box-shadow 0.1s;
 }
@@ -173,18 +179,18 @@ body { font-family: 'Barlow Condensed', sans-serif; color: #111; }
 /* Sezione superiore: nero + nome bianco */
 .entry-name {
   flex: 1; background: #111; color: #fff;
-  font-size: 10px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.3px;
-  line-height: 1.2; padding: 4px 5px 2px;
+  font-size: 10px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.2px;
+  line-height: 1.2; padding: 3px 5px 2px;
   display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical;
   overflow: hidden; white-space: normal;
 }
 
 /* Sezione inferiore: colore sala + orario nero */
 .entry-time {
-  flex-shrink: 0; height: 22px;
-  font-size: 11px; font-weight: 700; color: #111;
+  flex-shrink: 0;
+  font-size: 11px; font-weight: 700; color: rgba(0,0,0,0.7);
   white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
-  padding: 3px 5px; line-height: 1.4;
+  padding: 3px 5px; line-height: 1.2; width: 100%;
 }
 
 /* Colori per sala */
