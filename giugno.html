@@ -53,9 +53,9 @@ body {
 }
 .back-btn:hover { background: #2a2a2a; }
 
-/* ── Validity banner (mobile only) ── */
+/* ── Validity banner (sempre visibile) ── */
 .validity-banner {
-  display: none;
+  display: block;
   background: var(--accent);
   padding: 9px 14px;
   text-align: center;
@@ -64,8 +64,16 @@ body {
   border-bottom: 2px solid #c44400;
 }
 @media (max-width: 767px) {
-  .validity-banner { display: block; }
   .header-dates { display: none; }
+}
+
+/* ── Desktop / tablet: font +40% per titolo e orario lezione ── */
+@media (min-width: 768px) {
+  .entry-time { font-size: 15px; }
+  .entry-name { font-size: 14px; }
+  .class-entry { height: 68px; }
+  .class-entry.card-C .entry-time,
+  .class-entry.card-VG .entry-time { font-size: 17px; }
 }
 
 /* ── Day headers bar ── */
