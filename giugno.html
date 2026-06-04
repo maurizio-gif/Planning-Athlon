@@ -42,6 +42,16 @@ body {
 .header-month { font-size: 9px; font-weight: 900; letter-spacing: 2px; text-transform: uppercase; color: var(--accent); line-height: 1; }
 .header-dates { font-size: 13px; font-weight: 900; letter-spacing: 1px; color: #fff; line-height: 1.1; margin-top: 2px; }
 .header-booking { font-size: 8px; font-weight: 800; color: var(--accent); letter-spacing: 1.5px; text-transform: uppercase; margin-top: 2px; }
+.back-btn {
+  display: inline-flex; align-items: center; gap: 5px;
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 12px; font-weight: 800; letter-spacing: 1.5px; text-transform: uppercase;
+  color: #fff; text-decoration: none;
+  background: #1e1e1e; border: 1px solid #333;
+  padding: 7px 14px; border-radius: 20px;
+  white-space: nowrap; flex-shrink: 0;
+}
+.back-btn:hover { background: #2a2a2a; }
 
 /* ── Validity banner (mobile only) ── */
 .validity-banner {
@@ -527,7 +537,7 @@ footer strong { color: var(--accent); }
 <div class="sticky-top">
   <div class="page-header">
     <div class="logo">
-      <img src="https://www.athlonroma.it/wp-content/uploads/2025/08/Logo-oriz-full-2.png" alt="Athlon Club" class="logo-img">
+      <a href="index.html" class="back-btn">← Indietro</a>
     </div>
     <div class="header-right">
       <div class="header-month">Planning Corsi</div>
