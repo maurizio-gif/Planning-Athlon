@@ -1186,21 +1186,23 @@ document.body.addEventListener('click', function(e) {
     // Entry-time already has full range (e.g. nuoto "07:00–11:00")
     displayTime = timeEl.textContent;
   } else if (t && !t.includes('–')) {
-    // Calcola fine lezione +50 min
     const [h, m] = t.split(':').map(Number);
-    const end = h * 60 + m + 50;
+    const dur = card.dataset.name === 'HYDROBIKE' ? 45 : 50;
+    const end = h * 60 + m + dur;
     displayTime = t + '–' + String(Math.floor(end / 60)).padStart(2, '0') + ':' + String(end % 60).padStart(2, '0');
   }
   openModal(card.dataset.name, card.dataset.sala, displayTime);
 });
 
-// Espandi l'orario con fine lezione (+50 min) — solo se entry-time non ha già un range completo
+// Espandi l'orario con fine lezione — solo se entry-time non ha già un range completo
 document.querySelectorAll('.class-entry[data-time] .entry-time').forEach(el => {
-  if (el.textContent.includes('–')) return; // già espanso (es. nuoto libero)
-  const t = el.closest('.class-entry').dataset.time;
+  if (el.textContent.includes('–')) return;
+  const card = el.closest('.class-entry');
+  const t = card.dataset.time;
   if (!t) return;
   const [h, m] = t.split(':').map(Number);
-  const endTot = h * 60 + m + 50;
+  const dur = card.dataset.name === 'HYDROBIKE' ? 45 : 50;
+  const endTot = h * 60 + m + dur;
   const eH = String(Math.floor(endTot / 60)).padStart(2, '0');
   const eM = String(endTot % 60).padStart(2, '0');
   el.textContent = t + '–' + eH + ':' + eM;
