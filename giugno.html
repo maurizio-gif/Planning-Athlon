@@ -67,13 +67,20 @@ body {
   .header-dates { display: none; }
 }
 
-/* ── Desktop / tablet: font +40% per titolo e orario lezione ── */
+/* ── Desktop / tablet: font leggibili ── */
 @media (min-width: 768px) {
-  .entry-time { font-size: 15px; }
-  .entry-name { font-size: 14px; }
-  .class-entry { height: 68px; }
+  .entry-name { font-size: 16px !important; letter-spacing: 0.3px; }
+  .entry-time { font-size: 15px !important; }
+  .class-entry { height: 80px !important; }
   .class-entry.card-C .entry-time,
-  .class-entry.card-VG .entry-time { font-size: 17px; }
+  .class-entry.card-VG .entry-time { font-size: 18px !important; }
+}
+@media (min-width: 1024px) {
+  .entry-name { font-size: 20px !important; }
+  .entry-time { font-size: 17px !important; }
+  .class-entry { height: 90px !important; }
+  .class-entry.card-C .entry-time,
+  .class-entry.card-VG .entry-time { font-size: 21px !important; }
 }
 
 /* ── Day headers bar ── */
