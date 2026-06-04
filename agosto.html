@@ -841,6 +841,16 @@ document.querySelectorAll('.class-entry[data-time] .entry-time').forEach(el => {
   el.textContent = t + '–' + String(Math.floor(end/60)).padStart(2,'0') + ':' + String(end%60).padStart(2,'0');
 });
 
+// Riordina le card dentro ogni colonna in ordine cronologico
+document.querySelectorAll('.class-day').forEach(col => {
+  const cards = Array.from(col.querySelectorAll('.class-entry'));
+  cards.sort((a, b) => {
+    const toMin = t => { const [h,m] = t.split(':').map(Number); return h*60+m; };
+    return toMin(a.dataset.time) - toMin(b.dataset.time);
+  });
+  cards.forEach(c => col.appendChild(c));
+});
+
 function adjustPadding() {
   const h = document.querySelector('.sticky-top').offsetHeight;
   document.body.style.paddingTop = h + 'px';
