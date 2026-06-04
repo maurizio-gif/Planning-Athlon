@@ -827,7 +827,8 @@ document.body.addEventListener('click', function(e) {
   let displayTime = t;
   if (t && !t.includes('–')) {
     const [h, m] = t.split(':').map(Number);
-    const end = h * 60 + m + 50;
+    const dur = card.dataset.name === 'HYDROBIKE' ? 45 : 50;
+    const end = h * 60 + m + dur;
     displayTime = t + '–' + String(Math.floor(end/60)).padStart(2,'0') + ':' + String(end%60).padStart(2,'0');
   }
   openModal(card.dataset.name, card.dataset.sala, displayTime);
@@ -837,7 +838,8 @@ document.querySelectorAll('.class-entry[data-time] .entry-time').forEach(el => {
   const t = el.closest('.class-entry').dataset.time;
   if (!t) return;
   const [h, m] = t.split(':').map(Number);
-  const end = h * 60 + m + 50;
+  const dur = el.closest('.class-entry').dataset.name === 'HYDROBIKE' ? 45 : 50;
+  const end = h * 60 + m + dur;
   el.textContent = t + '–' + String(Math.floor(end/60)).padStart(2,'0') + ':' + String(end%60).padStart(2,'0');
 });
 

@@ -1543,7 +1543,7 @@ document.body.addEventListener('click', function(e) {
   } else if (t && !t.includes('–')) {
     // Calcola fine lezione +50 min
     const [h, m] = t.split(':').map(Number);
-    const end = h * 60 + m + 50;
+    const dur = card.dataset.name === 'HYDROBIKE' ? 45 : 50; const end = h * 60 + m + dur;
     displayTime = t + '–' + String(Math.floor(end / 60)).padStart(2, '0') + ':' + String(end % 60).padStart(2, '0');
   }
   openModal(card.dataset.name, card.dataset.sala, displayTime);
@@ -1555,7 +1555,7 @@ document.querySelectorAll('.class-entry[data-time] .entry-time').forEach(el => {
   const t = el.closest('.class-entry').dataset.time;
   if (!t) return;
   const [h, m] = t.split(':').map(Number);
-  const endTot = h * 60 + m + 50;
+  const dur = card.dataset.name === 'HYDROBIKE' ? 45 : 50; const endTot = h * 60 + m + dur;
   const eH = String(Math.floor(endTot / 60)).padStart(2, '0');
   const eM = String(endTot % 60).padStart(2, '0');
   el.textContent = t + '–' + eH + ':' + eM;
