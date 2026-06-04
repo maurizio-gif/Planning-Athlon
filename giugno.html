@@ -92,8 +92,6 @@ body {
   .entry-name { font-size: 16px !important; letter-spacing: 0.3px; }
   .entry-time { font-size: 15px !important; }
   .class-entry { height: 80px !important; }
-  .class-entry.card-C .entry-time,
-  .class-entry.card-VG .entry-time { font-size: 18px !important; }
   .dh { font-size: 14px !important; padding: 9px 4px !important; }
   .legend-label { font-size: 13px !important; }
   .legend-dot { width: 14px !important; height: 14px !important; }
@@ -110,8 +108,6 @@ body {
   .entry-name { font-size: 20px !important; }
   .entry-time { font-size: 17px !important; }
   .class-entry { height: 90px !important; }
-  .class-entry.card-C .entry-time,
-  .class-entry.card-VG .entry-time { font-size: 21px !important; }
   .dh { font-size: 16px !important; padding: 11px 4px !important; }
   .legend-label { font-size: 15px !important; }
   .legend-dot { width: 16px !important; height: 16px !important; }
@@ -278,9 +274,6 @@ body {
 .class-entry.card-C  .entry-time { background: #9ee8b0; }
 .class-entry.card-VM .entry-time { background: #99dff5; }
 .class-entry.card-VG .entry-time { background: #99bff5; }
-/* Sfondo pieno per card solo-orario (reformer/nuoto) */
-.class-entry.card-C  { background: #9ee8b0; }
-.class-entry.card-VG { background: #99bff5; }
 
 .entry-time {
   font-size: 11px;
@@ -310,27 +303,6 @@ body {
   flex: 1;
 }
 
-/* Group Reformer (C) e Nuoto (VG): solo orario centrato */
-.class-entry.card-C .entry-name,
-.class-entry.card-VG .entry-name { display: none; }
-.class-entry.card-C,
-.class-entry.card-VG {
-  justify-content: center;
-  align-items: center;
-}
-.class-entry.card-C .entry-time,
-.class-entry.card-VG .entry-time {
-  font-size: 12px;
-  font-weight: 800;
-  color: #111;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  text-align: center;
-  background: transparent;
-  padding: 0;
-  width: 100%;
-}
 
 /* Aqua Fitness (VM): nome su una riga sola */
 .class-entry.card-VM .entry-name {
@@ -926,9 +898,9 @@ footer strong { color: var(--accent); }
 
 <div class="band-section">
 <!-- ══════════════════════════════════
-     BAND: NUOTO LIBERO ASSISTITO
+     BAND: NUOTO LIBERO
 ══════════════════════════════════ -->
-<div class="band-title">Nuoto Libero Assistito</div>
+<div class="band-title">Nuoto Libero</div>
 <div class="time-row">
   <div class="band-day"><button class="class-entry card-VG" data-name="NUOTO LIBERO" data-sala="Vasca Grande" data-time="07:00"><span class="entry-time">07:00–11:00</span><span class="entry-name">Nuoto Libero</span></button></div>
   <div class="band-day"><button class="class-entry card-VG" data-name="NUOTO LIBERO" data-sala="Vasca Grande" data-time="07:00"><span class="entry-time">07:00–10:00</span><span class="entry-name">Nuoto Libero</span></button></div>
