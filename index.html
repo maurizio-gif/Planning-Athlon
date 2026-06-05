@@ -16,6 +16,18 @@
 <link rel="apple-touch-icon" href="favicon.png">
 <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;600;700;800;900&family=Barlow:wght@400;600;700&display=swap" rel="stylesheet">
 <style>
+@font-face {
+  font-family: "Tusker Grotesk";
+  src: url("fonts/TuskerGrotesk-5600Semibold.ttf") format("truetype");
+  font-weight: 600;
+  font-style: normal;
+}
+@font-face {
+  font-family: "Tusker Grotesk";
+  src: url("fonts/TuskerGrotesk-5700Bold.ttf") format("truetype");
+  font-weight: 700;
+  font-style: normal;
+}
 :root {
   --accent: #ff5701;
   --black: #111111;
@@ -25,7 +37,7 @@
 * { margin:0; padding:0; box-sizing:border-box; }
 html,body { height:100%; overflow:hidden; }
 body {
-  font-family: 'Barlow Condensed', sans-serif;
+  font-family: 'Tusker Grotesk', sans-serif;
   background: var(--bg);
   color: var(--black);
   display: flex;
@@ -55,7 +67,7 @@ body {
 }
 .hero-title {
   font-size: clamp(32px, 8vw, 56px); font-weight: 900; letter-spacing: 2px;
-  text-transform: uppercase; line-height: 0.95; color: var(--black);
+  text-transform: uppercase; line-height: 1.25; color: var(--black);
 }
 .hero-title span { color: var(--accent); }
 .hero-sub {
@@ -138,7 +150,7 @@ body {
   border: 2px solid var(--border);
   border-radius: 14px;
   text-decoration: none;
-  font-family: 'Barlow Condensed', sans-serif;
+  font-family: 'Tusker Grotesk', sans-serif;
   font-size: 16px; font-weight: 800; letter-spacing: 2px; text-transform: uppercase;
   color: #888;
   transition: border-color .15s, color .15s, background .15s;

@@ -14,8 +14,20 @@
 <meta name="theme-color" content="#ff5701">
 <link rel="icon" type="image/png" href="favicon.png">
 <link rel="apple-touch-icon" href="favicon.png">
-<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;600;700;800;900&family=Barlow:wght@400;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;600;700;800;900&family=Barlow:wght@400;600;700&family=Montserrat:wght@600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
+@font-face {
+  font-family: "Tusker Grotesk";
+  src: url("fonts/TuskerGrotesk-5600Semibold.ttf") format("truetype");
+  font-weight: 600;
+  font-style: normal;
+}
+@font-face {
+  font-family: "Tusker Grotesk";
+  src: url("fonts/TuskerGrotesk-5700Bold.ttf") format("truetype");
+  font-weight: 700;
+  font-style: normal;
+}
 :root { --accent: #ff5701; --black: #111111; }
 html, body { margin: 0; padding: 0; background: #fff; overflow-x: hidden; }
 * { box-sizing: border-box; }
@@ -32,7 +44,7 @@ body { font-family: 'Barlow Condensed', sans-serif; color: #111; }
 .logo-img { height: 39px; width: auto; display: block; }
 .back-btn {
   display: inline-flex; align-items: center; gap: 5px;
-  font-family: 'Barlow Condensed', sans-serif;
+  font-family: 'Tusker Grotesk', sans-serif;
   font-size: 12px; font-weight: 800; letter-spacing: 1.5px; text-transform: uppercase;
   color: #fff; text-decoration: none;
   background: #1e1e1e; border: 1px solid #333;
@@ -50,7 +62,7 @@ body { font-family: 'Barlow Condensed', sans-serif; color: #111; }
   color: rgba(255,255,255,0.75);
 }
 .validity-month {
-  font-size: clamp(52px, 13vw, 90px); font-weight: 900; letter-spacing: 4px; text-transform: uppercase;
+  font-size: clamp(36px, 9vw, 64px); font-weight: 700; letter-spacing: 4px; text-transform: uppercase;
   color: #fff; line-height: 1; text-shadow: 0 2px 10px rgba(0,0,0,0.4);
 }
 .validity-notice {
@@ -67,8 +79,8 @@ body { font-family: 'Barlow Condensed', sans-serif; color: #111; }
 .legend-item { display: flex; align-items: center; gap: 5px; }
 .legend-dot { width: 10px; height: 10px; border-radius: 3px; flex-shrink: 0; }
 .legend-label {
-  font-size: 9px; font-weight: 700; color: #555;
-  text-transform: uppercase; letter-spacing: 0.8px; white-space: nowrap;
+  font-size: 9px; font-weight: 500; color: #555;
+  text-transform: uppercase; letter-spacing: 1.8px; white-space: nowrap;
 }
 
 /* ── CTA bar ── */
@@ -77,8 +89,8 @@ body { font-family: 'Barlow Condensed', sans-serif; color: #111; }
   padding: 5px 12px 6px; border-bottom: 1px solid #ede8e3;
 }
 .cta-bar span {
-  font-size: 10px; font-weight: 700; color: var(--accent);
-  text-transform: uppercase; letter-spacing: 1.2px;
+  font-size: 10px; font-weight: 500; color: var(--accent);
+  text-transform: uppercase; letter-spacing: 2px;
 }
 .cta-bar span::before { content: '▶ '; font-size: 8px; }
 
@@ -97,18 +109,19 @@ body { font-family: 'Barlow Condensed', sans-serif; color: #111; }
 /* ── Responsive ── */
 @media (min-width: 768px) {
   .entry-name { font-size: 15px !important; }
-  .entry-time { font-size: 14px !important; }
+  .entry-time {
+  font-family: 'Tusker Grotesk', sans-serif; font-size: 14px !important; }
   .class-entry { height: 80px !important; }
   .dh { font-size: 22px !important; padding: 9px 4px !important; }
   .legend-label { font-size: 13px !important; }
   .legend-dot { width: 14px !important; height: 14px !important; }
-  .gym-entry-label { font-size: 10px !important; }
-  .gym-entry-hours { font-size: 18px !important; }
+  .gym-entry-label { font-family: 'Tusker Grotesk', sans-serif; font-size: 10px !important; }
+  .gym-entry-hours { font-family: 'Tusker Grotesk', sans-serif; font-size: 18px !important; }
   .gym-entry { min-height: 68px !important; }
   /* Modal desktop */
   .modal-title { font-size: 48px !important; }
   .modal-time-badge { font-size: 22px !important; }
-  .modal-desc { font-size: 18px !important; line-height: 1.5 !important; }
+  .modal-desc { font-size: 17px !important; line-height: 1.5 !important; }
   .modal-sala-pill { font-size: 14px !important; padding: 5px 14px !important; }
   .modal-overlay { background: rgba(0,0,0,0.6); align-items: center; justify-content: center; }
   .modal-sheet { max-width: 980px; width: 92%; max-height: 88vh; border-radius: 16px; box-shadow: 0 20px 60px rgba(0,0,0,0.25); overflow: hidden; }
@@ -128,7 +141,7 @@ body { font-family: 'Barlow Condensed', sans-serif; color: #111; }
   .dh { font-size: 26px !important; padding: 11px 4px !important; }
   .legend-label { font-size: 15px !important; }
   .legend-dot { width: 16px !important; height: 16px !important; }
-  .gym-entry-hours { font-size: 22px !important; }
+  .gym-entry-hours { font-family: 'Tusker Grotesk', sans-serif; font-size: 22px !important; }
   .gym-entry { min-height: 80px !important; }
 }
 
@@ -142,6 +155,8 @@ body { font-family: 'Barlow Condensed', sans-serif; color: #111; }
 }
 .week-title {
   background: #fff; color: #111;
+  font-family: 'Tusker Grotesk', sans-serif;
+  font-weight: 700;
   font-size: 32px; font-weight: 900; letter-spacing: 3px; text-transform: uppercase;
   padding: 13px 16px 11px 16px; text-align: center;
   border-bottom: 1px solid #e8e3de;
@@ -154,31 +169,31 @@ body { font-family: 'Barlow Condensed', sans-serif; color: #111; }
 /* ── Gym entry (orario apertura) ── */
 .gym-band {
   display: grid; grid-template-columns: repeat(6, 1fr);
-  gap: 0; background: #f0f0f0;
+  gap: 0; background: #fff;
 }
-.gym-day { background: #f0f0f0; padding: 3px 2px; min-width: 0; overflow: hidden; }
+.gym-day { background: #fff; padding: 3px 2px; min-width: 0; overflow: hidden; }
 .gym-entry {
   display: flex; flex-direction: column; align-items: center; justify-content: center;
   gap: 2px; padding: 8px 4px;
   background: #111; cursor: pointer; width: 100%; border: none;
-  text-align: center; font-family: 'Barlow Condensed', sans-serif;
+  text-align: center; font-family: 'Tusker Grotesk', sans-serif;
   border-top: 3px solid var(--accent);
   min-height: 52px; border-radius: 7px;
   box-shadow: 0 1px 4px rgba(0,0,0,0.18);
   transition: transform 0.1s;
 }
 .gym-entry:active { transform: scale(0.97); }
-.gym-entry-label { font-size: 7px; font-weight: 900; color: var(--accent); letter-spacing: 1.5px; text-transform: uppercase; }
-.gym-entry-hours { font-size: 13px; font-weight: 900; color: #fff; letter-spacing: 0.5px; line-height: 1.2; }
+.gym-entry-label { font-family: 'Tusker Grotesk', sans-serif; font-size: 7px; font-weight: 900; color: var(--accent); letter-spacing: 1.5px; text-transform: uppercase; }
+.gym-entry-hours { font-family: 'Tusker Grotesk', sans-serif; font-size: 13px; font-weight: 900; color: #fff; letter-spacing: 0.5px; line-height: 1.2; }
 
 /* ── Class grid (una riga = una fascia oraria, come luglio) ── */
 .class-grid {
   display: grid; grid-template-columns: repeat(6, 1fr);
-  gap: 0; background: #f0f0f0;
+  gap: 0; background: #fff;
 }
 .class-day {
-  background: #f0f0f0; padding: 3px 2px;
-  display: flex; flex-direction: column; gap: 3px;
+  background: #fff; padding: 6px 4px;
+  display: flex; flex-direction: column; gap: 5px;
   min-width: 0; min-height: 0; overflow: hidden;
 }
 
@@ -201,16 +216,16 @@ body { font-family: 'Barlow Condensed', sans-serif; color: #111; }
   text-align: left;
   font-family: 'Barlow Condensed', sans-serif;
   border-radius: 7px;
-  box-shadow: 0 1px 4px rgba(0,0,0,0.13);
+  box-shadow: 0 2px 10px rgba(0,0,0,0.18); outline: 1px solid rgba(0,0,0,0.07);
   transition: transform 0.1s, box-shadow 0.1s;
-  background: #111;
+  background: #fff;
 }
 .class-entry:active { transform: scale(0.97); box-shadow: 0 1px 2px rgba(0,0,0,0.10); }
 
 .entry-time {
   font-size: 11px;
   font-weight: 700;
-  color: rgba(0,0,0,0.7);
+  color: #333;
   white-space: nowrap;
   line-height: 1.2;
   width: 100%;
@@ -219,11 +234,13 @@ body { font-family: 'Barlow Condensed', sans-serif; color: #111; }
   padding: 3px 5px;
 }
 .entry-name {
+  font-family: 'Tusker Grotesk', sans-serif;
   font-size: 10px;
-  font-weight: 800;
-  color: #fff;
+  font-weight: 600;
+  color: #111;
+  background: #f4f0eb;
   text-transform: uppercase;
-  letter-spacing: 0.2px;
+  letter-spacing: 0;
   line-height: 1.2;
   width: 100%;
   overflow: hidden;
@@ -286,23 +303,23 @@ body { font-family: 'Barlow Condensed', sans-serif; color: #111; }
 .modal-back:active { background: #e04a00; }
 .modal-header { flex-shrink: 0; padding: 10px 18px 10px; border-bottom: 1px solid #e8e3de; }
 .modal-sala-pill {
-  display: inline-block; font-family: 'Barlow Condensed', sans-serif;
+  display: inline-block; font-family: 'Tusker Grotesk', sans-serif;
   font-size: 10px; font-weight: 800; letter-spacing: 1.5px; text-transform: uppercase;
   padding: 3px 9px; border-radius: 20px; color: #fff; margin-bottom: 6px;
 }
 .modal-title {
-  font-family: 'Barlow Condensed', sans-serif;
-  font-size: 30px; font-weight: 800; letter-spacing: 2px; text-transform: uppercase;
+  font-family: 'Tusker Grotesk', sans-serif;
+  font-size: 30px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase;
   color: #111; line-height: 1.1;
 }
 .modal-time-badge {
-  font-family: 'Barlow Condensed', sans-serif; margin-top: 4px;
+  font-family: 'Tusker Grotesk', sans-serif; margin-top: 4px;
   font-size: 14px; font-weight: 600; letter-spacing: 2px; color: #666; text-transform: uppercase;
 }
 .modal-desc {
   flex-shrink: 0; padding: 10px 18px 0;
-  font-family: 'Barlow Condensed', sans-serif;
-  font-size: 16px; font-weight: 400; color: #444; line-height: 1.45;
+  font-family: 'Inter', sans-serif;
+  font-size: 15px; font-weight: 400; color: #444; line-height: 1.45;
 }
 .modal-video-wrap { flex: 0 0 auto; padding: 10px 18px 40px; }
 .modal-video-player {
@@ -315,7 +332,7 @@ body { font-family: 'Barlow Condensed', sans-serif; color: #111; }
 }
 .modal-stats { flex-shrink: 0; padding: 10px 18px 16px; }
 .modal-stats-title {
-  font-family: 'Barlow Condensed', sans-serif;
+  font-family: 'Tusker Grotesk', sans-serif;
   font-size: 10px; font-weight: 900; letter-spacing: 3px; text-transform: uppercase;
   color: #555; margin-bottom: 8px;
 }
@@ -330,13 +347,13 @@ body { font-family: 'Barlow Condensed', sans-serif; color: #111; }
 }
 .stat-fill-label {
   position: absolute; left: 12px;
-  font-family: 'Barlow Condensed', sans-serif;
+  font-family: 'Tusker Grotesk', sans-serif;
   font-size: 12px; font-weight: 800; letter-spacing: 1.5px; text-transform: uppercase;
   color: #fff; white-space: nowrap;
 }
 .stat-pct {
   position: absolute; right: 12px;
-  font-family: 'Barlow Condensed', sans-serif;
+  font-family: 'Inter', sans-serif;
   font-size: 13px; font-weight: 900; color: rgba(0,0,0,0.4);
 }
 
