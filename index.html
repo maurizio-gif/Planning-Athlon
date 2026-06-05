@@ -62,7 +62,7 @@ body {
 
 /* ── Hero strip ── */
 .hero-strip {
-  padding: 28px 20px 20px;
+  padding: 18px 20px 14px;
   flex-shrink: 0;
 }
 .hero-title {
@@ -159,6 +159,110 @@ body {
 .website-btn:active { background: #e5e0da; transform: scale(0.98); }
 .website-btn-icon { font-size: 18px; }
 
+/* ── Carousel ── */
+.carousel-section {
+  flex-shrink: 0;
+  background: var(--bg);
+  padding: 10px 0;
+  position: relative;
+  overflow: hidden;
+  border-top: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+}
+/* Scanline animata */
+.carousel-section::before {
+  content: '';
+  position: absolute;
+  top: 0; bottom: 0;
+  left: -20%;
+  width: 80px;
+  background: linear-gradient(to right, transparent, rgba(255,87,1,0.12), transparent);
+  animation: scanline 5s ease-in-out infinite;
+  z-index: 3;
+  pointer-events: none;
+}
+@keyframes scanline {
+  0%   { left: -10%; opacity: 0; }
+  10%  { opacity: 1; }
+  90%  { opacity: 1; }
+  100% { left: 110%; opacity: 0; }
+}
+.carousel-wrap {
+  overflow: hidden;
+  position: relative;
+}
+/* Fade bordi */
+.carousel-wrap::before,
+.carousel-wrap::after {
+  content: '';
+  position: absolute;
+  top: 0; bottom: 0;
+  width: 70px;
+  z-index: 2;
+  pointer-events: none;
+}
+.carousel-wrap::before { left: 0; background: linear-gradient(to right, var(--bg), transparent); }
+.carousel-wrap::after  { right: 0; background: linear-gradient(to left, var(--bg), transparent); }
+.carousel-track {
+  display: flex;
+  gap: 8px;
+  width: max-content;
+  animation: carousel-scroll 45s linear infinite;
+  padding: 0 4px;
+}
+.carousel-track:hover { animation-play-state: paused; }
+@keyframes carousel-scroll {
+  0%   { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+.carousel-slide {
+  flex-shrink: 0;
+  width: 195px;
+  aspect-ratio: 3 / 2;
+  border-radius: 5px;
+  overflow: hidden;
+  border: 1px solid rgba(255,87,1,0.3);
+  box-shadow: 0 0 14px rgba(255,87,1,0.12), inset 0 0 0 1px rgba(255,255,255,0.04);
+}
+.carousel-slide img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center 30%;
+  display: block;
+  filter: brightness(0.88) contrast(1.08) saturate(0.95);
+  transition: filter 0.4s;
+}
+.carousel-slide { cursor: zoom-in; }
+.carousel-slide:hover img { filter: brightness(1.05) contrast(1.05) saturate(1.1); }
+
+/* ── Lightbox ── */
+.lightbox {
+  display: none;
+  position: fixed; inset: 0; z-index: 1000;
+  background: rgba(0,0,0,0.92);
+  align-items: center; justify-content: center;
+  animation: lb-in .2s ease;
+}
+.lightbox.open { display: flex; }
+@keyframes lb-in { from { opacity: 0; } to { opacity: 1; } }
+.lightbox img {
+  max-width: 94vw; max-height: 88vh;
+  object-fit: contain;
+  border-radius: 6px;
+  box-shadow: 0 0 60px rgba(255,87,1,0.25);
+  animation: lb-zoom .25s cubic-bezier(.2,.8,.3,1);
+}
+@keyframes lb-zoom { from { transform: scale(0.92); opacity: 0; } to { transform: scale(1); opacity: 1; } }
+.lightbox-close {
+  position: absolute; top: 18px; right: 18px;
+  background: var(--accent); border: none; cursor: pointer;
+  color: #fff; font-family: 'Tusker Grotesk', sans-serif;
+  font-size: 14px; font-weight: 700; letter-spacing: 1.5px;
+  padding: 8px 18px; border-radius: 20px;
+  text-transform: uppercase;
+}
+
 /* ── Footer ── */
 footer {
   background: var(--black);
@@ -180,7 +284,7 @@ footer strong { color: var(--accent); }
 
 <!-- Hero -->
 <div class="hero-strip">
-  <div class="hero-title">Orari<br><span>&amp; Corsi</span></div>
+  <div class="hero-title">Orari <span>&amp; Corsi</span></div>
   <div class="hero-sub">Prenotazione obbligatoria</div>
 </div>
 
@@ -204,6 +308,35 @@ footer strong { color: var(--accent); }
 
 </div>
 
+<!-- Carousel -->
+<div class="carousel-section">
+  <div class="carousel-wrap">
+    <div class="carousel-track">
+      <div class="carousel-slide"><img src="https://www.athlonroma.it/wp-content/uploads/2025/11/ATHLON86-scaled.jpg" alt="" loading="lazy"></div>
+      <div class="carousel-slide"><img src="https://www.athlonroma.it/wp-content/uploads/2025/11/ATHLON83-scaled.jpg" alt="" loading="lazy"></div>
+      <div class="carousel-slide"><img src="https://www.athlonroma.it/wp-content/uploads/2025/03/Athlon145-scaled.jpg" alt="" loading="lazy"></div>
+      <div class="carousel-slide"><img src="https://www.athlonroma.it/wp-content/uploads/2025/03/Athlon225-scaled.jpg" alt="" loading="lazy"></div>
+      <div class="carousel-slide"><img src="https://www.athlonroma.it/wp-content/uploads/2024/08/ACK2226Giacomo-lattanzio_-1-scaled.jpg" alt="" loading="lazy"></div>
+      <div class="carousel-slide"><img src="https://www.athlonroma.it/wp-content/uploads/2024/08/ACK2136Giacomo-lattanzio_-scaled.jpg" alt="" loading="lazy"></div>
+      <div class="carousel-slide"><img src="https://www.athlonroma.it/wp-content/uploads/2025/03/Athlon178-scaled.jpg" alt="" loading="lazy"></div>
+      <div class="carousel-slide"><img src="https://www.athlonroma.it/wp-content/uploads/2025/03/Athlon87-scaled-e1775579393908.jpg" alt="" loading="lazy"></div>
+      <div class="carousel-slide"><img src="https://www.athlonroma.it/wp-content/uploads/2025/11/ATHLON88-scaled.jpg" alt="" loading="lazy"></div>
+      <div class="carousel-slide"><img src="https://www.athlonroma.it/wp-content/uploads/2024/08/WM_08286-1-scaled.jpg" alt="" loading="lazy"></div>
+      <!-- Duplicati per loop infinito -->
+      <div class="carousel-slide"><img src="https://www.athlonroma.it/wp-content/uploads/2025/11/ATHLON86-scaled.jpg" alt="" loading="lazy"></div>
+      <div class="carousel-slide"><img src="https://www.athlonroma.it/wp-content/uploads/2025/11/ATHLON83-scaled.jpg" alt="" loading="lazy"></div>
+      <div class="carousel-slide"><img src="https://www.athlonroma.it/wp-content/uploads/2025/03/Athlon145-scaled.jpg" alt="" loading="lazy"></div>
+      <div class="carousel-slide"><img src="https://www.athlonroma.it/wp-content/uploads/2025/03/Athlon225-scaled.jpg" alt="" loading="lazy"></div>
+      <div class="carousel-slide"><img src="https://www.athlonroma.it/wp-content/uploads/2024/08/ACK2226Giacomo-lattanzio_-1-scaled.jpg" alt="" loading="lazy"></div>
+      <div class="carousel-slide"><img src="https://www.athlonroma.it/wp-content/uploads/2024/08/ACK2136Giacomo-lattanzio_-scaled.jpg" alt="" loading="lazy"></div>
+      <div class="carousel-slide"><img src="https://www.athlonroma.it/wp-content/uploads/2025/03/Athlon178-scaled.jpg" alt="" loading="lazy"></div>
+      <div class="carousel-slide"><img src="https://www.athlonroma.it/wp-content/uploads/2025/03/Athlon87-scaled-e1775579393908.jpg" alt="" loading="lazy"></div>
+      <div class="carousel-slide"><img src="https://www.athlonroma.it/wp-content/uploads/2025/11/ATHLON88-scaled.jpg" alt="" loading="lazy"></div>
+      <div class="carousel-slide"><img src="https://www.athlonroma.it/wp-content/uploads/2024/08/WM_08286-1-scaled.jpg" alt="" loading="lazy"></div>
+    </div>
+  </div>
+</div>
+
 <div class="website-btn-wrap">
   <a class="website-btn" href="https://www.athlonroma.it" target="_blank" rel="noopener">
     <span class="website-btn-icon">🌐</span>
@@ -216,6 +349,34 @@ footer strong { color: var(--accent); }
   Per Assistenza <a href="https://wiki.athlonroma.it" target="_blank" style="color:var(--accent);text-decoration:none;font-weight:800;">Clicca qui</a>
 </footer>
 
+<!-- Lightbox -->
+<div class="lightbox" id="lightbox">
+  <button class="lightbox-close" onclick="closeLightbox()">✕ &nbsp;Chiudi</button>
+  <img id="lightbox-img" src="" alt="">
+</div>
+
+<script>
+function openLightbox(src) {
+  const lb = document.getElementById('lightbox');
+  document.getElementById('lightbox-img').src = src;
+  lb.classList.add('open');
+}
+function closeLightbox() {
+  const lb = document.getElementById('lightbox');
+  lb.classList.remove('open');
+  document.getElementById('lightbox-img').src = '';
+}
+document.getElementById('lightbox').addEventListener('click', function(e) {
+  if (e.target === this) closeLightbox();
+});
+document.querySelectorAll('.carousel-slide img').forEach(img => {
+  img.addEventListener('click', function() {
+    openLightbox(this.src);
+  });
+});
+// Chiudi con Escape
+document.addEventListener('keydown', e => { if (e.key === 'Escape') closeLightbox(); });
+</script>
 </body>
 </html>
 
