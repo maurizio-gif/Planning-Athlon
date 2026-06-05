@@ -77,15 +77,12 @@ body {
 
 /* ── Cards container ── */
 .cards {
-  flex: 1;
-  padding: 0 16px 32px;
+  flex-shrink: 0;
+  padding: 0 16px 12px;
   display: flex;
   flex-direction: column;
-  gap: 14px;
-  overflow-y: auto;
-  -webkit-overflow-scrolling: touch;
+  gap: 12px;
 }
-.cards::-webkit-scrollbar { display: none; }
 
 /* ── Schedule card ── */
 .sched-card {
@@ -138,6 +135,24 @@ body {
 .sched-card.card-luglio::before { background: var(--accent); }
 .sched-card.card-agosto::before { background: #1a72d4; }
 
+/* ── Responsive compaction (tablet/desktop) ── */
+@media (min-width: 600px) {
+  .hero-strip { padding: 12px 20px 8px; }
+  .cards { gap: 10px; padding: 0 16px 10px; }
+  .sched-card { padding: 16px 22px 14px; }
+  .website-btn-wrap { padding: 0 16px 10px; }
+  footer { padding: 8px 16px; }
+}
+@media (min-width: 1024px) {
+  .hero-strip { padding: 8px 20px 6px; }
+  .hero-title { font-size: clamp(28px, 4vw, 48px); }
+  .cards { gap: 8px; padding: 0 16px 8px; }
+  .sched-card { padding: 12px 22px 10px; }
+  .card-title { font-size: clamp(20px, 3vw, 30px); }
+  .website-btn-wrap { padding: 0 16px 8px; }
+  footer { padding: 6px 16px; }
+}
+
 /* ── Website button ── */
 .website-btn-wrap {
   padding: 0 16px 16px;
@@ -161,13 +176,17 @@ body {
 
 /* ── Carousel ── */
 .carousel-section {
-  flex-shrink: 0;
+  flex: 1;
+  min-height: 100px;
   background: var(--bg);
-  padding: 10px 0;
   position: relative;
   overflow: hidden;
   border-top: 1px solid var(--border);
   border-bottom: 1px solid var(--border);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: stretch;
 }
 /* Scanline animata */
 .carousel-section::before {
@@ -209,20 +228,29 @@ body {
   width: max-content;
   animation: carousel-scroll 45s linear infinite;
   padding: 0 4px;
+  cursor: grab;
+  user-select: none;
+  -webkit-user-select: none;
 }
-.carousel-track:hover { animation-play-state: paused; }
+.carousel-track.is-dragging { cursor: grabbing; }
+.carousel-track.is-paused { cursor: zoom-in; }
 @keyframes carousel-scroll {
   0%   { transform: translateX(0); }
   100% { transform: translateX(-50%); }
 }
+/* Tablet default */
 .carousel-slide {
   flex-shrink: 0;
-  width: 195px;
+  width: 220px;
   aspect-ratio: 3 / 2;
   border-radius: 5px;
   overflow: hidden;
   border: 1px solid rgba(255,87,1,0.3);
   box-shadow: 0 0 14px rgba(255,87,1,0.12), inset 0 0 0 1px rgba(255,255,255,0.04);
+}
+/* Desktop */
+@media (min-width: 1024px) {
+  .carousel-slide { width: 280px; }
 }
 .carousel-slide img {
   width: 100%;
@@ -232,8 +260,9 @@ body {
   display: block;
   filter: brightness(0.88) contrast(1.08) saturate(0.95);
   transition: filter 0.4s;
+  pointer-events: none;
+  -webkit-user-drag: none;
 }
-.carousel-slide { cursor: zoom-in; }
 .carousel-slide:hover img { filter: brightness(1.05) contrast(1.05) saturate(1.1); }
 
 /* ── Lightbox ── */
@@ -273,6 +302,24 @@ footer {
   flex-shrink: 0;
 }
 footer strong { color: var(--accent); }
+
+/* ── Mobile: slideshow grande, pulsanti compatti ── */
+@media (max-width: 599px) {
+  .header { padding: 10px 16px; }
+  .logo-img { height: 30px; }
+  .hero-strip { padding: 10px 16px 6px; }
+  .hero-title { font-size: 26px; line-height: 1.1; }
+  .hero-sub { font-size: 11px; margin-top: 6px; }
+  .cards { gap: 7px; padding: 0 14px 8px; }
+  .sched-card { padding: 10px 16px 8px; border-radius: 10px; }
+  .sched-card::after { font-size: 18px; right: 16px; }
+  .card-title { font-size: 18px; letter-spacing: 1px; }
+  .card-sub { font-size: 10px; margin-top: 3px; }
+  .carousel-slide { width: min(340px, 90vw); }
+  .website-btn-wrap { padding: 0 14px 10px; }
+  .website-btn { padding: 12px 16px; font-size: 13px; }
+  footer { padding: 6px 16px; font-size: 9px; }
+}
 </style>
 </head>
 <body>
@@ -356,6 +403,7 @@ footer strong { color: var(--accent); }
 </div>
 
 <script>
+/* ── Lightbox ── */
 function openLightbox(src) {
   const lb = document.getElementById('lightbox');
   document.getElementById('lightbox-img').src = src;
@@ -369,13 +417,110 @@ function closeLightbox() {
 document.getElementById('lightbox').addEventListener('click', function(e) {
   if (e.target === this) closeLightbox();
 });
-document.querySelectorAll('.carousel-slide img').forEach(img => {
-  img.addEventListener('click', function() {
-    openLightbox(this.src);
-  });
-});
-// Chiudi con Escape
 document.addEventListener('keydown', e => { if (e.key === 'Escape') closeLightbox(); });
+
+/* ── Carousel drag + pause ── */
+(function () {
+  const track = document.querySelector('.carousel-track');
+  const DURATION = 45; // seconds
+
+  let isPaused = false;
+  let isDragging = false;
+  let hasMoved = false;
+  let dragStartX = 0;
+  let dragBaseX = 0;
+
+  function getTranslateX() {
+    return new DOMMatrix(getComputedStyle(track).transform).m41;
+  }
+
+  function getHalfWidth() {
+    return track.scrollWidth / 2;
+  }
+
+  function normalizeX(x) {
+    const hw = getHalfWidth();
+    let nx = x % hw;          // keep fractional part
+    if (nx > 0) nx -= hw;     // ensure ≤ 0
+    if (nx < -hw) nx += hw;   // ensure ≥ -hw
+    return nx;
+  }
+
+  function resumeFromX(x) {
+    const hw = getHalfWidth();
+    const nx = normalizeX(x);
+    const progress = Math.abs(nx) / hw;          // 0…1
+    const delay = -(progress * DURATION).toFixed(4);
+    track.style.transform = '';
+    track.style.animation = `carousel-scroll ${DURATION}s linear ${delay}s infinite`;
+    track.classList.remove('is-paused');
+  }
+
+  function pause() {
+    const x = getTranslateX();
+    track.style.animation = 'none';
+    track.style.transform = `translateX(${x}px)`;
+    isPaused = true;
+    track.classList.add('is-paused');
+  }
+
+  /* click/tap = toggle pause (only if no drag occurred) */
+  track.addEventListener('click', () => {
+    if (hasMoved) return;
+    if (isPaused) { resumeFromX(getTranslateX()); isPaused = false; }
+    else          { pause(); }
+  });
+
+  /* drag start */
+  function onStart(e) {
+    hasMoved = false;
+    isDragging = true;
+    dragStartX = e.touches ? e.touches[0].clientX : e.clientX;
+    dragBaseX = getTranslateX();
+    track.style.animation = 'none';
+    track.style.transform = `translateX(${dragBaseX}px)`;
+    track.classList.add('is-dragging');
+    track.classList.remove('is-paused');
+  }
+
+  /* drag move */
+  function onMove(e) {
+    if (!isDragging) return;
+    if (e.touches) e.preventDefault();
+    const cx = e.touches ? e.touches[0].clientX : e.clientX;
+    const delta = cx - dragStartX;
+    if (Math.abs(delta) > 4) hasMoved = true;
+    const hw = getHalfWidth();
+    let nx = dragBaseX + delta;
+    if (nx > 0)    nx -= hw;
+    if (nx < -hw)  nx += hw;
+    track.style.transform = `translateX(${nx}px)`;
+  }
+
+  /* drag end */
+  function onEnd() {
+    if (!isDragging) return;
+    isDragging = false;
+    track.classList.remove('is-dragging');
+    if (!isPaused) resumeFromX(getTranslateX());
+    else { track.classList.add('is-paused'); }
+  }
+
+  track.addEventListener('mousedown',  onStart);
+  track.addEventListener('touchstart', onStart, { passive: true });
+  document.addEventListener('mousemove',  onMove);
+  document.addEventListener('touchmove',  onMove, { passive: false });
+  document.addEventListener('mouseup',  onEnd);
+  document.addEventListener('touchend', onEnd);
+
+  /* click on slide image → lightbox (only when not dragging) */
+  track.querySelectorAll('.carousel-slide').forEach(slide => {
+    slide.addEventListener('click', () => {
+      if (hasMoved) return;
+      openLightbox(slide.querySelector('img').src);
+    });
+  });
+})();
 </script>
 </body>
 </html>
