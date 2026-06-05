@@ -816,7 +816,26 @@ function openModal(name, sala, time) {
   if (info.videoUrl) {
     document.getElementById('modal-video-src').src = info.videoUrl;
     const p = document.getElementById('modal-video-player');
-    p.load(); p.play();
+    if (p._loopHandler) {
+      p.removeEventListener('ended', p._loopHandler);
+      p._loopHandler = null;
+    }
+    p.load();
+    if (info.videoStart) {
+      p.removeAttribute('loop');
+      p._loopHandler = function() {
+        p.currentTime = info.videoStart;
+        p.play();
+      };
+      p.addEventListener('ended', p._loopHandler);
+      p.addEventListener('loadedmetadata', function() {
+        p.currentTime = info.videoStart;
+        p.play();
+      }, { once: true });
+    } else {
+      p.setAttribute('loop', '');
+      p.play();
+    }
     videoWrap.style.display = 'block';
   } else {
     videoWrap.style.display = 'none';
