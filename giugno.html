@@ -125,10 +125,12 @@ body {
   .modal-video-player { max-height: none !important; max-width: 100% !important; width: 100% !important; }
   .app-fab { font-size: 16px !important; }
 }
-@media (min-width: 1024px) {
+@media (min-width: 1024px) and (orientation: landscape) {
   .modal-body { flex-direction: row !important; gap: 36px; }
   .modal-col-left { flex: 1; min-width: 0; }
   .modal-col-right { flex: 1; min-width: 0; }
+}
+@media (min-width: 1024px) {
   .entry-name { font-size: 20px !important; }
   .entry-time { font-size: 17px !important; }
   .class-entry { height: 90px !important; }
@@ -235,8 +237,8 @@ body {
 
 /* ── Band title (full-width section header) ── */
 .band-title {
-  background: #f4f0eb;
-  color: #111;
+  background: linear-gradient(135deg, #111111 0%, #2d2010 100%);
+  color: #fff;
   font-family: 'Barlow Condensed', sans-serif;
   font-family: 'Tusker Grotesk', sans-serif;
   font-weight: 700;
@@ -246,7 +248,7 @@ body {
   text-transform: uppercase;
   padding: 13px 16px 11px 16px;
   text-align: center;
-  border-bottom: 1px solid #e8e3de;
+  border-bottom: none;
 }
 
 /* ── Band grid / time-row ── */
