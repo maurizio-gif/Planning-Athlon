@@ -302,6 +302,24 @@ footer strong { color: var(--accent); }
 @media (max-width: 599px)               { .carousel-slide { width: min(340px, 90vw); } }
 @media (min-width: 600px)               { .carousel-slide { width: 260px; } }
 @media (min-width: 1024px)              { .carousel-slide { width: 280px; } }
+
+/* ── Totem / schermi portrait alti (es. 1080×1920) ── */
+@media (min-height: 1100px) {
+  .header { padding: 20px 24px 18px; }
+  .logo-img { height: 52px; }
+  .hero-strip { padding: 22px 24px 18px; }
+  .hero-title { font-size: clamp(52px, 7vw, 82px); }
+  .hero-sub { font-size: 15px; margin-top: 14px; }
+  .cards { gap: 20px; padding: 0 22px 20px; }
+  .sched-card { padding: 30px 26px 28px; }
+  .card-title { font-size: clamp(36px, 5vw, 56px); }
+  .card-sub { font-size: 15px; margin-top: 8px; }
+  .sched-card::after { font-size: 32px; right: 26px; }
+  .website-btn-wrap { padding: 0 22px 20px; }
+  .website-btn { padding: 24px 26px; font-size: 20px; }
+  footer { padding: 18px 22px; font-size: 12px; line-height: 2; }
+  .carousel-slide { width: min(88vw, 920px); }
+}
 </style>
 </head>
 <body>
