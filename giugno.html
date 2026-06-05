@@ -118,17 +118,17 @@ body {
 
 /* ── Day headers bar ── */
 .day-headers-bar {
-  background: #111;
+  background: #f4f0eb;
 }
 .day-headers-grid {
   display: grid;
   grid-template-columns: repeat(6, 1fr);
   gap: 1px;
-  background: #333;
+  background: #d4cfc9;
 }
 .dh {
-  background: #111;
-  color: #fff;
+  background: #f4f0eb;
+  color: #111;
   font-family: 'Barlow Condensed', sans-serif;
   font-size: 18px;
   font-weight: 900;
@@ -136,20 +136,20 @@ body {
   text-transform: uppercase;
   padding: 6px 2px;
   text-align: center;
-  border-bottom: 2px solid #ff5701;
+  border-bottom: 3px solid var(--accent);
 }
 .dh-sub { font-size: 8px; color: #888; letter-spacing: 0.5px; }
 
 /* ── Legend bar ── */
 .legend-bar {
-  background: #1a1a1a;
+  background: #fff;
   display: flex;
   flex-wrap: wrap;
   align-items: center;
   justify-content: center;
   gap: 8px 14px;
   padding: 6px 10px;
-  border-bottom: 1px solid #333;
+  border-bottom: 1px solid #e8e3de;
 }
 .legend-item {
   display: flex;
@@ -166,7 +166,7 @@ body {
   font-family: 'Barlow Condensed', sans-serif;
   font-size: 9px;
   font-weight: 700;
-  color: #ccc;
+  color: #555;
   text-transform: uppercase;
   letter-spacing: 0.8px;
   white-space: nowrap;
@@ -174,10 +174,10 @@ body {
 
 /* ── CTA bar ── */
 .cta-bar {
-  background: #1a1a1a;
+  background: #faf7f4;
   text-align: center;
   padding: 5px 12px 6px;
-  border-bottom: 1px solid #2a2a2a;
+  border-bottom: 1px solid #ede8e3;
 }
 .cta-bar span {
   font-family: 'Barlow Condensed', sans-serif;
@@ -199,27 +199,28 @@ body {
 
 /* ── Band info (testo descrittivo sotto il titolo sezione) ── */
 .band-info {
-  background: #1a1a1a;
-  color: #ccc;
+  background: #faf7f4;
+  color: #555;
   font-family: 'Barlow Condensed', sans-serif;
   font-size: 13px; font-weight: 500; line-height: 1.55;
   padding: 10px 14px 11px;
-  border-bottom: 1px solid #2a2a2a;
+  border-bottom: 1px solid #e8e3de;
 }
-.band-info strong { color: #fff; font-weight: 800; }
+.band-info strong { color: #111; font-weight: 800; }
 
 /* ── Band title (full-width section header) ── */
 .band-title {
-  background: #111;
-  color: #fff;
+  background: #fff;
+  color: #111;
   font-family: 'Barlow Condensed', sans-serif;
-  font-size: 26px;
+  font-size: 14px;
   font-weight: 900;
   letter-spacing: 3px;
   text-transform: uppercase;
-  padding: 12px 12px 10px;
-  text-align: center;
-  border-bottom: 3px solid var(--accent);
+  padding: 11px 14px 9px 18px;
+  text-align: left;
+  border-left: 4px solid var(--accent);
+  border-bottom: 1px solid #e8e3de;
 }
 
 /* ── Band grid / time-row ── */
