@@ -137,11 +137,11 @@ body {
 
 /* ── Responsive compaction (tablet/desktop) ── */
 @media (min-width: 600px) {
-  .hero-strip { padding: 12px 20px 8px; }
-  .cards { gap: 10px; padding: 0 16px 10px; }
-  .sched-card { padding: 16px 22px 14px; }
-  .website-btn-wrap { padding: 0 16px 10px; }
-  footer { padding: 8px 16px; }
+  .hero-strip { padding: 18px 20px 14px; }
+  .cards { gap: 14px; padding: 0 16px 14px; }
+  .sched-card { padding: 26px 22px 24px; }
+  .website-btn-wrap { padding: 0 16px 12px; }
+  footer { padding: 10px 16px; }
 }
 @media (min-width: 1024px) {
   .hero-strip { padding: 8px 20px 6px; }
@@ -188,24 +188,6 @@ body {
   justify-content: center;
   align-items: stretch;
 }
-/* Scanline animata */
-.carousel-section::before {
-  content: '';
-  position: absolute;
-  top: 0; bottom: 0;
-  left: -20%;
-  width: 80px;
-  background: linear-gradient(to right, transparent, rgba(255,87,1,0.12), transparent);
-  animation: scanline 5s ease-in-out infinite;
-  z-index: 3;
-  pointer-events: none;
-}
-@keyframes scanline {
-  0%   { left: -10%; opacity: 0; }
-  10%  { opacity: 1; }
-  90%  { opacity: 1; }
-  100% { left: 110%; opacity: 0; }
-}
 .carousel-wrap {
   overflow: hidden;
   position: relative;
@@ -247,10 +229,6 @@ body {
   overflow: hidden;
   border: 1px solid rgba(255,87,1,0.3);
   box-shadow: 0 0 14px rgba(255,87,1,0.12), inset 0 0 0 1px rgba(255,255,255,0.04);
-}
-/* Desktop */
-@media (min-width: 1024px) {
-  .carousel-slide { width: 280px; }
 }
 .carousel-slide img {
   width: 100%;
@@ -310,16 +288,20 @@ footer strong { color: var(--accent); }
   .hero-strip { padding: 10px 16px 6px; }
   .hero-title { font-size: 26px; line-height: 1.1; }
   .hero-sub { font-size: 11px; margin-top: 6px; }
-  .cards { gap: 7px; padding: 0 14px 8px; }
-  .sched-card { padding: 10px 16px 8px; border-radius: 10px; }
+  .cards { gap: 10px; padding: 0 14px 10px; }
+  .sched-card { padding: 18px 16px 16px; border-radius: 10px; }
   .sched-card::after { font-size: 18px; right: 16px; }
-  .card-title { font-size: 18px; letter-spacing: 1px; }
-  .card-sub { font-size: 10px; margin-top: 3px; }
-  .carousel-slide { width: min(340px, 90vw); }
+  .card-title { font-size: 22px; letter-spacing: 1.5px; }
+  .card-sub { font-size: 11px; margin-top: 4px; }
   .website-btn-wrap { padding: 0 14px 10px; }
   .website-btn { padding: 12px 16px; font-size: 13px; }
   footer { padding: 6px 16px; font-size: 9px; }
 }
+
+/* ── Carousel slide widths (must be last to override default) ── */
+@media (max-width: 599px)               { .carousel-slide { width: min(340px, 90vw); } }
+@media (min-width: 600px)               { .carousel-slide { width: 260px; } }
+@media (min-width: 1024px)              { .carousel-slide { width: 280px; } }
 </style>
 </head>
 <body>
