@@ -98,11 +98,20 @@ body {
   .gym-entry-label { font-size: 10px !important; }
   .gym-entry-hours { font-size: 18px !important; }
   .gym-entry { min-height: 68px !important; }
-  /* Modal */
+  /* Modal desktop */
   .modal-title { font-size: 48px !important; }
   .modal-time-badge { font-size: 22px !important; }
-  .modal-desc { font-size: 22px !important; line-height: 1.5 !important; }
+  .modal-desc { font-size: 18px !important; line-height: 1.5 !important; }
   .modal-sala-pill { font-size: 14px !important; padding: 5px 14px !important; }
+  .modal-overlay { background: rgba(0,0,0,0.6); align-items: center; justify-content: center; }
+  .modal-sheet { max-width: 980px; width: 92%; max-height: 88vh; border-radius: 16px; box-shadow: 0 20px 60px rgba(0,0,0,0.25); overflow: hidden; }
+  .modal-body { display: flex; flex-direction: row; align-items: flex-start; gap: 36px; padding: 24px 28px 32px; overflow-y: auto; flex: 1; min-height: 0; }
+  .modal-col-left { flex: 1; min-width: 0; }
+  .modal-col-right { flex: 1; min-width: 0; }
+  .modal-desc { padding: 0 0 16px 0 !important; }
+  .modal-stats { padding: 0 !important; }
+  .modal-video-wrap { padding: 0 !important; }
+  .modal-video-player { max-height: none !important; max-width: 100% !important; width: 100% !important; }
 }
 @media (min-width: 1024px) {
   .entry-name { font-size: 20px !important; }
@@ -1013,17 +1022,23 @@ footer strong { color: var(--accent); }
       <div class="modal-title" id="modal-title">—</div>
       <div class="modal-time-badge" id="modal-time-badge"></div>
     </div>
-    <div class="modal-desc" id="modal-desc"></div>
-    <div id="modal-video-wrap" class="modal-video-wrap" style="display:none">
-      <span class="modal-video-label-top">Video corso</span>
-      <div class="modal-video-player">
-        <video id="modal-video-player" autoplay muted loop playsinline preload="none">
-          <source id="modal-video-src" src="" type="video/mp4">
-        </video>
+    <div class="modal-body">
+      <div class="modal-col-left">
+        <div class="modal-desc" id="modal-desc"></div>
+        <div class="modal-stats" id="modal-stats"></div>
+        <div class="modal-equipment" id="modal-equipment" style="display:none"></div>
+      </div>
+      <div class="modal-col-right">
+        <div id="modal-video-wrap" class="modal-video-wrap" style="display:none">
+          <span class="modal-video-label-top">Video corso</span>
+          <div class="modal-video-player">
+            <video id="modal-video-player" autoplay muted loop playsinline preload="none">
+              <source id="modal-video-src" src="" type="video/mp4">
+            </video>
+          </div>
+        </div>
       </div>
     </div>
-    <div class="modal-stats" id="modal-stats"></div>
-    <div class="modal-equipment" id="modal-equipment" style="display:none"></div>
   </div>
 </div>
 
@@ -1062,8 +1077,8 @@ const lessons = {
   'AQUA AEROBIC': { desc: 'Allenamento energico in acqua che combina movimenti aerobici a ritmo di musica per migliorare resistenza cardiovascolare, coordinazione e tonificazione muscolare. Sfrutta la resistenza naturale dell\'acqua riducendo lo stress sulle articolazioni.', videoUrl: 'https://www.athlonroma.it/wp-content/uploads/2025/03/AQUA-TONIC.mp4', stats: [{l:'Intensità muscolare',v:60},{l:'Intensità cardiovascolare',v:70},{l:'Coordinazione',v:75}] },
   'AQUA TRAINING': { desc: 'Lezione ad alta intensità in vasca grande, pensata per migliorare resistenza aerobica e cardiovascolare. Utilizza tecniche di nuoto, andature specifiche e lavoro in sospensione per coinvolgere tutto il corpo. Si svolge nella vasca grande (altezza 140–250 cm).', stats: [{l:'Intensità muscolare',v:75},{l:'Intensità cardiovascolare',v:75},{l:'Coordinazione',v:30}] },
   'BABY SWIM': { desc: 'Attività acquatica per neonati e bambini piccoli (da 4 mesi) con un genitore. In un ambiente caldo e sicuro si favorisce la familiarizzazione con l\'acqua e la motricità.', stats: [{l:'Divertimento',v:100},{l:'Sicurezza',v:100},{l:'Sviluppo motorio',v:85},{l:'Relax',v:80}] },
-  'SCUOLA NUOTO': { desc: 'Corsi divisi per livello: Base, Intermedio e Avanzato. Potrai prenotarti nel turno del tuo livello. Consulta l\'app o il portale per il turno effettivo diviso per livello. I turni sono da 50 minuti e la capienza massima per corso è di 7 partecipanti.', stats: [{l:'Resistenza',v:70},{l:'Tecnica',v:85},{l:'Coordinazione',v:75},{l:'Flessibilità',v:60}] },
-  'NUOTO LIBERO': { desc: 'Accesso alle corsie della piscina (25m) per nuotare in autonomia. Incluso nell\'abbonamento Smart e Premium.', stats: [{l:'Intensità cardiovascolare',v:75},{l:'Intensità muscolare',v:60},{l:'Coordinazione',v:55},{l:'Flessibilità',v:50}] },
+  'SCUOLA NUOTO': { desc: 'Corsi divisi per livello: Base, Intermedio e Avanzato. Potrai prenotarti nel turno del tuo livello. Consulta l\'app o il portale per il turno effettivo diviso per livello. I turni sono da 50 minuti e la capienza massima per corso è di 7 partecipanti.', stats: [] },
+  'NUOTO LIBERO': { desc: 'Accesso alle corsie della piscina (25m) per nuotare in autonomia. Incluso nell\'abbonamento Smart e Premium.', stats: [] },
 };
 
 function openModal(name, sala, time) {

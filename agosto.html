@@ -105,10 +105,20 @@ body { font-family: 'Barlow Condensed', sans-serif; color: #111; }
   .gym-entry-label { font-size: 10px !important; }
   .gym-entry-hours { font-size: 18px !important; }
   .gym-entry { min-height: 68px !important; }
+  /* Modal desktop */
   .modal-title { font-size: 48px !important; }
   .modal-time-badge { font-size: 22px !important; }
-  .modal-desc { font-size: 22px !important; line-height: 1.5 !important; }
+  .modal-desc { font-size: 18px !important; line-height: 1.5 !important; }
   .modal-sala-pill { font-size: 14px !important; padding: 5px 14px !important; }
+  .modal-overlay { background: rgba(0,0,0,0.6); align-items: center; justify-content: center; }
+  .modal-sheet { max-width: 980px; width: 92%; max-height: 88vh; border-radius: 16px; box-shadow: 0 20px 60px rgba(0,0,0,0.25); overflow: hidden; }
+  .modal-body { display: flex; flex-direction: row; align-items: flex-start; gap: 36px; padding: 24px 28px 32px; overflow-y: auto; flex: 1; min-height: 0; }
+  .modal-col-left { flex: 1; min-width: 0; }
+  .modal-col-right { flex: 1; min-width: 0; }
+  .modal-desc { padding: 0 0 16px 0 !important; }
+  .modal-stats { padding: 0 !important; }
+  .modal-video-wrap { padding: 0 !important; }
+  .modal-video-player { max-height: none !important; max-width: 100% !important; width: 100% !important; }
 }
 @media (min-width: 1024px) {
   .entry-name { font-size: 18px !important; }
@@ -757,17 +767,23 @@ footer strong { color: var(--accent); }
       <div class="modal-title" id="modal-title">—</div>
       <div class="modal-time-badge" id="modal-time-badge"></div>
     </div>
-    <div class="modal-desc" id="modal-desc"></div>
-    <div id="modal-video-wrap" class="modal-video-wrap" style="display:none">
-      <span class="modal-video-label-top">Video corso</span>
-      <div class="modal-video-player">
-        <video id="modal-video-player" autoplay muted loop playsinline preload="none">
-          <source id="modal-video-src" src="" type="video/mp4">
-        </video>
+    <div class="modal-body">
+      <div class="modal-col-left">
+        <div class="modal-desc" id="modal-desc"></div>
+        <div class="modal-stats" id="modal-stats"></div>
+        <div class="modal-equipment" id="modal-equipment" style="display:none"></div>
+      </div>
+      <div class="modal-col-right">
+        <div id="modal-video-wrap" class="modal-video-wrap" style="display:none">
+          <span class="modal-video-label-top">Video corso</span>
+          <div class="modal-video-player">
+            <video id="modal-video-player" autoplay muted loop playsinline preload="none">
+              <source id="modal-video-src" src="" type="video/mp4">
+            </video>
+          </div>
+        </div>
       </div>
     </div>
-    <div class="modal-stats" id="modal-stats"></div>
-    <div class="modal-equipment" id="modal-equipment" style="display:none"></div>
   </div>
 </div>
 
