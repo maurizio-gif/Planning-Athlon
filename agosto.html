@@ -54,7 +54,7 @@ body { font-family: 'Barlow Condensed', sans-serif; color: #111; }
 
 /* ── Validity banner ── */
 .validity-banner {
-  background: var(--accent); padding: 10px 16px 14px;
+  background: var(--black); padding: 10px 16px 14px;
   text-align: center; border-bottom: 3px solid #c44400;
 }
 .validity-label {
@@ -66,8 +66,8 @@ body { font-family: 'Barlow Condensed', sans-serif; color: #111; }
   color: #fff; line-height: 1; text-shadow: 0 2px 10px rgba(0,0,0,0.4);
 }
 .validity-notice {
-  font-size: 14px; font-weight: 800; letter-spacing: 1.5px; text-transform: uppercase;
-  color: #fff; margin-top: 8px; padding-top: 8px; border-top: 1px solid rgba(255,255,255,0.45);
+  font-size: 10px; font-weight: 500; letter-spacing: 2px; text-transform: uppercase;
+  color: rgba(255,255,255,0.45); margin-top: 8px; padding-top: 8px; border-top: 1px solid rgba(255,255,255,0.12);
 }
 
 /* ── Legend bar ── */
@@ -155,7 +155,7 @@ body { font-family: 'Barlow Condensed', sans-serif; color: #111; }
   border: 2px solid var(--accent);
 }
 .week-title {
-  background: #fff; color: #111;
+  background: #f4f0eb; color: #111;
   font-family: 'Tusker Grotesk', sans-serif;
   font-weight: 700;
   font-size: 38px; font-weight: 900; letter-spacing: 3px; text-transform: uppercase;
@@ -170,9 +170,9 @@ body { font-family: 'Barlow Condensed', sans-serif; color: #111; }
 /* ── Gym entry (orario apertura) ── */
 .gym-band {
   display: grid; grid-template-columns: repeat(6, 1fr);
-  gap: 0; background: #fff;
+  gap: 0; background: #f4f0eb;
 }
-.gym-day { background: #fff; padding: 3px 2px; min-width: 0; overflow: hidden; }
+.gym-day { background: #f4f0eb; padding: 3px 2px; min-width: 0; overflow: hidden; }
 .gym-entry {
   display: flex; flex-direction: column; align-items: center; justify-content: center;
   gap: 2px; padding: 8px 4px;
@@ -190,10 +190,10 @@ body { font-family: 'Barlow Condensed', sans-serif; color: #111; }
 /* ── Class grid (una riga = una fascia oraria, come luglio) ── */
 .class-grid {
   display: grid; grid-template-columns: repeat(6, 1fr);
-  gap: 0; background: #fff;
+  gap: 0; background: #f4f0eb;
 }
 .class-day {
-  background: #fff; padding: 6px 4px;
+  background: #f4f0eb; padding: 6px 4px;
   display: flex; flex-direction: column; gap: 5px;
   min-width: 0; min-height: 0; overflow: hidden;
 }
@@ -240,7 +240,7 @@ body { font-family: 'Barlow Condensed', sans-serif; color: #111; }
   font-size: 10px;
   font-weight: 600;
   color: #111;
-  background: #f4f0eb;
+  background: #fff;
   text-transform: uppercase;
   letter-spacing: 0;
   line-height: 1.2;
@@ -256,10 +256,14 @@ body { font-family: 'Barlow Condensed', sans-serif; color: #111; }
 }
 
 /* Striscia orario: colore sala */
-.card-R  .entry-time { background: #9ee8b0; }
-.card-P  .entry-time { background: #fff59d; }
-.card-BS .entry-time { background: #ffadad; }
-.card-AQ .entry-time { background: #99dff5; }
+.card-R  .entry-time { background: #5a9970; }
+.card-P  .entry-time { background: #9a8c18; }
+.card-BS .entry-time { background: #c45010; }
+.card-AQ .entry-time { background: #3a9fc4; }
+.card-R  .entry-time,
+.card-P  .entry-time,
+.card-BS .entry-time,
+.card-AQ .entry-time { color: #fff; }
 
 /* ── App FAB ── */
 .app-fab {
@@ -388,10 +392,10 @@ footer strong { color: var(--accent); }
     <a href="index.html" class="back-btn">← Indietro</a>
   </div>
   <div class="legend-bar">
-    <div class="legend-item"><div class="legend-dot" style="background:#ffadad"></div><span class="legend-label">Sala A</span></div>
-    <div class="legend-item"><div class="legend-dot" style="background:#fff59d"></div><span class="legend-label">Sala B</span></div>
-    <div class="legend-item"><div class="legend-dot" style="background:#9ee8b0"></div><span class="legend-label">Sala C</span></div>
-    <div class="legend-item"><div class="legend-dot" style="background:#99dff5"></div><span class="legend-label">Vasca Piccola</span></div>
+    <div class="legend-item"><div class="legend-dot" style="background:#c45010"></div><span class="legend-label">Sala A</span></div>
+    <div class="legend-item"><div class="legend-dot" style="background:#9a8c18"></div><span class="legend-label">Sala B</span></div>
+    <div class="legend-item"><div class="legend-dot" style="background:#5a9970"></div><span class="legend-label">Sala C</span></div>
+    <div class="legend-item"><div class="legend-dot" style="background:#3a9fc4"></div><span class="legend-label">Vasca Piccola</span></div>
   </div>
   <div class="cta-bar"><span>Clicca sulla lezione per il video e la descrizione</span></div>
   <div class="day-headers-bar">
@@ -810,8 +814,8 @@ footer strong { color: var(--accent); }
 
 <script>
 const pillColors = {
-  'Sala Reformer': '#27a844', 'Pilates': '#c8a400',
-  'Body Sculpt': '#d44040', 'Vasca Media': '#00a8d4',
+  'Sala Reformer': '#5a9970', 'Pilates': '#c8a400',
+  'Body Sculpt': '#c45010', 'Vasca Media': '#3a9fc4',
   'Gym Floor': '#ff5701'
 };
 
