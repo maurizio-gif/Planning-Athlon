@@ -75,6 +75,26 @@ body {
 }
 .back-btn:hover { background: #2a2a2a; }
 
+/* ── PDF download button ── */
+.pdf-btn {
+  display: inline-flex; align-items: center; gap: 5px;
+  font-family: 'Tusker Grotesk', sans-serif;
+  font-size: 12px; font-weight: 800; letter-spacing: 1.5px; text-transform: uppercase;
+  color: #fff; background: var(--accent); border: none;
+  padding: 7px 14px; border-radius: 20px;
+  white-space: nowrap; flex-shrink: 0; cursor: pointer;
+  transition: background .15s;
+}
+.pdf-btn:hover { background: #e04a00; }
+.pdf-btn:disabled { opacity: 0.55; cursor: not-allowed; }
+
+/* ── Layout temporaneo per generazione PDF ── */
+body.pdf-mode .sticky-top { position: static !important; }
+body.pdf-mode { padding-top: 0 !important; }
+body.pdf-mode .modal-overlay,
+body.pdf-mode .app-fab,
+body.pdf-mode .cta-bar { display: none !important; }
+
 /* ── Validity banner ── */
 .validity-banner {
   background: var(--black);
@@ -625,7 +645,10 @@ footer strong { color: var(--accent); }
     <div class="logo">
       <img src="https://www.athlonroma.it/wp-content/uploads/2025/08/Logo-oriz-full-2.png" alt="Athlon Club" class="logo-img">
     </div>
-    <a href="index.html" class="back-btn">← Indietro</a>
+    <div style="display:flex;gap:8px;align-items:center;">
+      <button id="pdf-btn" class="pdf-btn" onclick="downloadPDF()">↓ PDF</button>
+      <a href="index.html" class="back-btn">← Indietro</a>
+    </div>
   </div>
   <div class="legend-bar">
     <div class="legend-item"><div class="legend-dot" style="background:#c45010"></div><span class="legend-label">Sala A</span></div>
@@ -1042,6 +1065,8 @@ footer strong { color: var(--accent); }
   Orari soggetti a variazioni
 </footer>
 
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+
 <!-- APP DOWNLOAD BUTTON -->
 <a class="app-fab fab-mobile" href="https://onelink.to/athlon" target="_blank" rel="noopener">Scarica l'App</a>
 <a class="app-fab fab-desktop" href="https://athlon.perfectgym.com/ClientPortal2/#/Classes/1/List" target="_blank" rel="noopener">Prenota dal Portale</a>
@@ -1250,6 +1275,28 @@ function adjustPadding() {
 }
 adjustPadding();
 window.addEventListener('resize', adjustPadding);
+
+function downloadPDF() {
+  const btn = document.getElementById('pdf-btn');
+  btn.disabled = true;
+  btn.textContent = 'Attendi…';
+  document.getElementById('modal').classList.remove('open');
+  document.body.classList.add('pdf-mode');
+
+  const opt = {
+    margin: [8, 5],
+    filename: 'Orario-Giugno-2026-Athlon.pdf',
+    image: { type: 'jpeg', quality: 0.92 },
+    html2canvas: { scale: 1.5, useCORS: true, logging: false, scrollX: 0, scrollY: 0 },
+    jsPDF: { unit: 'mm', format: 'a4', orientation: 'landscape' }
+  };
+
+  html2pdf().set(opt).from(document.body).save().finally(function() {
+    document.body.classList.remove('pdf-mode');
+    btn.disabled = false;
+    btn.textContent = '↓ PDF';
+  });
+}
 </script>
 </body>
 </html>
