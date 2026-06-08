@@ -119,9 +119,8 @@ body { font-family: 'Barlow Condensed', sans-serif; color: #111; }
 
 /* ── Responsive ── */
 @media (min-width: 768px) {
-  .entry-name { font-size: 15px !important; }
-  .entry-time {
-  font-size: 15px !important; }
+  .entry-name { font-size: 16px !important; letter-spacing: 0.3px; }
+  .entry-time { font-size: 21px !important; font-weight: 500 !important; padding: 7px 2px !important; }
   .class-entry { height: 80px !important; }
   .dh { font-size: 22px !important; padding: 4px 4px !important; }
   .legend-label { font-size: 13px !important; }
@@ -149,9 +148,9 @@ body { font-family: 'Barlow Condensed', sans-serif; color: #111; }
   .modal-col-right { flex: 1; min-width: 0; }
 }
 @media (min-width: 1024px) {
-  .entry-name { font-size: 18px !important; }
-  .entry-time { font-size: 16px !important; }
-  .class-entry { height: 90px !important; }
+  .entry-name { font-size: 20px !important; flex: 0 0 auto !important; margin: auto 0 !important; padding: 4px 5px !important; }
+  .entry-time { font-size: 26px !important; font-weight: 300 !important; letter-spacing: 0.5px !important; padding: 9px 2px !important; }
+  .class-entry { height: 110px !important; }
   .dh { font-size: 26px !important; padding: 5px 4px !important; }
   .legend-label { font-size: 15px !important; }
   .legend-dot { width: 16px !important; height: 16px !important; }
@@ -214,7 +213,7 @@ body { font-family: 'Barlow Condensed', sans-serif; color: #111; }
 /* ── CLASS ENTRY — identico a luglio ── */
 .class-entry {
   display: flex;
-  flex-direction: column;
+  flex-direction: column-reverse;
   align-items: center;
   gap: 0;
   padding: 0;
@@ -238,8 +237,8 @@ body { font-family: 'Barlow Condensed', sans-serif; color: #111; }
 
 .entry-time {
   font-family: 'Tusker Grotesk', sans-serif;
-  font-size: 8px;
-  font-weight: 700;
+  font-size: 10px;
+  font-weight: 500;
   color: #333;
   white-space: nowrap;
   line-height: 1.2;
@@ -248,7 +247,7 @@ body { font-family: 'Barlow Condensed', sans-serif; color: #111; }
   overflow: hidden;
   text-overflow: ellipsis;
   text-align: center;
-  padding: 2px 2px;
+  padding: 5px 2px;
   box-sizing: border-box;
 }
 .entry-name {
@@ -397,8 +396,7 @@ footer strong { color: var(--accent); }
   <div class="validity-label">Planning Corsi</div>
   <div class="validity-month">Agosto 2026</div>
   <div class="validity-notice">⚠ Piscina Grande in ristrutturazione — Scuola Nuoto Adulti e Nuoto Libero sospesi</div>
-  <div class="validity-notice">Per maggiori info</div>
-  <a class="validity-cta-btn" href="https://wiki.athlonroma.it/wikiathlon/news/orari-estate-2026/" target="_blank" rel="noopener">Clicca qui</a>
+  <div class="validity-notice" style="display:flex; align-items:center; justify-content:center; gap:10px;">Per maggiori info <a class="validity-cta-btn" href="https://wiki.athlonroma.it/wikiathlon/news/orari-estate-2026/" target="_blank" rel="noopener">Clicca qui</a></div>
 </div>
 
 <!-- ══ STICKY HEADER ══ -->
