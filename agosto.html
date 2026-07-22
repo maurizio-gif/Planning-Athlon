@@ -208,14 +208,14 @@ body { font-family: 'Barlow Condensed', sans-serif; color: #111; }
   vertical-align: middle; line-height: 1;
 }
 .gym-info-badge .tooltip-bubble {
-  display: none; position: absolute; bottom: 145%; left: 50%; transform: translateX(-50%);
+  display: none; position: absolute; bottom: 145%; right: -6px; left: auto; transform: none;
   background: #111; color: #fff; font-family: 'Barlow Condensed', sans-serif;
   font-size: 12px; font-weight: 600; letter-spacing: 0.2px; text-transform: none;
-  padding: 8px 10px; border-radius: 6px; width: 170px; line-height: 1.35;
+  padding: 8px 10px; border-radius: 6px; width: max-content; max-width: min(160px, 62vw); line-height: 1.35;
   box-shadow: 0 4px 16px rgba(0,0,0,0.35); z-index: 40; cursor: default;
 }
 .gym-info-badge .tooltip-bubble::after {
-  content: ''; position: absolute; top: 100%; left: 50%; transform: translateX(-50%);
+  content: ''; position: absolute; top: 100%; right: 10px; left: auto; transform: none;
   border: 5px solid transparent; border-top-color: #111;
 }
 .gym-info-badge:hover .tooltip-bubble,
