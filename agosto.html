@@ -197,7 +197,29 @@ body { font-family: 'Barlow Condensed', sans-serif; color: #111; }
 }
 .gym-entry:active { transform: scale(0.97); }
 .gym-entry-label { font-family: 'Tusker Grotesk', sans-serif; font-size: 7px; font-weight: 900; color: var(--accent); letter-spacing: 1.5px; text-transform: uppercase; }
-.gym-entry-hours { font-family: 'Tusker Grotesk', sans-serif; font-size: 13px; font-weight: 900; color: #fff; letter-spacing: 0.5px; line-height: 1.2; }
+.gym-entry-hours { font-family: 'Tusker Grotesk', sans-serif; font-size: 13px; font-weight: 900; color: #fff; letter-spacing: 0.5px; line-height: 1.2; position: relative; }
+
+/* ── Tooltip info badge (gym floor sabato) ── */
+.gym-info-badge {
+  display: inline-flex; align-items: center; justify-content: center;
+  width: 13px; height: 13px; margin-left: 4px; border-radius: 50%;
+  background: var(--accent); color: #fff; font-size: 9px; font-weight: 900;
+  font-family: Arial, sans-serif; cursor: pointer; position: relative;
+  vertical-align: middle; line-height: 1;
+}
+.gym-info-badge .tooltip-bubble {
+  display: none; position: absolute; bottom: 145%; left: 50%; transform: translateX(-50%);
+  background: #111; color: #fff; font-family: 'Barlow Condensed', sans-serif;
+  font-size: 12px; font-weight: 600; letter-spacing: 0.2px; text-transform: none;
+  padding: 8px 10px; border-radius: 6px; width: 170px; line-height: 1.35;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.35); z-index: 40; cursor: default;
+}
+.gym-info-badge .tooltip-bubble::after {
+  content: ''; position: absolute; top: 100%; left: 50%; transform: translateX(-50%);
+  border: 5px solid transparent; border-top-color: #111;
+}
+.gym-info-badge:hover .tooltip-bubble,
+.gym-info-badge.show .tooltip-bubble { display: block; }
 
 /* ── Class grid (una riga = una fascia oraria, come luglio) ── */
 .class-grid {
@@ -438,7 +460,7 @@ footer strong { color: var(--accent); }
     <div class="gym-day"><button class="gym-entry" onclick="openModal('GYM FLOOR','Gym Floor','08:00 – 21:00')"><div class="gym-entry-label">Lun–Ven</div><div class="gym-entry-hours">08:00 – 21:00</div></button></div>
     <div class="gym-day"><button class="gym-entry" onclick="openModal('GYM FLOOR','Gym Floor','08:00 – 21:00')"><div class="gym-entry-label">Lun–Ven</div><div class="gym-entry-hours">08:00 – 21:00</div></button></div>
     <div class="gym-day"><button class="gym-entry" onclick="openModal('GYM FLOOR','Gym Floor','08:00 – 21:00')"><div class="gym-entry-label">Lun–Ven</div><div class="gym-entry-hours">08:00 – 21:00</div></button></div>
-    <div class="gym-day"><button class="gym-entry" onclick="openModal('GYM FLOOR','Gym Floor','09:30 – 13:00')"><div class="gym-entry-label">Sabato</div><div class="gym-entry-hours">09:30 – 13:00</div></button></div>
+    <div class="gym-day"><button class="gym-entry" onclick="openModal('GYM FLOOR','Gym Floor','09:30 – 13:00')"><div class="gym-entry-label">Sabato</div><div class="gym-entry-hours">09:30 – 13:00<span class="gym-info-badge" onclick="event.stopPropagation(); toggleGymTooltip(this)">ⓘ<span class="tooltip-bubble">Sabato 8 e 15 Agosto il Club sarà chiuso.</span></span></div></button></div>
   </div>
 </div>
 
@@ -499,11 +521,7 @@ footer strong { color: var(--accent); }
       <button class="class-entry card-AQ" data-name="AQUA TONIC" data-sala="Vasca Media" data-time="11:00"><span class="entry-name">Aqua Tonic</span><span class="entry-time">11:00</span></button>
       <button class="class-entry card-P" data-name="PILATES MATWORK" data-sala="Pilates" data-time="13:00"><span class="entry-name">Pilates</span><span class="entry-time">13:00</span></button>
     </div>
-    <div class="class-day">
-      <button class="class-entry card-R" data-name="GROUP REFORMER" data-sala="Sala Reformer" data-time="09:30"><span class="entry-name">Group Reformer</span><span class="entry-time">09:30</span></button>
-      <button class="class-entry card-P" data-name="PILATES MATWORK" data-sala="Pilates" data-time="10:30"><span class="entry-name">Pilates</span><span class="entry-time">10:30</span></button>
-      <button class="class-entry card-R" data-name="GROUP REFORMER" data-sala="Sala Reformer" data-time="11:30"><span class="entry-name">Group Reformer</span><span class="entry-time">11:30</span></button>
-    </div>
+    <div class="class-day"></div>
   </div>
   <!-- sera -->
   <div class="class-grid">
@@ -928,6 +946,15 @@ document.querySelectorAll('.class-day').forEach(col => {
     return toMin(a.dataset.time) - toMin(b.dataset.time);
   });
   cards.forEach(c => col.appendChild(c));
+});
+
+function toggleGymTooltip(el) {
+  const isOpen = el.classList.contains('show');
+  document.querySelectorAll('.gym-info-badge.show').forEach(b => b.classList.remove('show'));
+  if (!isOpen) el.classList.add('show');
+}
+document.addEventListener('click', function() {
+  document.querySelectorAll('.gym-info-badge.show').forEach(b => b.classList.remove('show'));
 });
 
 function adjustPadding() {
