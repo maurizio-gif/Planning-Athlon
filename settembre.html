@@ -76,6 +76,17 @@ body {
   white-space: nowrap; flex-shrink: 0;
 }
 .back-btn:hover { background: #2a2a2a; }
+.header-actions { display: flex; align-items: center; gap: 8px; flex-shrink: 0; }
+.print-btn {
+  display: inline-flex; align-items: center; gap: 5px;
+  font-family: 'Tusker Grotesk', sans-serif;
+  font-size: 12px; font-weight: 800; letter-spacing: 1.5px; text-transform: uppercase;
+  color: #fff; cursor: pointer;
+  background: var(--accent); border: 1px solid var(--accent);
+  padding: 7px 14px; border-radius: 20px;
+  white-space: nowrap; flex-shrink: 0;
+}
+.print-btn:hover { background: #e04a00; }
 
 /* ── Meta bar (validità) ── */
 .meta-bar {
@@ -569,18 +580,6 @@ footer {
 }
 footer strong { color: var(--accent); }
 
-/* ── Print / Save PDF button (solo schermo) ── */
-.print-fab {
-  position: fixed; bottom: 20px; left: 14px; z-index: 50;
-  display: flex; align-items: center; gap: 7px;
-  background: #111; color: #fff; border: none; cursor: pointer;
-  font-family: 'Barlow Condensed', sans-serif;
-  font-size: 10px; font-weight: 900; letter-spacing: 1px; text-transform: uppercase;
-  padding: 10px 14px 10px 12px; border-radius: 28px;
-  box-shadow: 0 4px 16px rgba(0,0,0,0.35);
-}
-.print-fab:active { opacity: 0.85; }
-
 /* ── Print-only header / footer (nascosti a schermo) ── */
 .print-header, .print-footer { display: none; }
 
@@ -590,7 +589,7 @@ footer strong { color: var(--accent); }
   * { -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important; }
   html, body { background: #fff; }
 
-  .sticky-top, .print-fab, .app-fab, .modal-overlay, .faq-section { display: none !important; }
+  .sticky-top, .app-fab, .modal-overlay, .faq-section { display: none !important; }
 
   .print-header {
     display: flex; align-items: center; gap: 14px;
@@ -668,7 +667,10 @@ footer strong { color: var(--accent); }
     <div class="logo">
       <img src="https://www.athlonroma.it/wp-content/uploads/2025/08/Logo-oriz-full-2.png" alt="Athlon Club" class="logo-img">
     </div>
-    <a href="index.html" class="back-btn">← Indietro</a>
+    <div class="header-actions">
+      <button type="button" class="print-btn" onclick="window.print()">🖨️ Stampa</button>
+      <a href="index.html" class="back-btn">← Indietro</a>
+    </div>
   </div>
   <div class="meta-bar">
     <div class="meta-validity">Bozza in fase di aggiornamento</div>
@@ -1211,8 +1213,6 @@ footer strong { color: var(--accent); }
 
 <a class="app-fab fab-mobile" href="https://onelink.to/athlon" target="_blank" rel="noopener">Scarica l'App</a>
 <a class="app-fab fab-desktop" href="https://athlon.perfectgym.com/ClientPortal2/#/Classes/1/List" target="_blank" rel="noopener">Prenota dal Portale</a>
-
-<button type="button" class="print-fab" onclick="window.print()">🖨️ Stampa / PDF</button>
 
 <div class="print-footer">Athlon Club 4.0 — Orario Corsi Settembre 2026 · Stampato il <span id="print-date-value"></span></div>
 
