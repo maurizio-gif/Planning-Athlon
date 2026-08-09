@@ -598,13 +598,19 @@ footer strong { color: var(--accent); }
 /* ── Print-only header / footer (nascosti a schermo) ── */
 .print-header, .print-footer { display: none; }
 
-/* ── Export JPEG (storie verticali 9:16 con solo gli orari) ── */
+/* ── Export JPEG (storie verticali 9:16 con solo gli orari, tema scuro) ── */
 .export-render {
   position: fixed; top: 0; left: -99999px; z-index: -1;
   width: 1080px;
-  background: #fff;
+  background: #111111;
   font-family: 'Barlow Condensed', sans-serif;
   padding-bottom: 48px;
+  --ink: #ffffff;
+  --muted: #cfc9c0;
+  --wash: #1d1d1d;
+  --cream: #111111;
+  --line: #333333;
+  --line-strong: #454545;
 }
 .export-header {
   display: flex; align-items: center; gap: 22px;
@@ -614,7 +620,7 @@ footer strong { color: var(--accent); }
 .export-header-logo { height: 62px; width: auto; display: block; }
 .export-header-title {
   font-family: 'Tusker Grotesk', sans-serif;
-  font-size: 42px; font-weight: 900; letter-spacing: 1px; text-transform: uppercase; color: #111; line-height: 1.05;
+  font-size: 42px; font-weight: 900; letter-spacing: 1px; text-transform: uppercase; color: #ffffff; line-height: 1.05;
 }
 .export-header-sub {
   font-family: 'Barlow Condensed', sans-serif;
@@ -1523,7 +1529,7 @@ async function renderGroupToJpeg(group, bandSections) {
     wrapper.style.width = hi + 'px';
     void wrapper.offsetHeight;
 
-    rawCanvas = await html2canvas(wrapper, { backgroundColor: '#ffffff', scale: 1, useCORS: true });
+    rawCanvas = await html2canvas(wrapper, { backgroundColor: '#111111', scale: 1, useCORS: true });
   } finally {
     document.body.removeChild(wrapper);
   }
@@ -1533,7 +1539,7 @@ async function renderGroupToJpeg(group, bandSections) {
   finalCanvas.width = targetW;
   finalCanvas.height = targetH;
   const ctx = finalCanvas.getContext('2d');
-  ctx.fillStyle = '#ffffff';
+  ctx.fillStyle = '#111111';
   ctx.fillRect(0, 0, targetW, targetH);
   ctx.drawImage(rawCanvas, 0, 0, rawCanvas.width, rawCanvas.height, 0, 0, targetW, targetH);
 
