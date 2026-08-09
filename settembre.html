@@ -76,17 +76,6 @@ body {
   white-space: nowrap; flex-shrink: 0;
 }
 .back-btn:hover { background: #2a2a2a; }
-.header-actions { display: flex; align-items: center; gap: 8px; flex-shrink: 0; }
-.print-btn {
-  display: inline-flex; align-items: center; gap: 5px;
-  font-family: 'Tusker Grotesk', sans-serif;
-  font-size: 12px; font-weight: 800; letter-spacing: 1.5px; text-transform: uppercase;
-  color: #fff; cursor: pointer;
-  background: var(--accent); border: 1px solid var(--accent);
-  padding: 7px 14px; border-radius: 20px;
-  white-space: nowrap; flex-shrink: 0;
-}
-.print-btn:hover { background: #e04a00; }
 
 /* ── Meta bar (validità) ── */
 .meta-bar {
@@ -150,6 +139,21 @@ body {
   text-transform: uppercase; line-height: 1.25; color: var(--ink);
 }
 .hero-title span { color: var(--accent); }
+
+/* ── Pulsante Stampa / Salva PDF ── */
+.print-btn-row {
+  display: flex; justify-content: flex-end;
+  padding: 8px 16px 0;
+}
+.print-btn {
+  display: inline-flex; align-items: center; gap: 9px;
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 14px; font-weight: 700; letter-spacing: 0.5px; text-transform: uppercase;
+  color: var(--ink); cursor: pointer;
+  background: #fff; border: 1px solid var(--line-strong);
+  padding: 12px 20px; border-radius: 6px;
+}
+.print-btn:hover { background: var(--wash); }
 
 /* ── Band section (nessuna carta: solo spaziatura) ── */
 .band-section {
@@ -589,7 +593,7 @@ footer strong { color: var(--accent); }
   * { -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important; }
   html, body { background: #fff; }
 
-  .sticky-top, .app-fab, .modal-overlay, .faq-section { display: none !important; }
+  .sticky-top, .print-btn-row, .app-fab, .modal-overlay, .faq-section { display: none !important; }
 
   .print-header {
     display: flex; align-items: center; gap: 14px;
@@ -667,10 +671,7 @@ footer strong { color: var(--accent); }
     <div class="logo">
       <img src="https://www.athlonroma.it/wp-content/uploads/2025/08/Logo-oriz-full-2.png" alt="Athlon Club" class="logo-img">
     </div>
-    <div class="header-actions">
-      <button type="button" class="print-btn" onclick="window.print()">🖨️ Stampa</button>
-      <a href="index.html" class="back-btn">← Indietro</a>
-    </div>
+    <a href="index.html" class="back-btn">← Indietro</a>
   </div>
   <div class="meta-bar">
     <div class="meta-validity">Bozza in fase di aggiornamento</div>
@@ -679,6 +680,10 @@ footer strong { color: var(--accent); }
 
 <div class="hero-strip">
   <div class="hero-title">Planning <span>e Orari del Club</span></div>
+</div>
+
+<div class="print-btn-row">
+  <button type="button" class="print-btn" onclick="window.print()">🖨️ Stampa / Salva PDF</button>
 </div>
 
 <div class="band-section band-section--first">
