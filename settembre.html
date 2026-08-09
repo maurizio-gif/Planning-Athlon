@@ -613,23 +613,18 @@ footer strong { color: var(--accent); }
   --line-strong: #454545;
 }
 .export-header {
-  display: flex; flex-direction: column; gap: 16px;
-  padding: 48px 56px 28px;
+  display: flex; align-items: center; justify-content: space-between; gap: 28px;
+  padding: 52px 56px 32px;
   border-bottom: 4px solid var(--accent);
 }
-.export-brand { display: flex; align-items: center; gap: 16px; }
-.export-brand-mark { height: 50px; width: auto; display: block; }
-.export-brand-name {
-  font-family: 'Tusker Grotesk', sans-serif;
-  font-size: 26px; font-weight: 900; letter-spacing: 2.5px; text-transform: uppercase; color: #ffffff;
-}
+.export-header-mark { height: 130px; width: auto; display: block; flex-shrink: 0; }
 .export-header-title {
   font-family: 'Tusker Grotesk', sans-serif;
-  font-size: 42px; font-weight: 900; letter-spacing: 1px; text-transform: uppercase; color: #ffffff; line-height: 1.05;
+  font-size: 46px; font-weight: 900; letter-spacing: 1px; text-transform: uppercase; color: #ffffff; line-height: 1.05;
 }
 .export-header-sub {
   font-family: 'Barlow Condensed', sans-serif;
-  font-size: 19px; font-weight: 700; color: var(--accent); text-transform: uppercase; letter-spacing: 1px; margin-top: 6px;
+  font-size: 19px; font-weight: 700; color: var(--accent); text-transform: uppercase; letter-spacing: 1px; margin-top: 8px;
 }
 .export-render .band-section { margin: 0 !important; padding: 40px 56px 0; }
 .export-render .band-title { font-size: 38px !important; padding: 0; }
@@ -1503,12 +1498,11 @@ async function renderGroupToJpeg(group, bandSections) {
   const header = document.createElement('div');
   header.className = 'export-header';
   header.innerHTML =
-    '<div class="export-brand">' +
-    '<img src="' + ATHLON_MARK_B64 + '" class="export-brand-mark" alt="Athlon Club">' +
-    '<span class="export-brand-name">Athlon Club</span>' +
-    '</div>' +
+    '<div>' +
     '<div class="export-header-title">' + group.title + '</div>' +
-    '<div class="export-header-sub">' + group.sub + '</div>';
+    '<div class="export-header-sub">' + group.sub + '</div>' +
+    '</div>' +
+    '<img src="' + ATHLON_MARK_B64 + '" class="export-header-mark" alt="Athlon Club">';
   wrapper.appendChild(header);
 
   group.bandIndices.forEach(i => {
