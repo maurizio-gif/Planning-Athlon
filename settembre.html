@@ -1507,6 +1507,22 @@ async function renderGroupToJpeg(group, bandSections) {
   document.body.appendChild(wrapper);
   let rawCanvas;
   try {
+    // Cerca la larghezza per cui l'altezza naturale del contenuto rispetta
+    // esattamente il rapporto 1080×1920 (9:16), così l'immagine finale
+    // copre tutta la superficie senza bordi vuoti né deformazioni.
+    const targetW = 1080, targetH = 1920;
+    const targetRatio = targetH / targetW;
+    let lo = 500, hi = 2400;
+    for (let i = 0; i < 14; i++) {
+      const mid = (lo + hi) / 2;
+      wrapper.style.width = mid + 'px';
+      void wrapper.offsetHeight;
+      const ratio = wrapper.getBoundingClientRect().height / mid;
+      if (ratio > targetRatio) { lo = mid; } else { hi = mid; }
+    }
+    wrapper.style.width = hi + 'px';
+    void wrapper.offsetHeight;
+
     rawCanvas = await html2canvas(wrapper, { backgroundColor: '#ffffff', scale: 1, useCORS: true });
   } finally {
     document.body.removeChild(wrapper);
@@ -1519,13 +1535,7 @@ async function renderGroupToJpeg(group, bandSections) {
   const ctx = finalCanvas.getContext('2d');
   ctx.fillStyle = '#ffffff';
   ctx.fillRect(0, 0, targetW, targetH);
-
-  const scale = Math.min(1, targetH / rawCanvas.height);
-  const drawW = rawCanvas.width * scale;
-  const drawH = rawCanvas.height * scale;
-  const dx = (targetW - drawW) / 2;
-  const dy = (targetH - drawH) / 2;
-  ctx.drawImage(rawCanvas, 0, 0, rawCanvas.width, rawCanvas.height, dx, dy, drawW, drawH);
+  ctx.drawImage(rawCanvas, 0, 0, rawCanvas.width, rawCanvas.height, 0, 0, targetW, targetH);
 
   const blob = await new Promise(resolve => finalCanvas.toBlob(resolve, 'image/jpeg', 0.92));
   const url = URL.createObjectURL(blob);
