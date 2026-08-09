@@ -578,14 +578,73 @@ body {
 footer {
   background: var(--black); color: #444;
   margin-top: 16px;
-  padding: 12px 12px;
+  padding: 12px 12px 76px;
   font-size: 9px; font-weight: 600; letter-spacing: 1px; text-transform: uppercase;
   text-align: center; line-height: 1.9;
 }
 footer strong { color: var(--accent); }
+.footer-jpeg-btn {
+  display: inline-flex; align-items: center; gap: 6px;
+  margin-top: 10px;
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 11px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase;
+  color: #ccc; cursor: pointer;
+  background: transparent; border: 1px solid #444;
+  padding: 8px 16px; border-radius: 20px;
+}
+.footer-jpeg-btn:hover { background: rgba(255,255,255,0.06); color: #fff; }
+.footer-jpeg-btn:disabled { opacity: 0.5; cursor: wait; }
 
 /* ── Print-only header / footer (nascosti a schermo) ── */
 .print-header, .print-footer { display: none; }
+
+/* ── Export JPEG (storie verticali 9:16 con solo gli orari) ── */
+.export-render {
+  position: fixed; top: 0; left: -99999px; z-index: -1;
+  width: 1080px;
+  background: #fff;
+  font-family: 'Barlow Condensed', sans-serif;
+  padding-bottom: 48px;
+}
+.export-header {
+  display: flex; align-items: center; gap: 22px;
+  padding: 56px 56px 28px;
+  border-bottom: 4px solid var(--accent);
+}
+.export-header-logo { height: 62px; width: auto; display: block; }
+.export-header-title {
+  font-family: 'Tusker Grotesk', sans-serif;
+  font-size: 42px; font-weight: 900; letter-spacing: 1px; text-transform: uppercase; color: #111; line-height: 1.05;
+}
+.export-header-sub {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 19px; font-weight: 700; color: var(--accent); text-transform: uppercase; letter-spacing: 1px; margin-top: 6px;
+}
+.export-render .band-section { margin: 0 !important; padding: 40px 56px 0; }
+.export-render .band-title { font-size: 38px !important; padding: 0; }
+.export-render .band-lede { font-size: 21px !important; padding: 0; margin: 8px 0 16px; }
+.export-render .plan-tags { padding: 0; margin: 10px 0 0; }
+.export-render .plan-tag { font-size: 17px !important; padding: 6px 16px !important; }
+.export-render .hours-table { max-width: 100%; width: 100%; }
+.export-render .hours-table__label, .export-render .hours-table__hours { font-size: 23px !important; padding: 14px 10px; }
+.export-render .planning-scroll { overflow: visible; border-top: none; }
+.export-render .planning-grid { display: grid; grid-template-columns: repeat(6, 1fr); min-width: 0; }
+.export-render .planning-day { min-width: 0 !important; }
+.export-render .planning-day__head { padding: 10px 8px; }
+.export-render .dh-short { font-size: 13px !important; }
+.export-render .dh-full { font-size: 18px !important; }
+.export-render .planning-day__list { display: block; }
+.export-render .class-entry {
+  display: block; padding: 8px 9px;
+  border-bottom: 1px solid var(--line);
+}
+.export-render .entry-time { font-size: 14px !important; }
+.export-render .entry-name { font-size: 16px !important; -webkit-line-clamp: 3; }
+.export-footer {
+  padding: 32px 56px 0; text-align: center;
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 17px; font-weight: 600; color: var(--muted);
+}
 
 /* ── Stampa / Salva PDF: impaginazione A4 orizzontale su più pagine ── */
 @media print {
@@ -1213,7 +1272,8 @@ footer strong { color: var(--accent); }
 
 <footer>
   <strong>Athlon Club</strong> · Via Ugo Ojetti 134, 00137 Roma<br>
-  Per Assistenza <a href="https://wiki.athlonroma.it" target="_blank" style="color:var(--accent);text-decoration:none;font-weight:800;">Clicca qui</a>
+  Per Assistenza <a href="https://wiki.athlonroma.it" target="_blank" style="color:var(--accent);text-decoration:none;font-weight:800;">Clicca qui</a><br>
+  <button type="button" id="jpeg-export-btn" class="footer-jpeg-btn" onclick="exportScheduleImages()">📸 Scarica Orari in JPEG</button>
 </footer>
 
 <a class="app-fab fab-mobile" href="https://onelink.to/athlon" target="_blank" rel="noopener">Scarica l'App</a>
@@ -1221,6 +1281,7 @@ footer strong { color: var(--accent); }
 
 <div class="print-footer">Athlon Club 4.0 — Orario Corsi Settembre 2026 · Stampato il <span id="print-date-value"></span></div>
 
+<script src="vendor/html2canvas.min.js"></script>
 <script>
 window.addEventListener('beforeprint', function() {
   const d = new Date();
@@ -1413,6 +1474,90 @@ document.querySelectorAll('.faq-item__trigger').forEach(btn => {
     btn.setAttribute('aria-expanded', item.classList.contains('open'));
   });
 });
+
+// ── Export orari in JPEG verticale (formato storia 1080×1920, 2 immagini) ──
+const JPEG_EXPORT_GROUPS = [
+  { title: 'Orari Sala', sub: 'Gym Floor · Corsi Fitness · Group Reformer', bandIndices: [0, 1, 2], file: 'athlon-orari-sala-settembre.jpg' },
+  { title: 'Orari Piscina', sub: 'Scuola Nuoto · Nuoto Libero · Aqua Fitness', bandIndices: [3, 4, 5], file: 'athlon-orari-piscina-settembre.jpg' },
+];
+
+async function renderGroupToJpeg(group, bandSections) {
+  const wrapper = document.createElement('div');
+  wrapper.className = 'export-render';
+
+  const header = document.createElement('div');
+  header.className = 'export-header';
+  header.innerHTML =
+    '<img src="https://www.athlonroma.it/wp-content/uploads/2025/08/Logo-oriz-full-2.png" class="export-header-logo" alt="Athlon Club">' +
+    '<div>' +
+    '<div class="export-header-title">' + group.title + '</div>' +
+    '<div class="export-header-sub">' + group.sub + '</div>' +
+    '</div>';
+  wrapper.appendChild(header);
+
+  group.bandIndices.forEach(i => {
+    if (bandSections[i]) wrapper.appendChild(bandSections[i].cloneNode(true));
+  });
+
+  const footer = document.createElement('div');
+  footer.className = 'export-footer';
+  footer.textContent = 'Athlon Club 4.0 — Orario Corsi Settembre 2026';
+  wrapper.appendChild(footer);
+
+  document.body.appendChild(wrapper);
+  let rawCanvas;
+  try {
+    rawCanvas = await html2canvas(wrapper, { backgroundColor: '#ffffff', scale: 1, useCORS: true });
+  } finally {
+    document.body.removeChild(wrapper);
+  }
+
+  const targetW = 1080, targetH = 1920;
+  const finalCanvas = document.createElement('canvas');
+  finalCanvas.width = targetW;
+  finalCanvas.height = targetH;
+  const ctx = finalCanvas.getContext('2d');
+  ctx.fillStyle = '#ffffff';
+  ctx.fillRect(0, 0, targetW, targetH);
+
+  const scale = Math.min(1, targetH / rawCanvas.height);
+  const drawW = rawCanvas.width * scale;
+  const drawH = rawCanvas.height * scale;
+  const dx = (targetW - drawW) / 2;
+  const dy = (targetH - drawH) / 2;
+  ctx.drawImage(rawCanvas, 0, 0, rawCanvas.width, rawCanvas.height, dx, dy, drawW, drawH);
+
+  const blob = await new Promise(resolve => finalCanvas.toBlob(resolve, 'image/jpeg', 0.92));
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = group.file;
+  document.body.appendChild(a);
+  a.click();
+  document.body.removeChild(a);
+  URL.revokeObjectURL(url);
+}
+
+async function exportScheduleImages() {
+  const btn = document.getElementById('jpeg-export-btn');
+  if (!btn || btn.disabled) return;
+  const originalText = btn.textContent;
+  btn.disabled = true;
+  try {
+    if (document.fonts && document.fonts.ready) { await document.fonts.ready; }
+    const bandSections = document.querySelectorAll('.band-section');
+    for (const group of JPEG_EXPORT_GROUPS) {
+      btn.textContent = 'Genero ' + group.title + '…';
+      await renderGroupToJpeg(group, bandSections);
+    }
+  } catch (err) {
+    console.error('Errore generazione JPEG orari:', err);
+    alert('Si è verificato un errore nella generazione delle immagini. Riprova.');
+  } finally {
+    btn.disabled = false;
+    btn.textContent = originalText;
+  }
+}
 </script>
 </body>
 </html>
