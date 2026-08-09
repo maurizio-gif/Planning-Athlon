@@ -140,12 +140,27 @@ body {
 }
 .hero-title span { color: var(--accent); }
 
+/* ── Pulsante Stampa / Salva PDF ── */
+.print-btn-row {
+  display: flex; justify-content: flex-end;
+  padding: 8px 16px 0;
+}
+.print-btn {
+  display: inline-flex; align-items: center; gap: 9px;
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 14px; font-weight: 700; letter-spacing: 0.5px; text-transform: uppercase;
+  color: var(--ink); cursor: pointer;
+  background: #fff; border: 1px solid var(--line-strong);
+  padding: 12px 20px; border-radius: 6px;
+}
+.print-btn:hover { background: var(--wash); }
+
 /* ── Band section (nessuna carta: solo spaziatura) ── */
 .band-section {
   margin: 64px 0 0;
   padding: 0;
 }
-.band-section:first-of-type { margin-top: 24px; }
+.band-section--first { margin-top: 24px; }
 
 /* ── Band title + lede ── */
 .band-title {
@@ -568,9 +583,85 @@ footer {
   text-align: center; line-height: 1.9;
 }
 footer strong { color: var(--accent); }
+
+/* ── Print-only header / footer (nascosti a schermo) ── */
+.print-header, .print-footer { display: none; }
+
+/* ── Stampa / Salva PDF: impaginazione A4 orizzontale su più pagine ── */
+@media print {
+  @page { size: A4 landscape; margin: 12mm 10mm 18mm; }
+  * { -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important; }
+  html, body { background: #fff; }
+
+  .sticky-top, .print-btn-row, .app-fab, .modal-overlay, .faq-section { display: none !important; }
+
+  .print-header {
+    display: flex; align-items: center; gap: 14px;
+    padding-bottom: 10px; margin-bottom: 4px;
+    border-bottom: 2px solid var(--accent);
+  }
+  .print-header-logo { height: 32px; width: auto; }
+  .print-header-title {
+    font-family: 'Tusker Grotesk', sans-serif;
+    font-size: 20px; font-weight: 900; letter-spacing: 1px; text-transform: uppercase; color: #111;
+  }
+  .print-header-sub {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 11px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase;
+    color: var(--accent); margin-top: 2px;
+  }
+
+  .print-footer {
+    display: block;
+    position: fixed; left: 0; right: 0; bottom: 0;
+    text-align: center; padding: 5px 0 0;
+    border-top: 1px solid var(--line-strong);
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 9px; color: var(--muted); letter-spacing: 0.3px;
+  }
+
+  .hero-strip { padding: 0 0 4px; }
+  .hero-title { font-size: 22px !important; }
+
+  .band-section { margin: 0; page-break-inside: auto; }
+  .band-section--first { margin-top: 0; }
+  .band-section:not(.band-section--first) { page-break-before: always; padding-top: 2px; }
+  .band-title { font-size: 20px !important; padding: 0; page-break-after: avoid; }
+  .band-lede { font-size: 11px !important; padding: 0; margin: 3px 0 8px; }
+  .plan-tags { padding: 0; margin: 5px 0 0; page-break-after: avoid; }
+  .plan-tag { font-size: 10px !important; padding: 3px 10px !important; }
+
+  .hours-table { max-width: calc(100% - 32px); }
+  .hours-table__label, .hours-table__hours { font-size: 13px !important; padding: 6px 8px; }
+
+  .planning-scroll { overflow: visible; border-top: none; }
+  .planning-grid { display: grid; grid-template-columns: repeat(6, 1fr); min-width: 0; }
+  .planning-day { min-width: 0 !important; }
+  .planning-day__head { padding: 5px 6px; page-break-after: avoid; }
+  .dh-short { font-size: 8px !important; }
+  .dh-full { font-size: 11px !important; }
+  .planning-day__list { display: block; }
+  .class-entry {
+    display: block; page-break-inside: avoid; padding: 3px 5px;
+    border-bottom: 1px solid var(--line);
+  }
+  .entry-time { font-size: 8px !important; }
+  .entry-name { font-size: 9.5px !important; -webkit-line-clamp: 3; }
+}
 </style>
 </head>
 <body>
+
+<!-- ══════════════════════════════════
+     PRINT-ONLY HEADER (visibile solo in stampa/PDF)
+══════════════════════════════════ -->
+<div class="print-header">
+  <img src="https://www.athlonroma.it/wp-content/uploads/2025/08/Logo-oriz-full-2.png" alt="Athlon Club" class="print-header-logo">
+  <div>
+    <div class="print-header-title">Orario Corsi — Settembre 2026</div>
+    <div class="print-header-sub">Bozza in fase di aggiornamento</div>
+  </div>
+</div>
 
 <!-- ══════════════════════════════════
      STICKY TOP (header + day bar)
@@ -591,7 +682,11 @@ footer strong { color: var(--accent); }
   <div class="hero-title">Planning <span>e Orari del Club</span></div>
 </div>
 
-<div class="band-section">
+<div class="print-btn-row">
+  <button type="button" class="print-btn" onclick="window.print()">🖨️ Stampa / Salva PDF</button>
+</div>
+
+<div class="band-section band-section--first">
 <!-- ══════════════════════════════════
      BAND: GYM FLOOR
 ══════════════════════════════════ -->
@@ -1124,7 +1219,15 @@ footer strong { color: var(--accent); }
 <a class="app-fab fab-mobile" href="https://onelink.to/athlon" target="_blank" rel="noopener">Scarica l'App</a>
 <a class="app-fab fab-desktop" href="https://athlon.perfectgym.com/ClientPortal2/#/Classes/1/List" target="_blank" rel="noopener">Prenota dal Portale</a>
 
+<div class="print-footer">Athlon Club 4.0 — Orario Corsi Settembre 2026 · Stampato il <span id="print-date-value"></span></div>
+
 <script>
+window.addEventListener('beforeprint', function() {
+  const d = new Date();
+  const pad = n => String(n).padStart(2, '0');
+  const el = document.getElementById('print-date-value');
+  if (el) el.textContent = `${pad(d.getDate())}/${pad(d.getMonth() + 1)}/${d.getFullYear()} alle ${pad(d.getHours())}:${pad(d.getMinutes())}`;
+});
 const pillColors = {
   'Sala A': '#c45010', 'Sala B': '#9a8c18', 'Sala C': '#5a9970',
   'Vasca Media': '#3a9fc4', 'Vasca Grande': '#2d4f8a',
