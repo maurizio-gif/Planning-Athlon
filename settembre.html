@@ -646,6 +646,10 @@ footer strong { color: var(--accent); }
 }
 .export-render .entry-time { font-size: 14px !important; }
 .export-render .entry-name { font-size: 16px !important; -webkit-line-clamp: 3; }
+/* Le sezioni non ancora "rivelate" dallo scroll devono comunque comparire per intero nell'immagine esportata */
+.export-render .reveal, .export-render .reveal-child {
+  opacity: 1 !important; transform: none !important; transition: none !important;
+}
 .export-footer {
   padding: 32px 56px 0; text-align: center;
   font-family: 'Barlow Condensed', sans-serif;
@@ -659,6 +663,9 @@ footer strong { color: var(--accent); }
   html, body { background: #fff; }
 
   .sticky-top, .print-btn-row, .app-fab, .modal-overlay, .faq-section { display: none !important; }
+
+  /* Le sezioni non ancora "rivelate" dallo scroll devono comunque stampare per intero */
+  .reveal, .reveal-child { opacity: 1 !important; transform: none !important; transition: none !important; }
 
   .print-header {
     display: flex; align-items: center; gap: 14px;
@@ -712,6 +719,30 @@ footer strong { color: var(--accent); }
   }
   .entry-time { font-size: 8px !important; }
   .entry-name { font-size: 9.5px !important; -webkit-line-clamp: 3; }
+}
+
+/* ── Scroll reveal (animazione spinta all'ingresso in viewport) ── */
+@media (prefers-reduced-motion: no-preference) {
+  .reveal {
+    opacity: 0;
+    transform: translateY(70px) scale(0.94);
+    transition: opacity 0.8s cubic-bezier(.16,1,.3,1), transform 0.8s cubic-bezier(.16,1,.3,1);
+    will-change: opacity, transform;
+  }
+  .reveal.is-visible {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+  .reveal-child {
+    opacity: 0;
+    transform: translateY(46px) scale(0.92);
+    transition: opacity 0.6s cubic-bezier(.16,1,.3,1), transform 0.6s cubic-bezier(.16,1,.3,1);
+    will-change: opacity, transform;
+  }
+  .reveal-child.is-visible {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
 }
 </style>
 </head>
@@ -1480,6 +1511,42 @@ document.querySelectorAll('.faq-item__trigger').forEach(btn => {
     btn.setAttribute('aria-expanded', item.classList.contains('open'));
   });
 });
+
+// ── Scroll reveal: animazione spinta all'ingresso in viewport ──
+(function initScrollReveal() {
+  document.querySelectorAll('.hero-title, .band-title, .band-lede, .plan-tags, .hours-table, .faq-section h2').forEach(el => {
+    el.classList.add('reveal');
+  });
+  document.querySelectorAll('.planning-grid').forEach(grid => {
+    Array.from(grid.children).forEach((day, i) => {
+      day.classList.add('reveal-child');
+      day.style.transitionDelay = (i * 80) + 'ms';
+    });
+  });
+  document.querySelectorAll('.faq-item').forEach((item, i) => {
+    item.classList.add('reveal-child');
+    item.style.transitionDelay = ((i % 8) * 70) + 'ms';
+  });
+
+  const targets = document.querySelectorAll('.reveal, .reveal-child');
+  const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  if (reduceMotion || !('IntersectionObserver' in window)) {
+    targets.forEach(el => el.classList.add('is-visible'));
+    return;
+  }
+
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('is-visible');
+        io.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.12, rootMargin: '0px 0px -10% 0px' });
+
+  targets.forEach(el => io.observe(el));
+})();
 
 // ── Export orari in JPEG verticale (formato storia 1080×1920, 2 immagini) ──
 // Logo imbarcato come base64 (favicon.png locale): niente dipendenza di rete,
