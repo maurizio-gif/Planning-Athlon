@@ -619,52 +619,52 @@ footer strong { color: var(--accent); }
 }
 .export-header {
   display: flex; align-items: center; justify-content: space-between; gap: 20px;
-  padding: 30px 44px 18px;
+  padding: 20px 5px 14px;
   border-bottom: 4px solid var(--accent);
 }
-.export-header-mark { height: 76px; width: auto; display: block; flex-shrink: 0; }
+.export-header-mark { height: 86px; width: auto; display: block; flex-shrink: 0; }
 .export-header-title {
   font-family: 'Tusker Grotesk', sans-serif;
-  font-size: 34px; font-weight: 900; letter-spacing: 1px; text-transform: uppercase; color: #ffffff; line-height: 1.05;
+  font-size: 38px; font-weight: 900; letter-spacing: 1px; text-transform: uppercase; color: #ffffff; line-height: 1.05;
 }
 .export-header-sub {
   font-family: 'Barlow Condensed', sans-serif;
-  font-size: 15px; font-weight: 700; color: var(--accent); text-transform: uppercase; letter-spacing: 1px; margin-top: 5px;
+  font-size: 16px; font-weight: 700; color: var(--accent); text-transform: uppercase; letter-spacing: 1px; margin-top: 5px;
 }
-.export-render .band-section { margin: 0 !important; padding: 16px 44px 0; }
-.export-render .band-title { font-size: 26px !important; padding: 0; }
-.export-render .band-lede { font-size: 14px !important; padding: 0; margin: 4px 0 8px; }
+.export-render .band-section { margin: 0 !important; padding: 14px 5px 0; }
+.export-render .band-title { font-size: 30px !important; padding: 0; }
+.export-render .band-lede { font-size: 16px !important; padding: 0; margin: 4px 0 8px; }
 .export-render .plan-tags { padding: 0; margin: 5px 0 0; }
-.export-render .plan-tag { font-size: 11px !important; padding: 3px 10px !important; }
+.export-render .plan-tag { font-size: 12px !important; padding: 3px 10px !important; }
 .export-render .hours-table { max-width: 100%; width: 100%; }
-.export-render .hours-table__label, .export-render .hours-table__hours { font-size: 16px !important; padding: 6px 8px; }
+.export-render .hours-table__label, .export-render .hours-table__hours { font-size: 18px !important; padding: 7px 8px; }
 /* Orari Gym Floor compattati su un'unica riga (solo nell'export JPEG) */
 .export-gymfloor-hours {
   display: flex; flex-wrap: wrap; gap: 6px 22px;
   padding: 4px 0 2px;
   font-family: 'Barlow Condensed', sans-serif;
 }
-.export-gymfloor-hours span { font-size: 15px; font-weight: 700; color: var(--ink); white-space: nowrap; }
+.export-gymfloor-hours span { font-size: 16px; font-weight: 700; color: var(--ink); white-space: nowrap; }
 .export-gymfloor-hours b { color: var(--accent); font-weight: 800; }
 .export-render .planning-scroll { overflow: visible; border-top: none; }
 .export-render .planning-grid { display: grid; grid-template-columns: repeat(6, 1fr); min-width: 0; }
 .export-render .planning-day { min-width: 0 !important; }
-.export-render .planning-day__head { padding: 4px 5px; }
-.export-render .dh-short { font-size: 10px !important; }
-.export-render .dh-full { font-size: 13px !important; }
+.export-render .planning-day__head { padding: 5px 5px; }
+.export-render .dh-short { font-size: 11px !important; }
+.export-render .dh-full { font-size: 15px !important; }
 .export-render .planning-day__list { display: block; }
 .export-render .class-entry {
-  display: block; padding: 3px 5px;
+  display: block; padding: 4px 5px;
   border-bottom: 1px solid var(--line);
 }
-.export-render .entry-time { font-size: 11px !important; }
-.export-render .entry-name { font-size: 12.5px !important; -webkit-line-clamp: 3; }
+.export-render .entry-time { font-size: 13px !important; }
+.export-render .entry-name { font-size: 14.5px !important; -webkit-line-clamp: 3; }
 /* Le sezioni non ancora "rivelate" dallo scroll devono comunque comparire per intero nell'immagine esportata */
 .export-render .reveal, .export-render .reveal-child {
   opacity: 1 !important; transform: none !important; transition: none !important;
 }
 .export-footer {
-  padding: 14px 44px 0; text-align: center;
+  padding: 10px 5px 0; text-align: center;
   font-family: 'Barlow Condensed', sans-serif;
   font-size: 13px; font-weight: 600; color: var(--muted);
 }
@@ -1329,36 +1329,37 @@ async function renderGroupToJpeg(group, bandSections) {
   footer.textContent = 'Athlon Club 4.0 — Orario Corsi Settembre 2026';
   wrapper.appendChild(footer);
 
-  // Formato fisso 1080×1920 (9:16) a piena larghezza, sempre uguale per
-  // entrambe le immagini: il player del TV mostra il file a schermo intero
-  // solo se rispetta esattamente queste proporzioni. Per farci stare tutto
-  // il contenuto anche nella fascia più densa (Sala), si cerca la
-  // larghezza CSS per cui l'altezza naturale rispetta il rapporto 9:16.
-  const targetW = 2160, targetH = 3840;
-  const targetRatio = targetH / targetW;
+  // Formato fisso 1080×1920 (9:16) a piena larghezza, con larghezza CSS e
+  // fattore di scala FISSI e identici per entrambe le immagini: solo così
+  // i font restano sempre della stessa dimensione (mai più piccoli su
+  // "Sala" solo perché più densa di lezioni). Il layout dell'export è
+  // stato compattato (margini ridotti, Gym Floor su una riga) apposta per
+  // far stare tutto il contenuto entro i 1920px di altezza a questa scala.
+  const CSS_WIDTH = 1080;
+  const RENDER_SCALE = 2; // 1080 * 2 = 2160px di larghezza finale, nitida su TV 4K
+  const targetW = CSS_WIDTH * RENDER_SCALE;
+  const targetH = Math.round(targetW * 16 / 9);
 
   document.body.appendChild(wrapper);
   let rawCanvas;
   try {
-    let lo = 500, hi = 2400;
-    for (let i = 0; i < 14; i++) {
-      const mid = (lo + hi) / 2;
-      wrapper.style.width = mid + 'px';
-      void wrapper.offsetHeight;
-      const ratio = wrapper.getBoundingClientRect().height / mid;
-      if (ratio > targetRatio) { lo = mid; } else { hi = mid; }
-    }
-    wrapper.style.width = hi + 'px';
+    wrapper.style.width = CSS_WIDTH + 'px';
     void wrapper.offsetHeight;
 
     // Rende html2canvas nativamente alla risoluzione finale (invece di
     // catturare a bassa risoluzione e ingrandire poi il bitmap), per un
     // risultato nitido invece che sfocato.
-    const renderScale = targetW / hi;
-    rawCanvas = await html2canvas(wrapper, { backgroundColor: '#111111', scale: renderScale, useCORS: true });
+    rawCanvas = await html2canvas(wrapper, { backgroundColor: '#111111', scale: RENDER_SCALE, useCORS: true });
   } finally {
     document.body.removeChild(wrapper);
   }
+
+  // Se in futuro il contenuto crescesse oltre lo spazio disponibile a
+  // questa scala fissa, meglio rimpicciolire leggermente tutto (restando
+  // proporzionati) piuttosto che tagliare la parte in eccesso.
+  const fitScale = Math.min(1, targetH / rawCanvas.height);
+  const drawW = rawCanvas.width * fitScale;
+  const drawH = rawCanvas.height * fitScale;
 
   const finalCanvas = document.createElement('canvas');
   finalCanvas.width = targetW;
@@ -1366,7 +1367,7 @@ async function renderGroupToJpeg(group, bandSections) {
   const ctx = finalCanvas.getContext('2d');
   ctx.fillStyle = '#111111';
   ctx.fillRect(0, 0, targetW, targetH);
-  ctx.drawImage(rawCanvas, 0, 0, rawCanvas.width, rawCanvas.height, 0, 0, targetW, targetH);
+  ctx.drawImage(rawCanvas, 0, 0, rawCanvas.width, rawCanvas.height, (targetW - drawW) / 2, 0, drawW, drawH);
 
   // Ruota il file finale di 90° in senso orario: la base dell'immagine
   // finisce sul lato sinistro, come richiesto per il player del TV.
