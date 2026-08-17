@@ -1338,7 +1338,17 @@ async function renderGroupToJpeg(group, bandSections) {
   ctx.fillRect(0, 0, targetW, targetH);
   ctx.drawImage(rawCanvas, 0, 0);
 
-  const blob = await new Promise(resolve => finalCanvas.toBlob(resolve, 'image/jpeg', 0.96));
+  // Ruota il file finale di 90° in senso orario: la base dell'immagine
+  // finisce sul lato sinistro, come richiesto per il player del TV.
+  const rotatedCanvas = document.createElement('canvas');
+  rotatedCanvas.width = targetH;
+  rotatedCanvas.height = targetW;
+  const rctx = rotatedCanvas.getContext('2d');
+  rctx.translate(rotatedCanvas.width, 0);
+  rctx.rotate(Math.PI / 2);
+  rctx.drawImage(finalCanvas, 0, 0);
+
+  const blob = await new Promise(resolve => rotatedCanvas.toBlob(resolve, 'image/jpeg', 0.96));
   const url = URL.createObjectURL(blob);
   const a = document.createElement('a');
   a.href = url;
