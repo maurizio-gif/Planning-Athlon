@@ -1,0 +1,66 @@
+backend:
+  name: git-gateway
+  branch: main
+
+media_folder: "admin/uploads"
+public_folder: "/admin/uploads"
+
+site_url: https://planning.athlonroma.it
+display_url: https://planning.athlonroma.it
+
+collections:
+  - name: "settembre"
+    label: "Planning Settembre"
+    files:
+      - name: "orari"
+        label: "Orari Settembre 2026"
+        file: "data/settembre.json"
+        fields:
+          - label: "Gym Floor (tabella orari apertura)"
+            name: "gymFloor"
+            widget: "object"
+            collapsed: true
+            fields:
+              - { label: "Titolo", name: "title", widget: "string" }
+              - { label: "Testo descrittivo", name: "lede", widget: "text" }
+              - label: "Tag piano"
+                name: "planTags"
+                widget: "list"
+                default: ["smart", "premium"]
+              - label: "Orari di apertura"
+                name: "hours"
+                widget: "list"
+                summary: "{{fields.label}} — {{fields.hours}}"
+                fields:
+                  - { label: "Giorni (es. Lunedì – Venerdì)", name: "label", widget: "string" }
+                  - { label: "Orario (es. 06:00 – 22:00)", name: "hours", widget: "string" }
+
+          - label: "Fasce orario (Corsi Fitness, Group Reformer, Scuola Nuoto, Nuoto Libero, Aqua Fitness)"
+            name: "bands"
+            widget: "list"
+            summary: "{{fields.title}}"
+            fields:
+              - { label: "ID interno (non modificare)", name: "id", widget: "string" }
+              - { label: "Titolo fascia", name: "title", widget: "string" }
+              - { label: "Testo descrittivo (mostra qui il conteggio lezioni/ore)", name: "lede", widget: "text" }
+              - label: "Tag piano"
+                name: "planTags"
+                widget: "list"
+              - label: "Giorni della settimana"
+                name: "days"
+                widget: "list"
+                summary: "{{fields.full}}"
+                fields:
+                  - { label: "Abbreviazione (Lun, Mar, Mer...)", name: "short", widget: "string" }
+                  - { label: "Nome completo (Lunedì, Martedì...)", name: "full", widget: "string" }
+                  - label: "Lezioni del giorno"
+                    name: "classes"
+                    widget: "list"
+                    summary: "{{fields.time}} — {{fields.name}}"
+                    fields:
+                      - { label: "Orario (es. 07:40–08:30)", name: "time", widget: "string" }
+                      - { label: "Nome lezione", name: "name", widget: "string" }
+                      - label: "Sala"
+                        name: "sala"
+                        widget: "select"
+                        options: ["Sala A", "Sala B", "Sala C", "Vasca Media", "Vasca Grande"]
