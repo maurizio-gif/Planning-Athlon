@@ -1301,46 +1301,54 @@ async function renderGroupToJpeg(group, bandSections) {
   footer.textContent = 'Athlon Club 4.0 — Orario Corsi Settembre 2026';
   wrapper.appendChild(footer);
 
-  // Risoluzione 4K verticale (2160×3840, 9:16): nitidezza sufficiente anche
-  // su TV verticali da 55" viste da vicino.
-  const targetW = 2160, targetH = 3840;
+  // Larghezza CSS e fattore di scala FISSI per entrambe le immagini: i font
+  // devono restare della stessa dimensione leggibile a prescindere da quante
+  // lezioni contiene la fascia. In precedenza la larghezza veniva cercata
+  // per far combaciare esattamente il formato 9:16, ma questo faceva
+  // rimpicciolire tutti i font nell'immagine "Sala" (molto più densa di
+  // "Piscina") pur di farcela stare nella stessa altezza target.
+  const CSS_WIDTH = 1080;
+  const RENDER_SCALE = 2; // 1080 * 2 = 2160px di larghezza finale, nitida su TV 4K
+  const targetW = CSS_WIDTH * RENDER_SCALE;
+  const targetMinH = Math.round(targetW * 16 / 9); // altezza minima "storia" 9:16
 
   document.body.appendChild(wrapper);
   let rawCanvas;
   try {
-    // Cerca la larghezza CSS per cui l'altezza naturale del contenuto
-    // rispetta esattamente il rapporto 9:16, così l'immagine finale copre
-    // tutta la superficie senza bordi vuoti né deformazioni.
-    const targetRatio = targetH / targetW;
-    let lo = 500, hi = 2400;
-    for (let i = 0; i < 14; i++) {
-      const mid = (lo + hi) / 2;
-      wrapper.style.width = mid + 'px';
-      void wrapper.offsetHeight;
-      const ratio = wrapper.getBoundingClientRect().height / mid;
-      if (ratio > targetRatio) { lo = mid; } else { hi = mid; }
-    }
-    wrapper.style.width = hi + 'px';
+    wrapper.style.width = CSS_WIDTH + 'px';
     void wrapper.offsetHeight;
 
     // Rende html2canvas nativamente alla risoluzione finale (invece di
     // catturare a bassa risoluzione e ingrandire poi il bitmap), per un
     // risultato nitido invece che sfocato.
-    const renderScale = targetW / hi;
-    rawCanvas = await html2canvas(wrapper, { backgroundColor: '#111111', scale: renderScale, useCORS: true });
+    rawCanvas = await html2canvas(wrapper, { backgroundColor: '#111111', scale: RENDER_SCALE, useCORS: true });
   } finally {
     document.body.removeChild(wrapper);
   }
 
+  // L'altezza finale segue il contenuto: mai inferiore al formato 9:16
+  // (per le fasce più leggere), ma libera di allungarsi oltre quando serve
+  // (fasce più dense) pur di non rimpicciolire i font sotto la soglia fissa.
+  const targetH = Math.max(targetMinH, rawCanvas.height);
   const finalCanvas = document.createElement('canvas');
   finalCanvas.width = targetW;
   finalCanvas.height = targetH;
   const ctx = finalCanvas.getContext('2d');
   ctx.fillStyle = '#111111';
   ctx.fillRect(0, 0, targetW, targetH);
-  ctx.drawImage(rawCanvas, 0, 0, rawCanvas.width, rawCanvas.height, 0, 0, targetW, targetH);
+  ctx.drawImage(rawCanvas, 0, 0);
 
-  const blob = await new Promise(resolve => finalCanvas.toBlob(resolve, 'image/jpeg', 0.96));
+  // Ruota il file finale di 90° in senso orario: la base dell'immagine
+  // finisce sul lato sinistro, come richiesto per il player del TV.
+  const rotatedCanvas = document.createElement('canvas');
+  rotatedCanvas.width = targetH;
+  rotatedCanvas.height = targetW;
+  const rctx = rotatedCanvas.getContext('2d');
+  rctx.translate(rotatedCanvas.width, 0);
+  rctx.rotate(Math.PI / 2);
+  rctx.drawImage(finalCanvas, 0, 0);
+
+  const blob = await new Promise(resolve => rotatedCanvas.toBlob(resolve, 'image/jpeg', 0.96));
   const url = URL.createObjectURL(blob);
   const a = document.createElement('a');
   a.href = url;
