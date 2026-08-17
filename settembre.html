@@ -139,6 +139,11 @@ body {
   text-transform: uppercase; line-height: 1.25; color: var(--ink);
 }
 .hero-title span { color: var(--accent); }
+.hero-subtitle {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 13px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase;
+  color: var(--muted); margin-top: 8px;
+}
 
 /* ── Pulsante Stampa / Salva PDF ── */
 .print-btn-row {
@@ -351,9 +356,9 @@ body {
   gap: 7px;
   background: var(--accent);
   color: #fff;
-  font-family: 'Tusker Grotesk', sans-serif;
-  font-size: 13px;
-  font-weight: 900;
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 14px;
+  font-weight: 700;
   letter-spacing: 1px;
   text-transform: uppercase;
   text-decoration: none;
@@ -540,7 +545,7 @@ body {
   font-weight: 500; font-size: 34px; letter-spacing: 0.5px; text-transform: uppercase;
   color: var(--accent); margin: 0 0 22px; line-height: 1.05;
 }
-.faq-list { max-width: 720px; margin: 0; }
+.faq-list { max-width: none; margin: 0; }
 .faq-item { border-top: 1px solid rgba(255,255,255,0.16); }
 .faq-item__trigger {
   cursor: pointer; text-align: left; width: 100%;
@@ -571,7 +576,7 @@ body {
   color: rgba(238,234,227,0.82);
   line-height: 1.6;
   margin: 0;
-  max-width: 620px;
+  max-width: 900px;
 }
 
 /* Footer */
@@ -694,6 +699,7 @@ footer strong { color: var(--accent); }
 
   .hero-strip { padding: 0 0 4px; }
   .hero-title { font-size: 22px !important; }
+  .hero-subtitle { font-size: 10px !important; margin-top: 4px; }
 
   .band-section { margin: 0; page-break-inside: auto; }
   .band-section--first { margin-top: 0; }
@@ -776,6 +782,7 @@ footer strong { color: var(--accent); }
 
 <div class="hero-strip">
   <div class="hero-title">Planning <span>e Orari del Club</span></div>
+  <div class="hero-subtitle">Planning Orari Club da Settembre 2026</div>
 </div>
 
 <div class="print-btn-row">
@@ -1193,6 +1200,17 @@ document.body.addEventListener('click', function(e) {
   openModal('GYM FLOOR', 'Gym Floor', row.dataset.gymfloorHours);
 });
 
+// La griglia orari scorre solo lateralmente: converte la rotella del mouse
+// (verticale) in scroll orizzontale, mai in scroll verticale della pagina.
+document.querySelectorAll('.planning-scroll').forEach(el => {
+  el.addEventListener('wheel', function(e) {
+    if (el.scrollWidth <= el.clientWidth) return;
+    if (Math.abs(e.deltaX) >= Math.abs(e.deltaY)) return;
+    el.scrollLeft += e.deltaY;
+    e.preventDefault();
+  }, { passive: false });
+});
+
 // Imposta padding-top pari all'altezza dell'header fisso
 function adjustPadding() {
   const h = document.querySelector('.sticky-top').offsetHeight;
@@ -1216,7 +1234,7 @@ document.querySelectorAll('.faq-item__trigger').forEach(btn => {
 // Attesa il rendering degli orari da JSON, altrimenti i titoli/tabelle
 // verrebbero taggati prima ancora di esistere nel DOM.
 scheduleReady.then(function initScrollReveal() {
-  document.querySelectorAll('.hero-title, .band-title, .band-lede, .plan-tags, .hours-table, .faq-section h2').forEach(el => {
+  document.querySelectorAll('.hero-title, .hero-subtitle, .band-title, .band-lede, .plan-tags, .hours-table, .faq-section h2').forEach(el => {
     el.classList.add('reveal');
   });
   document.querySelectorAll('.planning-grid').forEach(grid => {
