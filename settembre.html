@@ -1367,7 +1367,7 @@ async function renderGroupToJpeg(group, bandSections) {
   const ctx = finalCanvas.getContext('2d');
   ctx.fillStyle = '#111111';
   ctx.fillRect(0, 0, targetW, targetH);
-  ctx.drawImage(rawCanvas, 0, 0, rawCanvas.width, rawCanvas.height, (targetW - drawW) / 2, 0, drawW, drawH);
+  ctx.drawImage(rawCanvas, 0, 0, rawCanvas.width, rawCanvas.height, (targetW - drawW) / 2, (targetH - drawH) / 2, drawW, drawH);
 
   // Ruota il file finale di 90° in senso orario: la base dell'immagine
   // finisce sul lato sinistro, come richiesto per il player del TV.
